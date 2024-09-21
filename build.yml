@@ -1,0 +1,68 @@
+header:
+    version: 8
+
+# default refdes aa1 st1 machine name
+machine: refdes-me-aa1-270-2i2-d11e-nfx3-st1
+#machine: me-aa1-270-2i2-d11e-nfx3
+
+distro: nodistro
+
+target: image-minimal-refdes
+
+env:
+    UBOOT_CONFIG: sdmmc
+#    UBOOT_CONFIG: emmc
+#    UBOOT_CONFIG: qspi
+
+repos:
+
+    bitbake:
+        url: "https://git.openembedded.org/bitbake"
+        tag: 2023-04.2-mickledore
+        layers:
+            .: excluded
+
+    openembedded-core:
+        url: "https://git.openembedded.org/openembedded-core"
+        tag: 2023-04.2-mickledore
+        layers:
+            meta:
+
+    meta-intel-fpga:
+        url: "https://git.yoctoproject.org/meta-intel-fpga"
+        branch: mickledore
+
+    meta-user-aa1:
+        #url: "git@github.com:VCTLabs/meta-user-aa1.git"
+        branch: mickledore
+
+    meta-enclustra-socfpga:
+        url: "https://github.com/enclustra/meta-enclustra-socfpga.git"
+        branch: v2023.1
+        layers:
+            meta-enclustra-module:
+            #meta-enclustra-refdes:
+
+    meta-openembedded:
+        url: http://git.openembedded.org/meta-openembedded
+        branch: mickledore
+        layers:
+            meta-oe:
+            meta-python:
+            meta-networking:
+
+local_conf_header:
+    meta-enclustra-socfpga: |
+        PACKAGE_CLASSES ?= "package_ipk"
+        PATCHRESOLVE = "noop"
+        EXTRA_IMAGE_FEATURES:append = " ssh-server-dropbear"
+        EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
+        require conf/distro/include/no-static-libs.inc
+        require conf/distro/include/yocto-uninative.inc
+        require conf/distro/include/security_flags.inc
+        INHERIT:append = " uninative"
+        DISTRO_FEATURES:append = " largefile systemd "
+        VIRTUAL-RUNTIME_init_manager = "systemd"
+        PREFERRED_VERSION_u-boot-socfpga = "v2023.01%"
+        PREFERRED_PROVIDER_virtual/kernel = "linux-socfpga-lts"
+        PREFERRED_VERSION_linux-socfpga = "6.1%"
