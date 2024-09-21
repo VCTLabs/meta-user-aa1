@@ -19,26 +19,33 @@ repos:
     bitbake:
         url: "https://git.openembedded.org/bitbake"
         tag: 2023-04.2-mickledore
+        path: "layers/bitbake"
         layers:
             .: excluded
+
+    meta-user-aa1:
+        #url: "git@github.com:VCTLabs/meta-user-aa1.git"
+        path: "layers/meta-user-aa1"
+        branch: mickledore
+        layers:
+            .:
 
     openembedded-core:
         url: "https://git.openembedded.org/openembedded-core"
         tag: 2023-04.2-mickledore
+        path: "layers/openembedded-core"
         layers:
             meta:
 
     meta-intel-fpga:
         url: "https://git.yoctoproject.org/meta-intel-fpga"
         branch: mickledore
-
-    meta-user-aa1:
-        #url: "git@github.com:VCTLabs/meta-user-aa1.git"
-        branch: mickledore
+        path: "layers/meta-intel-fpga"
 
     meta-enclustra-socfpga:
         url: "https://github.com/enclustra/meta-enclustra-socfpga.git"
         branch: v2023.1
+        path: "layers/meta-enclustra-socfpga"
         layers:
             meta-enclustra-module:
             #meta-enclustra-refdes:
@@ -46,13 +53,14 @@ repos:
     meta-openembedded:
         url: http://git.openembedded.org/meta-openembedded
         branch: mickledore
+        path: "layers/meta-openembedded"
         layers:
             meta-oe:
             meta-python:
             meta-networking:
 
 local_conf_header:
-    meta-enclustra-socfpga: |
+    meta-user-aa1: |
         PACKAGE_CLASSES ?= "package_ipk"
         PATCHRESOLVE = "noop"
         EXTRA_IMAGE_FEATURES:append = " ssh-server-dropbear"
