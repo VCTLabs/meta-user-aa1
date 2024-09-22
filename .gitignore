@@ -5,3 +5,6 @@
 *.orig
 *.rej
 *~
+
+*.wic.xz
+*.wic
