@@ -42,6 +42,50 @@ eg, the versions mentioned here require the following::
 
 All arm64 devices require Intel Quartus Pro.
 
+Custom exported binaries
+------------------------
+
+Each enclustra (socfpga) reference design gets a Yocto machine definition,
+however, user projects should select one of the base machines provided by
+the enclustra module layer => meta-enclustra-module_ (one of the layers
+provided in meta-enclustra-socfpga_). Given the current AA1/ST1 hardware,
+the correct (yocto) machine is ``me-aa1-270-2i2-d11e-nfx3``.
+
+The user project must provide a zipfile containing the build files from the
+desired Quartus project, ie, 1) the bitstream ``.sof`` must be converted to
+the split ``.rbf`` files expected by Arria10 devices, and 2) the handoff
+directory must contain the ``hps.xml`` project definitions. Each of the
+reference design projects contains three file trees, one for each boot
+mode, and the corresponding user built projects should mimic this layout
+by providing *at least one* of these file trees.
+
+For example, a user project using the QSPI boot mode would use the following
+layout::
+
+  $ tree -l 3 qspi/
+  qspi/                         # directory name matches boot mode: qspi, emmc, sdmmc
+  ├── bitstream.core.rbf        # split bitsream required for Arria10
+  ├── bitstream.periph.rbf      # second part
+  ├── hps_isw_handoff           # required handoff directory
+  │   ├── emif.xml
+  │   ├── hps.xml
+  │   └── id
+  ├── Mercury_AA1_pd.sopcinfo   # additional files are okay
+  └── Mercury_AA1_ST1.sof
+
+  2 directories, 7 files
+
+To produce the "source" zipfile for the exported_binaries recipe, zip the
+above directory tree using the machine name in upper case prepended with
+the bootmode in lower case::
+
+  $ zip -r qspi_ME-AA1-270-2I2-D11E-NFX3.zip qspi/
+
+
+
+.. _meta-enclustra-module: https://github.com/enclustra/meta-enclustra-socfpga/tree/v2023.1/meta-enclustra-module
+.. _meta-enclustra-socfpga: https://github.com/enclustra/meta-enclustra-socfpga
+
 
 Adding this layer to your build
 ===============================
