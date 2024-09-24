@@ -1,0 +1,81 @@
+header:
+    version: 8
+
+# default refdes aa1 st1 machine name
+# machine: refdes-me-aa1-270-2i2-d11e-nfx3-st1
+machine: me-aa1-270-2i2-d11e-nfx3
+
+distro: nodistro
+
+target: image-minimal-refdes
+
+env:
+    UBOOT_CONFIG: sdmmc
+#    UBOOT_CONFIG: emmc
+#    UBOOT_CONFIG: qspi
+
+repos:
+
+    bitbake:
+        url: "https://git.openembedded.org/bitbake"
+        tag: 2023-04.2-mickledore
+        path: "layers/bitbake"
+        layers:
+            .: excluded
+
+    meta-user-aa1:
+        #url: "https://github.com/VCTLabs/meta-user-aa1.git"
+        path: "layers/meta-user-aa1"
+        branch: oe-mickledore
+        layers:
+            .:
+
+    openembedded-core:
+        url: "https://git.openembedded.org/openembedded-core"
+        tag: 2023-04.2-mickledore
+        path: "layers/openembedded-core"
+        layers:
+            meta:
+        patches:
+            p1:
+                repo: openembedded-core
+                # this path starts with layers path from above
+                path: ../meta-user-aa1/patches/0001-fix-replicate-jama-patch-for-libxcrypt-build-branch.patch
+
+    meta-intel-fpga:
+        url: "https://git.yoctoproject.org/meta-intel-fpga"
+        branch: mickledore
+        path: "layers/meta-intel-fpga"
+
+    meta-enclustra-socfpga:
+        url: "https://github.com/enclustra/meta-enclustra-socfpga.git"
+        branch: v2023.1
+        path: "layers/meta-enclustra-socfpga"
+        layers:
+            meta-enclustra-module:
+            #meta-enclustra-refdes:
+
+    meta-openembedded:
+        url: http://git.openembedded.org/meta-openembedded
+        branch: mickledore
+        path: "layers/meta-openembedded"
+        layers:
+            meta-oe:
+            meta-python:
+            meta-networking:
+
+local_conf_header:
+    meta-user-aa1: |
+        PACKAGE_CLASSES ?= "package_ipk"
+        PATCHRESOLVE = "noop"
+        EXTRA_IMAGE_FEATURES:append = " ssh-server-dropbear"
+        EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
+        require conf/distro/include/no-static-libs.inc
+        require conf/distro/include/yocto-uninative.inc
+        require conf/distro/include/security_flags.inc
+        INHERIT:append = " uninative"
+        DISTRO_FEATURES:append = " largefile systemd "
+        VIRTUAL-RUNTIME_init_manager = "systemd"
+        PREFERRED_VERSION_u-boot-socfpga = "v2023.01%"
+        PREFERRED_PROVIDER_virtual/kernel = "linux-socfpga-lts"
+        PREFERRED_VERSION_linux-socfpga = "6.1%"
