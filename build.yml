@@ -68,6 +68,7 @@ local_conf_header:
     meta-user-aa1: |
         PACKAGE_CLASSES ?= "package_ipk"
         PATCHRESOLVE = "noop"
+        IMAGE_FSTYPES:append = " wic"
         EXTRA_IMAGE_FEATURES:append = " ssh-server-dropbear"
         EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
         require conf/distro/include/no-static-libs.inc
