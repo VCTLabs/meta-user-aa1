@@ -111,7 +111,7 @@ different SoCs but this is primarily about Arria10 only.  User configuration
 bits have mainly been moved to u-boot and the linux kernel configs. Each
 vendor has slightly different usage depending on specific hardware, where
 enclustra requires specific filenames for the user DTS files and combines
-the split FPGA bistream files via FIT image.
+the split FPGA bitstream files via FIT image.
 
 * meta-enclustra_
 * `enclustra user layer`_
