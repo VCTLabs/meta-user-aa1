@@ -36,6 +36,10 @@ repos:
         path: "layers/openembedded-core"
         layers:
             meta:
+        patches:
+            p1:
+                repo: openembedded-core
+                path: layers/meta-user-aa1/patches/0001-wic-add-UEFI-kernel-as-UEFI-stub.patch
 
     meta-intel-fpga:
         url: "https://git.yoctoproject.org/meta-intel-fpga"

@@ -10,6 +10,10 @@ The reference design is compatible with following base board:
 
 - Enclustra Mercury+ ST1: https://www.enclustra.com/en/products/base-boards/mercury-st1
 
+The HW reference design files for Mercury+ AA1 ST1 module and baseboard live here:
+
+- Mercury AA1 ST1 Reference Design: https://github.com/enclustra/Mercury_AA1_ST1_Reference_Design
+
 
 Dependencies
 ============
