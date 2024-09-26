@@ -115,6 +115,7 @@ the split FPGA bitstream files via FIT image.
 
 * meta-enclustra_
 * `enclustra user layer`_
+* enclustra-refdes_ - see reference design document link
 
 * `Intel handoff bug`_
 * `rocketboards bootloader doc`_ - Arria 10, u-boot-socfpga 2024.01, linux-socfpga 6.6.22-lts, Quartus 24.2 Pro
@@ -127,6 +128,7 @@ the split FPGA bitstream files via FIT image.
 
 .. _meta-enclustra: https://github.com/enclustra/meta-enclustra-socfpga/blob/v2023.1/README.md
 .. _enclustra user layer: https://github.com/enclustra/meta-enclustra-socfpga/tree/v2023.1?tab=readme-ov-file#integrate-meta-enclustra-module-layer-into-user-project
+.. _enclustra-refdes: https://github.com/enclustra/Mercury_AA1_ST1_Reference_Design
 .. _Intel handoff bug: https://www.intel.com/content/www/us/en/support/programmable/articles/000090551.html
 .. _rocketboards bootloader doc: https://www.rocketboards.org/foswiki/Documentation/BuildingBootloaderCycloneVAndArria10
 .. _U-boot-socfpga: https://github.com/altera-opensource/u-boot-socfpga
@@ -161,6 +163,29 @@ the following to generate both ``.rbf`` files::
   $ quartus_cpf -c --hps -o bitstream_compression=on output_files/<prj_name>.sof output_files/<prj_name>.rbf
 
 The above should create two files named ``<prj_name>.core.rbf`` and ``<prj_name>.periph.rbf``
+
+
+Boot mode switches
+------------------
+
+Note this is condensed from the reference design doc:
+
+.. image:: assets/st1_base.png
+   :width: 65%
+
+The boot mode switches are shown in the above image as CFG (where only
+the first 2 affect boot mode directly). Confirm the ON direction on your
+board; use a magnifier if necessary. The following boot mode options are
+extracted from the reference design documant link.
+
+:sdmmc: CFG = [1: OFF, 2: OFF, 3: ON, 4: ON]  (factory default)
+:emmc: CFG = [1: ON, 2: ON, 3: ON, 4: ON]
+:qspi: CFG = [1: ON, 2: OFF, 3: ON, 4: ON]
+
+Also note boot mode is used as a configuration variable for both the HW design
+build *and* the bootloader images, thus the project must be (re)built for each
+boot mode in order to generate the full zipfile for the "exported_binaries"
+Yocto recipe.
 
 
 License
