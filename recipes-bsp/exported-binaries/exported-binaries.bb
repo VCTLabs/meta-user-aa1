@@ -12,11 +12,11 @@ SRC_URI:refdes-me-aa1-270-2i2-d11e-nfx3-st1 = "\
 "
 
 SRC_URI:me-aa1-270-2i2-d11e-nfx3 = "\
-    https://github.com/VCTLabs/Mercury_AA1_ST1_Reference_Design/releases/download/2023.1_v1.0.0/qspi_ME-AA1-270-2I2-D11E-NFX3.zip;name=ME-AA1-270-2I2-D11E-NFX3 \
+    https://github.com/VCTLabs/Mercury_AA1_ST1_Reference_Design/releases/download/2023.1_v1.0.0/binaries_ME-AA1-270-2I2-D11E-NFX3.zip;name=ME-AA1-270-2I2-D11E-NFX3 \
 "
 
 SRC_URI[ME-AA1-270-2I2-D11E-NFX3_ST1.sha256sum] = "f71ebb2088c7466ddf011e290a570521da11ebfc8cf80a5066a0bbf18d243b18"
-SRC_URI[ME-AA1-270-2I2-D11E-NFX3.sha256sum] = "5c1dd6cffa4b7c275b8423a13eb5517c83e40c391e31766166528f61918b3304"
+SRC_URI[ME-AA1-270-2I2-D11E-NFX3.sha256sum] = "71dafa02257575e27fb947638395a37bd84287bb393bbb8e1eb2f78d6161b7ab"
 
 ENCLUSTRA_BASE_NAME:refdes-me-aa1-270-2i2-d11e-nfx3-st1 = "Mercury_AA1_ST1"
 ENCLUSTRA_BASE_NAME:me-aa1-270-2i2-d11e-nfx3 = "Mercury_AA1_ST1"
