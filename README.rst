@@ -171,7 +171,7 @@ Boot mode switches
 Note this is condensed from the reference design doc:
 
 .. image:: assets/st1_base.png
-   :width: 65%
+   :width: 75%
 
 The boot mode switches are shown in the above image as CFG (where only
 the first 2 affect boot mode directly). Confirm the ON direction on your

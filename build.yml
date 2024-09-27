@@ -2,17 +2,19 @@ header:
     version: 8
 
 # default refdes aa1 st1 machine name
-# machine: refdes-me-aa1-270-2i2-d11e-nfx3-st1
+#machine: refdes-me-aa1-270-2i2-d11e-nfx3-st1
+
+# user layer aa1 st1 machine name from enclustra-module layer
 machine: me-aa1-270-2i2-d11e-nfx3
 
 distro: nodistro
 
-target: image-minimal-refdes
+target: devel-image-minimal
 
 env:
-    UBOOT_CONFIG: sdmmc
+#    UBOOT_CONFIG: sdmmc
 #    UBOOT_CONFIG: emmc
-#    UBOOT_CONFIG: qspi
+    UBOOT_CONFIG: qspi
 
 repos:
 
@@ -53,7 +55,6 @@ repos:
         path: "layers/meta-enclustra-socfpga"
         layers:
             meta-enclustra-module:
-            #meta-enclustra-refdes:
 
     meta-openembedded:
         url: http://git.openembedded.org/meta-openembedded
