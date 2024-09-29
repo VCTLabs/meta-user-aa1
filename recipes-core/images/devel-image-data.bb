@@ -26,4 +26,13 @@ IMAGE_INSTALL:append = "\
     ${CORE_IMAGE_EXTRA_INSTALL} \
 "
 
-WKS_FILE ??= "devel-image-minimal.wks"
+WKS_FILE ??= "devel-image-data.wks"
+
+create_data_dir () {
+    #!/bin/sh -e
+
+    # create non-volatile rw partition mount point
+    mkdir -p ${IMAGE_ROOTFS}/data
+}
+
+ROOTFS_POSTPROCESS_COMMAND += "create_data_dir;"

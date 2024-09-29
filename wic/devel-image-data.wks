@@ -1,3 +1,4 @@
 part --source bootimg-partition --ondisk mmcblk --fstype=vfat --mkfs-extraopts "-F 32" --label boot --active --align 1024 --fixed-size 150M --system-id b
 part --source rawcopy --sourceparams="file=u-boot-splx4.sfp" --ondisk mmcblk --system-id=a2 --align 1024 --fixed-size 2M
 part / --source rootfs --ondisk mmcblk --fstype=ext4 --label root --align 1024 --fixed-size 400M
+part /data --ondisk mmcblk0 --fstype=vfat --label data --align 4 --size 1G --fsoptions "defaults,noauto"
