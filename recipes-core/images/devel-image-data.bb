@@ -33,6 +33,8 @@ create_data_dir () {
 
     # create non-volatile rw partition mount point
     mkdir -p ${IMAGE_ROOTFS}/data
+    # uncomment data mount options
+    sed -i -e "s|##||" ${IMAGE_ROOTFS}/etc/fstab
 }
 
 ROOTFS_POSTPROCESS_COMMAND += "create_data_dir;"
