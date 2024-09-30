@@ -67,17 +67,19 @@ repos:
 
 local_conf_header:
     meta-user-aa1: |
-        PACKAGE_CLASSES ?= "package_ipk"
+        PACKAGE_CLASSES ?= "package_rpm"
         PATCHRESOLVE = "noop"
         IMAGE_FSTYPES:append = " wic"
+        CORE_IMAGE_EXTRA_INSTALL:append = " nano"
         EXTRA_IMAGE_FEATURES:append = " ssh-server-dropbear"
         EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
         require conf/distro/include/no-static-libs.inc
         require conf/distro/include/yocto-uninative.inc
         require conf/distro/include/security_flags.inc
         INHERIT:append = " uninative"
-        DISTRO_FEATURES:append = " largefile systemd "
-        VIRTUAL-RUNTIME_init_manager = "systemd"
+        DISTRO_FEATURES:append = " largefile"
+        DISTRO_FEATURES:remove = " systemd"
+        VIRTUAL-RUNTIME_init_manager = "sysvinit"
         PREFERRED_VERSION_u-boot-socfpga = "v2023.01%"
         PREFERRED_PROVIDER_virtual/kernel = "linux-socfpga-lts"
         PREFERRED_VERSION_linux-socfpga = "6.1%"
