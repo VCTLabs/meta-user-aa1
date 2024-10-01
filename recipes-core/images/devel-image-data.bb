@@ -23,6 +23,7 @@ IMAGE_INSTALL:append = "\
     memtester \
     e2fsprogs \
     e2fsprogs-resize2fs \
+    u-boot-script-vctlabs \
     ${CORE_IMAGE_EXTRA_INSTALL} \
 "
 
