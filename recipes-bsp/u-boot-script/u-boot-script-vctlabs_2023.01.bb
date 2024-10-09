@@ -14,7 +14,6 @@ S = "${WORKDIR}"
 inherit deploy
 
 FLASHSCRIPT = "${S}/flash.cmd"
-FILES:${PN} = "/boot"
 
 do_mkimage () {
     uboot-mkimage -A arm -O linux -T script -C none -a 0 -e 0 \
@@ -34,16 +33,9 @@ do_deploy () {
 
 }
 
-do_install () {
-    install -d ${D}/boot
-    install ${S}/flash.scr ${D}/boot
-}
-
 addtask deploy after do_install before do_build
 
 do_compile[noexec] = "1"
-
-RPROVIDES:${PN} += "u-boot-script"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 COMPATIBLE_MACHINE = "(me-aa1-270-2i2-d11e-nfx3|refdes-me-aa1-270-2i2-d11e-nfx3-st1)"
