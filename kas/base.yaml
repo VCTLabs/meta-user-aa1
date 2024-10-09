@@ -66,7 +66,7 @@ repos:
             meta-networking:
 
 local_conf_header:
-    meta-user-aa1: |
+    base: |
         PACKAGE_CLASSES ?= "package_rpm"
         PATCHRESOLVE = "noop"
         IMAGE_FSTYPES:append = " wic"
@@ -78,8 +78,6 @@ local_conf_header:
         require conf/distro/include/security_flags.inc
         INHERIT:append = " uninative"
         DISTRO_FEATURES:append = " largefile"
-        DISTRO_FEATURES:remove = " systemd"
-        VIRTUAL-RUNTIME_init_manager = "sysvinit"
         PREFERRED_VERSION_u-boot-socfpga = "v2023.01%"
         PREFERRED_PROVIDER_virtual/kernel = "linux-socfpga-lts"
         PREFERRED_VERSION_linux-socfpga = "6.1%"

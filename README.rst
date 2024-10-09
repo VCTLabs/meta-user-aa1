@@ -37,8 +37,8 @@ eg, the versions mentioned here require the following::
 
 	Processor                 SOCFPGA Device   Intel Quartus Pro   Intel Quartus Std
 	--------------------------------------------------------------------------------
-	Dual-core ARM Cortex-A9		 Cyclone V        N/A                 22.1
-					                   Arria 10         23.1                N/A
+	Dual-core ARM Cortex-A9	         Cyclone V        N/A                 22.1
+                                         Arria 10         23.1                N/A
 
 All arm64 devices require Intel Quartus Pro.
 
