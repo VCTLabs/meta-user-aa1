@@ -3,7 +3,7 @@ SECTION = "base"
 LICENSE = "LGPL-2.1"
 LIC_FILES_CHKSUM = "file://COPYING;md5=4fbd65380cdd255951079008b364516c"
 
-SRC_URI = "git://github.com/missinglinkelectronics/libuio;protocol=https"
+SRC_URI = "git://github.com/missinglinkelectronics/libuio;protocol=https;branch=master"
 SRC_URI += "file://0001-uio_find_by_name-_fix-spurious-failures-from-stale-e.patch"
 
 inherit gettext autotools pkgconfig
