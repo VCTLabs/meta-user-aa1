@@ -1,0 +1,26 @@
+From 3fb2e439e4be77b9fd919096a776305828ae2fee Mon Sep 17 00:00:00 2001
+From: "S. Lockwood-Childs" <sjl@vctlabs.com>
+Date: Wed, 13 Sep 2023 19:40:31 -0700
+Subject: [PATCH] uio_find_by_name:_fix spurious failures from stale errno
+
+If errno was already non-zero, uio_find_by_name() could fail
+because create_ui_info() only sets errno if it generates an error.
+---
+ base.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/base.c b/base.c
+index 95b77db..d230d61 100644
+--- a/base.c
++++ b/base.c
+@@ -285,6 +285,7 @@ struct uio_info_t *uio_find_by_uio_num (int uio_num)
+ 	snprintf (sysfsname, sizeof (sysfsname), "%s/class/uio", sysfs);
+ 	snprintf (name, sizeof (name), "uio%d", uio_num);
+ 
++	errno = 0;
+ 	info = create_uio_info (sysfsname, name);
+ 	if (errno)
+ 	{
+-- 
+2.17.1
+
