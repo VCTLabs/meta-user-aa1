@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=4fbd65380cdd255951079008b364516c"
 SRC_URI = "git://github.com/missinglinkelectronics/libuio;protocol=https"
 SRC_URI += "file://0001-uio_find_by_name-_fix-spurious-failures-from-stale-e.patch"
 
-inherit gettext autotools
+inherit gettext autotools pkgconfig
 
 SRCREV = "7c18f2b25ec2ba824c483ffa3a5bde16679a25bc"
 
@@ -26,5 +26,5 @@ do_install:append() {
 
 PACKAGES += "${PN}-tools"
 
-FILES_${PN} = "${libdir}"
-FILES_${PN}-tools = "${bindir}"
+FILES:${PN} = "${libdir}"
+FILES:${PN}-tools = "${bindir}"
