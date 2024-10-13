@@ -3,6 +3,7 @@
 IMAGE_INSTALL = "packagegroup-core-boot"
 
 IMAGE_INSTALL:append = "\
+    kernel-modules \
     procps \
     i2c-tools \
     mtd-utils \
