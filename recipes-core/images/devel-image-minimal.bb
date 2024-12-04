@@ -13,6 +13,7 @@ inherit core-image
 
 IMAGE_INSTALL:append = "\
     ${CORE_IMAGE_EXTRA_INSTALL} \
+    resize-rootfs \
 "
 
 WKS_FILE ??= "devel-image-minimal.wks"
