@@ -7,3 +7,4 @@ local_conf_header:
   sysvinit: |
         DISTRO_FEATURES:remove = " systemd"
         VIRTUAL-RUNTIME_init_manager = "sysvinit"
+        CORE_IMAGE_EXTRA_INSTALL:append = " resize-rootfs"
