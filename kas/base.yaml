@@ -12,6 +12,8 @@ distro: nodistro
 target: devel-image-minimal
 
 env:
+    PACKAGE_FEED_IP_PORT: "192.168.7.150:8000"
+    PACKAGE_FEED_TYPE: ipk
 #    UBOOT_CONFIG: sdmmc
 #    UBOOT_CONFIG: emmc
     UBOOT_CONFIG: qspi
@@ -62,16 +64,19 @@ repos:
         path: "layers/meta-openembedded"
         layers:
             meta-oe:
+            meta-perl:
             meta-python:
             meta-networking:
 
 local_conf_header:
+    dev: |
+        PACKAGE_CLASSES = "package_${PACKAGE_FEED_TYPE}"
+        PACKAGE_FEED_URIS = "http://${PACKAGE_FEED_IP_PORT}"
     base: |
-        PACKAGE_CLASSES ?= "package_rpm"
         PATCHRESOLVE = "noop"
         IMAGE_FSTYPES:append = " wic"
         CORE_IMAGE_EXTRA_INSTALL:append = " nano hellogitcmake"
-        EXTRA_IMAGE_FEATURES:append = " ssh-server-dropbear"
+        EXTRA_IMAGE_FEATURES:append = " ssh-server-openssh"
         EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
         require conf/distro/include/no-static-libs.inc
         require conf/distro/include/yocto-uninative.inc
