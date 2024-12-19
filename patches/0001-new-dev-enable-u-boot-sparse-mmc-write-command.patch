@@ -1,0 +1,25 @@
+From 8c46d63afe9d5b6043b5640901206428bb07c9d8 Mon Sep 17 00:00:00 2001
+From: Stephen L Arnold <sarnold@vctlabs.com>
+Date: Thu, 19 Dec 2024 11:41:39 -0800
+Subject: [PATCH] new: dev: enable u-boot sparse mmc write command
+
+Signed-off-by: Stephen L Arnold <sarnold@vctlabs.com>
+---
+ .../u-boot/files/configs/socfpga_enclustra_mercury_aa1_defconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/meta-enclustra-module/recipes-bsp/u-boot/files/configs/socfpga_enclustra_mercury_aa1_defconfig b/meta-enclustra-module/recipes-bsp/u-boot/files/configs/socfpga_enclustra_mercury_aa1_defconfig
+index 5071447..37dc5b6 100644
+--- a/meta-enclustra-module/recipes-bsp/u-boot/files/configs/socfpga_enclustra_mercury_aa1_defconfig
++++ b/meta-enclustra-module/recipes-bsp/u-boot/files/configs/socfpga_enclustra_mercury_aa1_defconfig
+@@ -48,6 +48,7 @@ CONFIG_CMD_MMC=y
+ CONFIG_CMD_SPI=y
+ CONFIG_CMD_USB=y
+ CONFIG_CMD_CACHE=y
++CONFIG_CMD_MMC_SWRITE=y
+ CONFIG_CMD_EXT4_WRITE=y
+ CONFIG_OF_SPL_REMOVE_PROPS="interrupts interrupt-parent dmas dma-names"
+ CONFIG_SYS_RELOC_GD_ENV_ADDR=y
+-- 
+2.47.0
+
