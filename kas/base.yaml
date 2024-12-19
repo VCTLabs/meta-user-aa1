@@ -57,10 +57,6 @@ repos:
         path: "layers/meta-enclustra-socfpga"
         layers:
             meta-enclustra-module:
-        patches:
-            p1:
-                repo: meta-enclustra-socfpga
-                path: ../meta-user-aa1/patches/0001-new-dev-enable-u-boot-sparse-mmc-write-command.patch
 
     meta-openembedded:
         url: http://git.openembedded.org/meta-openembedded
