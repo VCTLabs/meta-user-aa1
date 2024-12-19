@@ -75,6 +75,7 @@ local_conf_header:
     base: |
         PATCHRESOLVE = "noop"
         IMAGE_FSTYPES:append = " wic"
+        IMAGE_INSTALL:remove = "distro-feed-configs"
         CORE_IMAGE_EXTRA_INSTALL:append = " nano hellogitcmake"
         EXTRA_IMAGE_FEATURES:append = " ssh-server-openssh"
         EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
