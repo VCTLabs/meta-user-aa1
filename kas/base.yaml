@@ -77,7 +77,7 @@ local_conf_header:
         IMAGE_FSTYPES:append = " wic"
         IMAGE_INSTALL:remove = "distro-feed-configs"
         CORE_IMAGE_EXTRA_INSTALL:append = " nano hellogitcmake"
-        EXTRA_IMAGE_FEATURES:append = " ssh-server-openssh"
+        EXTRA_IMAGE_FEATURES:append = " package-management ssh-server-openssh"
         EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
         require conf/distro/include/no-static-libs.inc
         require conf/distro/include/yocto-uninative.inc
