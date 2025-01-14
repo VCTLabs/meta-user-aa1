@@ -1,0 +1,12 @@
+header:
+  version: 9
+  includes:
+    - kas/base.yaml
+
+# qemuarm is a machine, build after completing the enclustra build
+# note package type needs a hard-coded override to use yocto env
+machine: qemuarm
+
+local_conf_header:
+  qemu: |
+    PACKAGE_CLASSES = "package_ipk"
