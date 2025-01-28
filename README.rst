@@ -35,9 +35,9 @@ depends on the SoC and u-boot version. Other versions may work with a given
 project, but vendor support will most likely expect their published reqs,
 eg, the versions mentioned here require the following::
 
-	Processor                 SOCFPGA Device   Intel Quartus Pro   Intel Quartus Std
-	--------------------------------------------------------------------------------
-	Dual-core ARM Cortex-A9	         Cyclone V        N/A                 22.1
+  Processor                 SOCFPGA Device   Intel Quartus Pro   Intel Quartus Std
+  --------------------------------------------------------------------------------
+  Dual-core ARM Cortex-A9          Cyclone V        N/A                 22.1
                                          Arria 10         23.1                N/A
 
 All arm64 devices require Intel Quartus Pro.
@@ -49,7 +49,7 @@ Each enclustra (socfpga) reference design gets a Yocto machine definition,
 however, user projects should select one of the base machines provided by
 the enclustra module layer => meta-enclustra-module_ (one of the layers
 provided in meta-enclustra-socfpga_). Given the current AA1/ST1 hardware,
-the correct (yocto) machine is ``me-aa1-270-2i2-d11e-nfx3``.
+the correct (yocto) user machine is ``me-aa1-270-2i2-d11e-nfx3``.
 
 The user project must provide a zipfile containing the build files from the
 desired Quartus project, ie, 1) the bitstream ``.sof`` must be converted to
