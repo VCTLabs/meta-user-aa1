@@ -12,23 +12,33 @@ The reference design is compatible with following base board:
 
 The HW reference design files for Mercury+ AA1 ST1 module and baseboard live here:
 
-- Mercury AA1 ST1 Reference Design: https://github.com/enclustra/Mercury_AA1_ST1_Reference_Design
+- Mercury+ AA1 ST1 Reference Design: https://github.com/enclustra/Mercury_AA1_ST1_Reference_Design
 
 
 Dependencies
 ============
 
-This layer depends on meta-enclustra-socfpga and OE core:
+This layer depends on meta-intel-fpga and OE core:
 
-* URI: https://github.com/enclustra/meta-enclustra-socfpga/tree/v2023.1
+* URI: https://git.yoctoproject.org/meta-intel-fpga
+* branch: mickledore
+* layer: meta-intel-fpga
+
+* URI: https://git.openembedded.org/openembedded-core
+* branch: mickledore
+* layer: meta
+
+* URI: http://git.openembedded.org/meta-openembedded
+* branch: mickledore
+* layer: meta-oe
+
+This layer also still depends on the meta-enclustra-socfpga module layer for user
+machine compatibility, eg, the initial ``me-aa1-270-2i2-d11e-nfx3`` machine and
+related recipes:
+
+* URI: https://github.com/enclustra/meta-enclustra-socfpga
 * branch: v2023.1
 * layer: meta-enclustra-module
-
-* URI: git://git.openembedded.org/openembedded-core
-* branch: [same one as checked out for this layer]
-
-* URI: git://git.openembedded.org/meta-openembedded/meta-oe
-* branch: [same one as checked out for this layer]
 
 The primary indirect dependency is Quartus XX Std/Pro, where XX and type
 depends on the SoC and u-boot version. Other versions may work with a given
@@ -37,10 +47,56 @@ eg, the versions mentioned here require the following::
 
   Processor                 SOCFPGA Device   Intel Quartus Pro   Intel Quartus Std
   --------------------------------------------------------------------------------
-  Dual-core ARM Cortex-A9          Cyclone V        N/A                 22.1
-                                         Arria 10         23.1                N/A
+  Dual-core ARM Cortex-A9      Cyclone V          N/A                 22.1
+                               Arria 10           23.1                N/A
 
 All arm64 devices require Intel Quartus Pro.
+
+Custom machine overrides
+------------------------
+
+Upstream "doc" bits:
+
+* `bitbake manual section`_
+* `glossary section`_
+* `machine groups on SO`_
+
+References on this topic seem pretty thin, so now we include some example machine
+overrides that allow the following:
+
+* use generic "platform" overrides to separate debug and hardened images for
+  the same hardware
+* migrate from the enclustra "starter" machines to custom devel and production
+  boards
+
+.. _bitbake manual section: https://docs.yoctoproject.org/bitbake/2.10/bitbake-user-manual/bitbake-user-manual-metadata.html#conditional-syntax-overrides
+.. _glossary section: https://docs.yoctoproject.org/ref-manual/variables.html#term-MACHINEOVERRIDES
+.. _machine groups on SO: https://stackoverflow.com/questions/77667680/how-to-create-groups-of-machines-for-use-in-machine-specific-overrides
+
+
+The meta-enclustra-module layer should above provides user "starter" machine
+defs for each supported combination of base board and module, eg, the initial
+default machine definitions for the Mercury+ AA1 module on ST1 base board:
+
+* me-aa1-270-2i2-d11e-nfx3_
+
+This layer now includes additional (mostly abstract) machine definitions based
+on the above baseboard/module combination.
+
+Production/development pipeline machines:
+
+:debug-baseboard:
+:hardened-baseboard:
+
+Abstract classification overrides:
+
+:debug-platform:
+:hardened-platform:
+:st1-baseboard:
+
+
+.. _me-aa1-270-2i2-d11e-nfx3: https://github.com/enclustra/meta-enclustra-socfpga/blob/v2023.1/meta-enclustra-module/conf/machine/me-aa1-270-2i2-d11e-nfx3.conf
+
 
 Custom exported binaries
 ------------------------
@@ -48,8 +104,8 @@ Custom exported binaries
 Each enclustra (socfpga) reference design gets a Yocto machine definition,
 however, user projects should select one of the base machines provided by
 the enclustra module layer => meta-enclustra-module_ (one of the layers
-provided in meta-enclustra-socfpga_). Given the current AA1/ST1 hardware,
-the correct (yocto) user machine is ``me-aa1-270-2i2-d11e-nfx3``.
+provided in meta-enclustra-socfpga_) to get started. Given the current AA1/ST1
+hardware, the correct (yocto) user machine is ``me-aa1-270-2i2-d11e-nfx3``.
 
 The user project must provide a zipfile containing the build files from the
 desired Quartus project, ie, 1) the bitstream ``.sof`` must be converted to
