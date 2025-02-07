@@ -15,6 +15,7 @@ IMAGE_INSTALL:append = "\
     memtester \
     e2fsprogs \
     e2fsprogs-resize2fs \
-    resize-helper \
     libuio-ng \
 "
+
+IMAGE_INSTALL:append = "${@bb.utils.contains('UBOOT_CONFIG', 'qspi', '', ' resize-helper', d)}"
