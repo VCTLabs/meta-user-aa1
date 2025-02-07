@@ -1,19 +1,19 @@
-DESCRIPTION = "Resize Rootfs systemd service"
+DESCRIPTION = "Resize last partition sysvinit service"
 LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/GPL-2.0-or-later;md5=fed54355545ffd980b814dab4a3b312c"
 
-SRC_URI = "file://resize-rootfs.init"
+SRC_URI = "file://resize-last.init"
 
 inherit update-rc.d
 
-INITSCRIPT_NAME = "resize-rootfs"
+INITSCRIPT_NAME = "resize-last"
 INITSCRIPT_PARAMS = "start 10 S ."
 
-RDEPENDS:${PN} = "e2fsprogs-resize2fs parted"
+RDEPENDS:${PN} += "e2fsprogs-resize2fs gptfdisk parted util-linux udev"
 
 do_install () {
         install -d ${D}${sysconfdir}/init.d
-        install -m 0755 ${WORKDIR}/resize-rootfs.init ${D}${sysconfdir}/init.d/${PN}
+        install -m 0755 ${WORKDIR}/resize-last.init ${D}${sysconfdir}/init.d/resize-last
 }
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"

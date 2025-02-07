@@ -13,7 +13,6 @@ inherit core-image
 
 IMAGE_INSTALL:append = "\
     ${CORE_IMAGE_EXTRA_INSTALL} \
-    resize-last-part \
 "
 
 WKS_FILE ?= "devel-image-data.wks"
