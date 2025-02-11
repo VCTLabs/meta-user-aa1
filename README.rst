@@ -88,7 +88,7 @@ Production/development pipeline machines:
 :debug-baseboard: Baseline debug/devel machine compatible with enclustra AA1/ST1
 :hardened-baseboard: Baseline hardened/production machine compatible with enclustra AA1/ST1
 
-Abstract classification overrides:
+Platform classification overrides:
 
 :debug-platform: Use to add/set devel feature overrides and SRC_URI appends
 :hardened-platform: Use to remove debug features and/or set hardening options
@@ -114,6 +114,32 @@ Use a production machine override to include devicetree files for a custom board
 
   SRC_URI:append:production-board = " file://stech-board.dtsi"
 
+The "pipeline" machines described above should *replace* current the default user
+machine above, however, the simple machines defined here still depend on both
+machine defs and recipe overrides defined by enclustra (in their module layer).
+
+Custom overrides for specific machine features or other build settings should be
+added as-needed, starting with the the example common machine include file::
+
+  $ cat conf/machine/include/aa1-st1-common.conf 
+  # Common machine support for enclustra aa1 module and st1 carrier board
+  #
+
+  MACHINEOVERRIDES:prepend = "me-aa1-270-2i2-d11e-nfx3:me-st1-generic:"
+
+  require conf/machine/me-aa1-generic.conf
+
+  IMAGE_FSTYPES:append = " wic ext4"
+
+The above built image artifacts are appended to the defaults set in the enclustra
+module layer: ``IMAGE_FSTYPES = "cpio.gz.u-boot wic.bmap tar.gz"`` (in this case
+the assignment is *not* weak).
+
+The upstream BSP layers in both meta-enclustra-socfpga_ and meta-intel-fpga_ should
+be used as the "documented" upstream machine definitions.
+
+.. _meta-enclustra-socfpga: https://github.com/enclustra/meta-enclustra-socfpga
+.. _meta-intel-fpga: https://git.yoctoproject.org/meta-intel-fpga
 
 
 Custom exported binaries
