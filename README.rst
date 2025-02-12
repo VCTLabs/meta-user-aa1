@@ -99,8 +99,8 @@ Platform classification overrides:
 
 .. _me-aa1-270-2i2-d11e-nfx3: https://github.com/enclustra/meta-enclustra-socfpga/blob/v2023.1/meta-enclustra-module/conf/machine/me-aa1-270-2i2-d11e-nfx3.conf
 
-Example machine overrides
---------------------------
+Example machine override usage
+------------------------------
 
 Use the platform overrides to configure a production image recipe::
 
@@ -142,6 +142,29 @@ be used as the "documented" upstream machine definitions.
 
 .. _meta-enclustra-socfpga: https://github.com/enclustra/meta-enclustra-socfpga
 .. _meta-intel-fpga: https://git.yoctoproject.org/meta-intel-fpga
+
+
+Adding new overrides
+--------------------
+
+The above overrides are only a starting point for decoupling and setting desired
+groups of "distro" or image features. Given the state of the enclustra hardware
+overlap for boot media, another useful approach might be creating separate machine
+definitions for each boot method. This would allow dropping the current environment
+variables for boot method and setting each one as a "machine feature".
+
+An example machine definition file for ``debug-emmc.conf`` might look like this::
+
+  #@TYPE: Machine
+  #@NAME: debug-emmc
+  #@DESCRIPTION: Machine overrides for Intel SoCFPGA Arria10 from enclustra
+  #
+
+  MACHINEOVERRIDES =. "debug-platform:"
+
+  require conf/machine/include/aa1-st1-common.conf
+  
+  UBOOT_CONFIG = "emmc"
 
 
 Custom exported binaries
