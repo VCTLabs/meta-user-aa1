@@ -6,7 +6,7 @@ LICENSE = "BSD-2-Clause"
 LIC_FILES_CHKSUM = "file://${WORKDIR}/resize-helper;beginline=1;endline=24;md5=c86f62e2fddb47a7dc1f398b2aff4912"
 
 SRC_URI = " \
-        file://resize-last.init
+        file://resize-last.init \
         file://resize-helper.service \
         file://resize-helper \
 "
@@ -23,6 +23,9 @@ do_install () {
         install -d ${D}${sbindir}
         install -m 0755 ${WORKDIR}/resize-helper ${D}${sbindir}
 }
+
+INITSCRIPT_NAME = "resize-last"
+INITSCRIPT_PARAMS = "start 10 S ."
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 SYSTEMD_SERVICE:${PN} = "resize-helper.service"
