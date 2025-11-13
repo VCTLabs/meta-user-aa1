@@ -26,7 +26,7 @@
 ### BEGIN INIT INFO
 # Provides:             resize-helper
 # Required-Start:       $local_fs
-# Required-Stop:      $local_fs
+# Required-Stop:
 # Default-Start:        S
 # Default-Stop:
 # Short-Description:  Resize the last partition
@@ -39,11 +39,13 @@ case "$1" in
 
     echo "Expanding last partition..."
 
-    if /usr/sbin/resize-helper ;
-    then
-        echo "Expanding partition success"
-    else
+    /usr/sbin/resize-helper
+
+    retVal=$?
+    if [ $retVal -ne 0 ]; then
         echo "Expanding partition has failed, see log files. Error code: $?"
+    else
+        echo "Expanding partition success"
     fi
 
     update-rc.d -f resize-rootfs remove >/dev/null 2>&1
