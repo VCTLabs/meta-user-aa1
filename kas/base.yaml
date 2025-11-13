@@ -12,7 +12,7 @@ repos:
         tag: 2023-04.2-mickledore
         path: "layers/bitbake"
         layers:
-            .: excluded
+            .: disabled
 
     meta-user-aa1:
         #url: "https://github.com/VCTLabs/meta-user-aa1.git"
