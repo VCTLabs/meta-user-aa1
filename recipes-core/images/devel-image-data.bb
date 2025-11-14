@@ -19,11 +19,12 @@ WKS_FILE ?= "devel-image-data.wks"
 
 create_data_dir () {
     #!/bin/sh -e
-
     # create non-volatile rw partition mount point
     mkdir -p ${IMAGE_ROOTFS}/data
-    # uncomment data mount options
-    sed -i -e "s|##||" ${IMAGE_ROOTFS}/etc/fstab
+    # uncomment data mount options if using sysvinit
+    if [ "${VIRTUAL-RUNTIME_init_manager}" != "systemd" ]; then
+        sed -i -e "s|##||" ${IMAGE_ROOTFS}/etc/fstab
+    fi
 }
 
 ROOTFS_POSTPROCESS_COMMAND += "create_data_dir;"
