@@ -48,7 +48,7 @@ case "$1" in
         echo "Expanding partition success"
     fi
 
-    update-rc.d -f resize-rootfs remove >/dev/null 2>&1
+    update-rc.d -f resize-last remove >/dev/null 2>&1
 
   ;;
 

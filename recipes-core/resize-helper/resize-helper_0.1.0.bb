@@ -3,7 +3,7 @@ DESCRIPTION = "Resize last filesystem to fit available disk space"
 SECTION = "admin"
 
 LICENSE = "BSD-2-Clause"
-LIC_FILES_CHKSUM = "file://${WORKDIR}/resize-helper;beginline=1;endline=24;md5=c86f62e2fddb47a7dc1f398b2aff4912"
+LIC_FILES_CHKSUM = "file://${WORKDIR}/resize-last.init;beginline=2;endline=25;md5=3b586a08e84e53fa84d102e9aedd8ae1"
 
 SRC_URI = " \
         file://resize-last.init \
@@ -11,7 +11,7 @@ SRC_URI = " \
         file://resize-helper \
 "
 
-inherit features_check systemd update-rc.d
+inherit systemd update-rc.d
 
 RDEPENDS:${PN} += "e2fsprogs-resize2fs gptfdisk parted util-linux udev"
 
