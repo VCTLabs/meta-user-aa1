@@ -1,9 +1,10 @@
 SUMMARY = "Resize the last partition, root or not"
-DESCRIPTION = "Resize last filesystem to fit available disk space"
+DESCRIPTION = "Resize last filesystem to fit available disk space; supports \
+both systemd and sysvinit, requires ext fs on partition to be expanded."
 SECTION = "admin"
 
 LICENSE = "BSD-2-Clause"
-LIC_FILES_CHKSUM = "file://${WORKDIR}/resize-last.init;beginline=2;endline=25;md5=3b586a08e84e53fa84d102e9aedd8ae1"
+LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/BSD-2-Clause;md5=cb641bc04cda31daea161b1bc15da69f"
 
 SRC_URI = " \
         file://resize-last.init \
@@ -13,7 +14,7 @@ SRC_URI = " \
 
 inherit systemd update-rc.d
 
-RDEPENDS:${PN} += "e2fsprogs-resize2fs gptfdisk parted util-linux udev"
+RDEPENDS:${PN} += "e2fsprogs-resize2fs parted util-linux-fdisk util-linux-findmnt udev"
 
 do_install () {
         install -d ${D}${sysconfdir}/init.d
