@@ -32,6 +32,9 @@ repos:
                 repo: openembedded-core
                 # this path starts with layers path from above
                 path: ../meta-user-aa1/patches/0001-fix-replicate-jama-patch-for-libxcrypt-build-branch.patch
+            p2:
+                repo: openembedded-core
+                path: ../meta-user-aa1/patches/0001-chg-dev-add-machine-agnostic-symlink-for-fitimage-in.patch
 
     meta-intel-fpga:
         url: "https://git.yoctoproject.org/meta-intel-fpga"
