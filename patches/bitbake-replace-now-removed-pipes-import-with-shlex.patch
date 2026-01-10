@@ -1,0 +1,30 @@
+From e9330f189ec909ef28a5bf0dc294cff0f7e4282a Mon Sep 17 00:00:00 2001
+From: Stephen L Arnold <sarnold@vctlabs.com>
+Date: Sat, 10 Jan 2026 13:25:57 -0800
+Subject: [PATCH] fix: dev: replace now-removed pipes import with shlex
+
+* deprecated since forever in python3, removed in 3.13.5
+
+Signed-off-by: Stephen L Arnold <sarnold@vctlabs.com>
+---
+ lib/bb/fetch2/git.py | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/lib/bb/fetch2/git.py b/lib/bb/fetch2/git.py
+index 2a3c06fe4..84df41343 100644
+--- a/lib/bb/fetch2/git.py
++++ b/lib/bb/fetch2/git.py
+@@ -818,9 +818,8 @@ class Git(FetchMethod):
+             commits = None
+         else:
+             if not os.path.exists(rev_file) or not os.path.getsize(rev_file):
+-                from pipes import quote
+                 commits = bb.fetch2.runfetchcmd(
+-                        "git rev-list %s -- | wc -l" % quote(rev),
++                        "git rev-list %s -- | wc -l" % shlex.quote(rev),
+                         d, quiet=True).strip().lstrip('0')
+                 if commits:
+                     open(rev_file, "w").write("%d\n" % int(commits))
+-- 
+2.52.0
+

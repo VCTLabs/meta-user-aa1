@@ -9,10 +9,14 @@ repos:
 
     bitbake:
         url: "https://git.openembedded.org/bitbake"
-        tag: 2023-04.2-mickledore
+        branch: 2.4
         path: "layers/bitbake"
         layers:
             .: disabled
+        patches:
+            p1:
+                repo: bitbake
+                path: ../meta-user-aa1/patches/bitbake-replace-now-removed-pipes-import-with-shlex.patch
 
     meta-user-aa1:
         #url: "https://github.com/VCTLabs/meta-user-aa1.git"
@@ -23,7 +27,7 @@ repos:
 
     openembedded-core:
         url: "https://git.openembedded.org/openembedded-core"
-        tag: 2023-04.2-mickledore
+        branch: mickledore
         path: "layers/openembedded-core"
         layers:
             meta:
@@ -35,6 +39,9 @@ repos:
             p2:
                 repo: openembedded-core
                 path: ../meta-user-aa1/patches/0001-chg-dev-add-machine-agnostic-symlink-for-fitimage-in.patch
+            p3:
+                repo: openembedded-core
+                path: ../meta-user-aa1/patches/oe-core-replace-now-removed-pipes-import-with-shlex.patch
 
     meta-intel-fpga:
         url: "https://git.yoctoproject.org/meta-intel-fpga"

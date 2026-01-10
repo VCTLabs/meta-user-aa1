@@ -1,0 +1,60 @@
+From a978c405097d24d8fb6bf597c5eb0409bf067919 Mon Sep 17 00:00:00 2001
+From: Stephen L Arnold <sarnold@vctlabs.com>
+Date: Sat, 10 Jan 2026 14:10:08 -0800
+Subject: [PATCH] fix: dev: replace now-removed pipes import with shlex
+
+* deprecated since forever in python3, removed in 3.13.5
+
+Signed-off-by: Stephen L Arnold <sarnold@vctlabs.com>
+---
+ meta/lib/oe/package.py | 4 ++--
+ meta/lib/oe/patch.py   | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/meta/lib/oe/package.py b/meta/lib/oe/package.py
+index 7a6b31957a..deed4625c1 100644
+--- a/meta/lib/oe/package.py
++++ b/meta/lib/oe/package.py
+@@ -8,7 +8,7 @@ import errno
+ import fnmatch
+ import itertools
+ import os
+-import pipes
++import shlex
+ import re
+ import glob
+ import stat
+@@ -1556,7 +1556,7 @@ def process_shlibs(pkgfiles, d):
+         sonames = set()
+         renames = []
+         ldir = os.path.dirname(file).replace(pkgdest + "/" + pkg, '')
+-        cmd = d.getVar('OBJDUMP') + " -p " + pipes.quote(file) + " 2>/dev/null"
++        cmd = d.getVar('OBJDUMP') + " -p " + shlex.quote(file) + " 2>/dev/null"
+         fd = os.popen(cmd)
+         lines = fd.readlines()
+         fd.close()
+diff --git a/meta/lib/oe/patch.py b/meta/lib/oe/patch.py
+index e5108e9ad6..7ca6b94819 100644
+--- a/meta/lib/oe/patch.py
++++ b/meta/lib/oe/patch.py
+@@ -27,7 +27,7 @@ class CmdError(bb.BBHandledException):
+ 
+ 
+ def runcmd(args, dir = None):
+-    import pipes
++    import shlex
+ 
+     if dir:
+         olddir = os.path.abspath(os.curdir)
+@@ -37,7 +37,7 @@ def runcmd(args, dir = None):
+         # print("cwd: %s -> %s" % (olddir, dir))
+ 
+     try:
+-        args = [ pipes.quote(str(arg)) for arg in args ]
++        args = [ shlex.quote(str(arg)) for arg in args ]
+         cmd = " ".join(args)
+         # print("cmd: %s" % cmd)
+         proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+-- 
+2.52.0
+
