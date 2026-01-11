@@ -9,7 +9,7 @@ repos:
 
     bitbake:
         url: "https://git.openembedded.org/bitbake"
-        branch: 2.4
+        branch: "2.4"
         path: "layers/bitbake"
         layers:
             .: disabled
