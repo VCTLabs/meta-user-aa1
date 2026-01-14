@@ -10,6 +10,7 @@ ExecStartPre=-/bin/udevadm settle
 ExecStart=-/usr/sbin/resize-helper
 ExecStartPost=/bin/systemctl disable resize-helper.service
 RemainAfterExit=no
+DefaultDependencies=no
 
 [Install]
 WantedBy=basic.target
