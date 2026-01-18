@@ -16,5 +16,10 @@ env:
 
 local_conf_header:
     dev: |
+        IMAGE_FSTYPES:append = " wic.xz ext4"
+        KERNEL_CLASSES += "kernel-fitimage"
+        KERNEL_IMAGETYPES += " fitImage "
+        IMAGE_BOOT_FILES:append = " fitImage;image.ub"
+
         PACKAGE_CLASSES ?= "package_${PACKAGE_FEED_TYPE}"
         PACKAGE_FEED_URIS = "http://${PACKAGE_FEED_IP_PORT}"
