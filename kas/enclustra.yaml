@@ -19,6 +19,8 @@ local_conf_header:
         IMAGE_FSTYPES:append = " wic.xz ext4"
         KERNEL_CLASSES += "kernel-fitimage"
         KERNEL_IMAGETYPES += " fitImage "
+        EXTERNAL_KERNEL_DEVICETREE = "${DEPLOY_DIR_IMAGE}/devicetree"
+        FIT_CONF_DEFAULT_DTB = "enclustra-user.dtb"
         IMAGE_BOOT_FILES:append = " fitImage;image.ub"
 
         PACKAGE_CLASSES ?= "package_${PACKAGE_FEED_TYPE}"
