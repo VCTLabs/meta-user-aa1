@@ -1,0 +1,32 @@
+From 7ebb2c2dbf4af04b4e335d829d4c122309374621 Mon Sep 17 00:00:00 2001
+From: Stephen L Arnold <sarnold@vctlabs.com>
+Date: Thu, 22 Jan 2026 14:33:36 -0800
+Subject: [PATCH] chg: dev: baseline fixes required for proper fitImage kernel
+ addresses
+
+* bare minimum without any settings for other FIT payloads
+
+Signed-off-by: Stephen L Arnold <sarnold@vctlabs.com>
+---
+ meta-enclustra-module/conf/machine/me-aa1-generic.conf | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/meta-enclustra-module/conf/machine/me-aa1-generic.conf b/meta-enclustra-module/conf/machine/me-aa1-generic.conf
+index 86782ad..f404f03 100644
+--- a/meta-enclustra-module/conf/machine/me-aa1-generic.conf
++++ b/meta-enclustra-module/conf/machine/me-aa1-generic.conf
+@@ -16,7 +16,10 @@ UBOOT_CONFIG[emmc]  = "socfpga_enclustra_mercury_aa1_defconfig"
+ UBOOT_CONFIG[qspi] = "socfpga_enclustra_mercury_aa1_defconfig"
+ 
+ KERNEL_IMAGETYPE = "uImage"
+-KERNEL_EXTRA_ARGS += "LOADADDR=0x8000"
++UBOOT_LOADADDRESS = "0x00008000"
++UBOOT_ENTRYPOINT = "0x00008000"
++# required to build uImage
++KERNEL_EXTRA_ARGS += "LOADADDR=${UBOOT_LOADADDRESS}"
+ 
+ IMAGE_FSTYPES = "cpio.gz.u-boot wic.bmap tar.gz"
+ 
+-- 
+2.52.0
+

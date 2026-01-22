@@ -1,9 +1,0 @@
-header:
-    version: 9
-
-local_conf_header:
-    addr: |
-        UBOOT_ENTRYPOINT = "0x00008000"
-        UBOOT_LOADADDRESS = "0x00008000"
-        KERNEL_EXTRA_ARGS:remove = "LOADADDR=0x8000"
-

@@ -54,6 +54,10 @@ repos:
         path: "layers/meta-enclustra-socfpga"
         layers:
             meta-enclustra-module:
+        patches:
+            p1:
+                repo: meta-enclustra-socfpga
+                path: ../meta-user-aa1/patches/baseline-fixes-required-for-proper-fitImage.patch
 
     meta-openembedded:
         url: http://git.openembedded.org/meta-openembedded
