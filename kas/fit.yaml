@@ -13,3 +13,6 @@ local_conf_header:
         #UBOOT_RD_ENTRYPOINT = "0x12000000"
         #UBOOT_ENV_BINARY = ""
         IMAGE_BOOT_FILES:append = " fitImage;image.ub"
+
+        INITRAMFS_IMAGE = "devel-initramfs"
+        #IMAGE_BOOT_FILES:append = " fitImage-devel-initramfs;ramdisk-image.ub"

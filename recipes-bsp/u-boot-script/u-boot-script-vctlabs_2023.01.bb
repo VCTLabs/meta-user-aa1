@@ -38,4 +38,4 @@ addtask deploy after do_install before do_build
 do_compile[noexec] = "1"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
-COMPATIBLE_MACHINE = "(st1-baseboard|me-aa1-270-2i2-d11e-nfx3|refdes-me-aa1-270-2i2-d11e-nfx3-st1)"
+COMPATIBLE_MACHINE = "(me-aa1-generic|me-aa1-270-2i2-d11e-nfx3|refdes-me-aa1-270-2i2-d11e-nfx3-st1)"
