@@ -35,10 +35,10 @@ repos:
             p1:
                 repo: openembedded-core
                 # this path starts with layers path from above
-                path: ../meta-user-aa1/patches/0001-fix-replicate-jama-patch-for-libxcrypt-build-branch.patch
+                path: ../meta-user-aa1/patches/oe-core-add-machine-agnostic-symlink-for-fitimage-in.patch
             p2:
                 repo: openembedded-core
-                path: ../meta-user-aa1/patches/0001-chg-dev-add-machine-agnostic-symlink-for-fitimage-in.patch
+                path: ../meta-user-aa1/patches/oe-core-replicate-jama-patch-for-libxcrypt-build-branch.patch
             p3:
                 repo: openembedded-core
                 path: ../meta-user-aa1/patches/oe-core-replace-now-removed-pipes-import-with-shlex.patch
