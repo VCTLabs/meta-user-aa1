@@ -19,8 +19,8 @@ repos:
                 path: ../meta-user-aa1/patches/bitbake-replace-now-removed-pipes-import-with-shlex.patch
 
     meta-user-aa1:
-        #url: "https://github.com/VCTLabs/meta-user-aa1.git"
-        path: "layers/meta-user-aa1"
+        # avoid version control operations for this repo
+        # url: "https://github.com/VCTLabs/meta-user-aa1.git"
         branch: oe-mickledore
         layers:
             .:
