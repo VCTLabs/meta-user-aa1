@@ -1,12 +1,14 @@
 # include file for devel initramfs images
 
 # Do not pollute the initrd image with rootfs features
-IMAGE_FEATURES = ""
+IMAGE_FEATURES = " \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'security', '', 'debug-tweaks', d)} \
+"
 
 # try to avoid dependency loops
 EXTRA_IMAGEDEPENDS = ""
 
-PACKAGE_INSTALL = "\
+BASE_DEVEL_INSTALL = "\
     base-files \
     base-passwd \
     busybox \
@@ -27,6 +29,3 @@ IMAGE_LINGUAS = ""
 
 IMAGE_FSTYPES = "${INITRAMFS_FSTYPES}"
 IMAGE_FSTYPES:remove = " wic wic.* wic.xz wic.bmap tar.xz"
-
-inherit core-image
-

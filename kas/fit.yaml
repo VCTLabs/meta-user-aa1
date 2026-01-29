@@ -15,4 +15,4 @@ local_conf_header:
         IMAGE_BOOT_FILES:append = " fitImage;image.ub"
 
         INITRAMFS_IMAGE = "devel-initramfs"
-        #IMAGE_BOOT_FILES:append = " fitImage-devel-initramfs;devel-initramfs.ub"
+        IMAGE_BOOT_FILES:append = " fitImage-devel-initramfs;initramfs-image.ub"
