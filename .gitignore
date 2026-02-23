@@ -9,3 +9,5 @@
 *.rej
 *~
 .venv/
+# misc
+/*.xz

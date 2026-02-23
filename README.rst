@@ -54,6 +54,63 @@ Dual-core ARM Cortex-A9   Cyclone V        N/A                 22.1
 
 All arm64 devices require Intel Quartus Pro.
 
+Images and Uboot config
+=======================
+
+The default build image target should be set in at least one kas config file
+and can be affected by the ``UBOOT_CONFIG`` setting. The default artifact is
+a WIC file for sdmmc and emmc or a separate set of artifacts for qspi boot.
+
+The default *kernel* image type is normally set in the vendor BSP, in this
+case, in the intel-fpga layer and again in the enclustra module layer. The
+kas config now contains additional overrides to enable FIT images, which
+may contain several artifacts, in this case a kernel, one or more devicetree
+blobs, an initramfs, a uboot script, etc. Note there is already a FIT image
+containing the split FPGA bitsream files.
+
+The FIT image is the "new style" image format intended to replace the legacy
+(uIamge) format to facilitate hndling of both multiple artifact types *and*
+metadata for things like cryptographic hashes, signatures, and trusted boot.
+
+FIT image changes
+-----------------
+
+* load addresses in u-boot/kernelargs may need to be modified and/or specified
+  in config variables
+* boot script commands
+* replace qspi (initrd) ramdisk with FIT image (initramfs) ramdisk
+* supplement the use of "dev" signing keys with production key processes
+
+New build artifacts
+~~~~~~~~~~~~~~~~~~~
+
+New build artifacts include multiple fitImages and their ``.its`` files, as
+well as symlinks (patches are somethimes required to get the short symlinks
+in the deploy directory). Short names and descriptions are given below.
+
++ **fitImage** - FIT image containing kernel and devicetree blob(s)
++ **fitImage-devel-initramfs** - FIT image containing the above assets
+  with an initramfs root (ie, ramdisk)
+
+All of the above can be found in the deploy directory, but only the two
+primary fitImage files should be deployed to the boot partition.
+
+U-boot load addresses
+~~~~~~~~~~~~~~~~~~~~~
+
+On the bootloader side, the fitImage requires a load address and sufficient
+free space *above* that address so the fitImage payloads can be loaded at
+their own addresses. In the case of enclustra, the smaller fitImage can be
+loaded in the usual kernel RAM address, however, the initramfs fitImage
+requires more contigous RAM so needs to be loaded at the default u-boot
+${loadaddr} variable.
+
+fitImage introspection
+~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
 Custom machine overrides
 ========================
 
@@ -63,13 +120,15 @@ Upstream "doc" bits:
 * `glossary section`_
 * `machine groups on SO`_
 
-References on this topic seem pretty thin, so now we include some example machine
-overrides that allow the following:
+References on this topic seem pretty thin, so so we still need to include
+some example machine overrides that allow the following:
 
 * use generic "platform" overrides to separate debug and hardened images for
   the same hardware
 * migrate from the enclustra "starter" machines to custom devel and production
   boards
+
+Working machine overrides depend on refactoring in (forked) upstream repo.
 
 .. _bitbake manual section: https://docs.yoctoproject.org/bitbake/2.10/bitbake-user-manual/bitbake-user-manual-metadata.html#conditional-syntax-overrides
 .. _glossary section: https://docs.yoctoproject.org/ref-manual/variables.html#term-MACHINEOVERRIDES
@@ -123,7 +182,7 @@ machine defs and recipe overrides defined by enclustra (in their module layer).
 Custom overrides for specific machine features or other build settings should be
 added as-needed, starting with the the example common machine include file::
 
-  $ cat conf/machine/include/aa1-st1-common.conf 
+  $ cat conf/machine/include/aa1-st1-common.conf
   # Common machine support for enclustra aa1 module and st1 carrier board
   #
 
@@ -163,7 +222,7 @@ An example machine definition file for ``debug-emmc.conf`` might look like this:
   MACHINEOVERRIDES =. "debug-platform:"
 
   require conf/machine/include/aa1-st1-common.conf
-  
+
   UBOOT_CONFIG = "emmc"
 
 

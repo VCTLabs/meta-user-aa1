@@ -7,6 +7,8 @@ IMAGE_INSTALL:append = "\
     procps \
     i2c-tools \
     mtd-utils \
+    sysfsutils \
+    spitools \
     devmem2 \
     iperf3 \
     usbutils \
