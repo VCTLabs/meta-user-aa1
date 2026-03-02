@@ -11,7 +11,7 @@ require devel-common.inc
 #require initramfs-image-harden.inc
 
 # Do not pollute the initrd image with rootfs features
-IMAGE_FEATURES = "debug-tweaks"
+IMAGE_FEATURES = "${@bb.utils.contains('EXTRA_IMAGE_FEATURES', 'debug-tweaks', 'empty-root-password', '', d)}"
 
 IMAGE_INSTALL:append = " ${CORE_IMAGE_EXTRA_INSTALL}"
 
@@ -29,8 +29,7 @@ IMAGE_FSTYPES:remove = " wic wic.* wic.xz wic.bmap tar.xz ext4"
 IMAGE_OVERHEAD_FACTOR = "1.0"
 
 # Don't allow the initramfs to contain a kernel
-PACKAGE_EXCLUDE = "kernel-image-*"
-IMAGE_INSTALL:remove = "resize-helper"
+PACKAGE_EXCLUDE += "kernel-image-* resize-helper"
 
 IMAGE_ROOTFS_SIZE = "16384"
 IMAGE_ROOTFS_EXTRA_SPACE = "0"
