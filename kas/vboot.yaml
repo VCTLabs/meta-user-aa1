@@ -7,7 +7,7 @@ local_conf_header:
         # Verified Boot Settings
         #
 
-        UBOOT_SIGN_ENABLE = "1"
+        UBOOT_SIGN_ENABLE = "0"
         UBOOT_SIGN_KEYDIR = "${TOPDIR}/../dev-keys"
         UBOOT_SIGN_KEYNAME = "dev"
         UBOOT_MKIMAGE_DTCOPTS = "-I dts -O dtb -p 2000"

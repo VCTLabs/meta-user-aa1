@@ -108,7 +108,140 @@ ${loadaddr} variable.
 fitImage introspection
 ~~~~~~~~~~~~~~~~~~~~~~
 
+From the desktop using ``u-boot-tools`` mkimage command::
 
+  $ mkimage -l path/to/fitimage  # list the contents
+
+From the u-boot prompt after loading the fitimage file::
+
+  => iminfo ${loadaddr}
+
+Example - signed fitimage with ramdisk::
+
+  $ mkimage -l /media/boot/initramfs-image.ub
+  FIT description: Kernel fitImage for OpenEmbedded/6.1.38-lts+gitAUTOINC+21b5300ed5/me-aa1-270-2i2-d11e-nfx3
+  Created:         Sun Oct  1 23:02:34 2023
+   Image 0 (kernel-1)
+    Description:  Linux kernel
+    Created:      Sun Oct  1 23:02:34 2023
+    Type:         Kernel Image
+    Compression:  uncompressed
+    Data Size:    5859736 Bytes = 5722.40 KiB = 5.59 MiB
+    Architecture: ARM
+    OS:           Linux
+    Load Address: 0x00008000
+    Entry Point:  0x00008000
+    Hash algo:    sha256
+    Hash value:   bac4e35b6c595091124e0d318ad220d3a97050d8cfb9eb5543a954d642d9abf6
+   Image 1 (fdt-enclustra-user.dtb)
+    Description:  Flattened Device Tree blob
+    Created:      Sun Oct  1 23:02:34 2023
+    Type:         Flat Device Tree
+    Compression:  uncompressed
+    Data Size:    37409 Bytes = 36.53 KiB = 0.04 MiB
+    Architecture: ARM
+    Load Address: 0x10000000
+    Hash algo:    sha256
+    Hash value:   977370d59d8730ae8d8de649caa2bd15495afd0bc5114b965803b4cb64b1162b
+   Image 2 (fdt-socfpga_enclustra_mercury_emmc_overlay.dtbo)
+    Description:  Flattened Device Tree blob
+    Created:      Sun Oct  1 23:02:34 2023
+    Type:         Flat Device Tree
+    Compression:  uncompressed
+    Data Size:    477 Bytes = 0.47 KiB = 0.00 MiB
+    Architecture: ARM
+    Load Address: 0x100c0000
+    Hash algo:    sha256
+    Hash value:   8016e571392b85c3fb0ba38eae83c060302b4d7e4371820e67eb0c4fa333428c
+   Image 3 (fdt-socfpga_enclustra_mercury_qspi_overlay.dtbo)
+    Description:  Flattened Device Tree blob
+    Created:      Sun Oct  1 23:02:34 2023
+    Type:         Flat Device Tree
+    Compression:  uncompressed
+    Data Size:    354 Bytes = 0.35 KiB = 0.00 MiB
+    Architecture: ARM
+    Load Address: 0x100c0000
+    Hash algo:    sha256
+    Hash value:   f54c4914dee9cbc33055cc97f830294055fe956615174463a9441d578a8d69ac
+   Image 4 (fdt-socfpga_enclustra_mercury_sdmmc_overlay.dtbo)
+    Description:  Flattened Device Tree blob
+    Created:      Sun Oct  1 23:02:34 2023
+    Type:         Flat Device Tree
+    Compression:  uncompressed
+    Data Size:    355 Bytes = 0.35 KiB = 0.00 MiB
+    Architecture: ARM
+    Load Address: 0x100c0000
+    Hash algo:    sha256
+    Hash value:   847dace5bd813913894b73a3920f9f1d51e09a2407ebaedc8091bf9a4c88ee17
+   Image 5 (ramdisk-1)
+    Description:  devel-initramfs
+    Created:      Sun Oct  1 23:02:34 2023
+    Type:         RAMDisk Image
+    Compression:  uncompressed
+    Data Size:    18101636 Bytes = 17677.38 KiB = 17.26 MiB
+    Architecture: ARM
+    OS:           Linux
+    Load Address: 0x12000000
+    Entry Point:  unavailable
+    Hash algo:    sha256
+    Hash value:   3b517db97b83c3f10811edf5697c0ae4bd56c729c18a456e9f74931556297555
+   Default Configuration: 'conf-enclustra-user.dtb'
+   Configuration 0 (conf-enclustra-user.dtb)
+    Description:  1 Linux kernel, FDT blob, ramdisk
+    Kernel:       kernel-1
+    Init Ramdisk: ramdisk-1
+    FDT:          fdt-enclustra-user.dtb
+    Hash algo:    sha256
+    Hash value:   unavailable
+    Sign algo:    sha256,rsa2048:dev
+    Sign padding: pkcs-1.5
+    Sign value:   0563838352b9d3b1790070d8c243ad973f0d6fd2144c3a48ae1ae08e9ed61eae5d5f732d1ce28af3a7e5a0b824516f40092b174d021b06f7be4c6d21ce5063b9ceb8458ef91f9d093b35b842bc49d56ab9f8818904a00851e662f23a60b0ccb4c5a0c7602469c599c77b2bc75a13e73d9c9c3a65548ec451fabb5ddf8bd74ed30f9fa25513103c98ddc9065ce649664f3a5244d90c90a531a9d1ba29c94ef571a9c6c0f3cd5967131bb17d79d82191be278111374393c8d0a26fa824347159de81b18c8ffceffc86d487c08127a596ab5e74da3edaa4c1e15a9333322b3f9e59b0e25cceca69aebe4f254a479435f026018f8941a0e77f85b86b011f0e95c820
+    Timestamp:    Sun Oct  1 23:02:34 2023
+   Configuration 1 (conf-socfpga_enclustra_mercury_emmc_overlay.dtbo)
+    Description:  0 FDT blob
+    Kernel:       unavailable
+    FDT:          fdt-socfpga_enclustra_mercury_emmc_overlay.dtbo
+    Hash algo:    sha256
+    Hash value:   unavailable
+    Sign algo:    sha256,rsa2048:dev
+    Sign padding: pkcs-1.5
+    Sign value:   505d668578e50fea168534d0ccdd6afae79eb388615d99489679222d3b1c94df5bccd6ba60d05958311d1be1e0f17db99a9e9cd851bbe9f4647ea7345a1dcca2265a2bfb435b05d60952212b7533d7ee29b95e04c7be42058c0b5a4aea8bc0ac9c567b285aa98f3664ae8314fe463b2ace5c36b88d23c492bf385285a6648b5766db5bab07c5694a0c6ea78a6f20102f86b721f17f5911fef67e89651fc958d154347eaf4c0fcfcca428713c1ac4b9ac18efb9b4584e45e0562a1368db8c4d143770b8e962a3cdf7c72ea5cf1f7d5e07e0620fea2ce3a07426e7fae971f698e6f663a0af85df302a2b4361f1862e69fb5c7fcd8f6d6c49099bd8606e4ef5cf87
+    Timestamp:    Sun Oct  1 23:02:34 2023
+   Configuration 2 (conf-socfpga_enclustra_mercury_qspi_overlay.dtbo)
+    Description:  0 FDT blob
+    Kernel:       unavailable
+    FDT:          fdt-socfpga_enclustra_mercury_qspi_overlay.dtbo
+    Hash algo:    sha256
+    Hash value:   unavailable
+    Sign algo:    sha256,rsa2048:dev
+    Sign padding: pkcs-1.5
+    Sign value:   d1c9ae2c3f21b6d967a409acaa2e441c3232811dcefff0e3f7883b5c390128dbf5d66035f252bf347149db5ccb42aa23762c3964ef6013021fd234bd01289a0552acab58a3cd6db25da4f59343f47d5a480e960e9c240689c40fa1982da483eb9241d8f9e910255735d803727afed92acf0dfe697740aac6c64b0fc217354db284206580dffed3cdb5db957c60735829e02d09c4395ab4dedc120c292ef2db7caa027e7a4de23d7f68ccf957be0e1af0598261d1d01a68b0d4839a4c4236c7d45ba6febf338e34d5f48fcd44680b41e2b3fc6e7e1ad22daa50250b8a4e5db73d1871a3199368da3dc8e2d402121cc9a5e9425701d502a44202c4892167d70b92
+    Timestamp:    Sun Oct  1 23:02:34 2023
+   Configuration 3 (conf-socfpga_enclustra_mercury_sdmmc_overlay.dtbo)
+    Description:  0 FDT blob
+    Kernel:       unavailable
+    FDT:          fdt-socfpga_enclustra_mercury_sdmmc_overlay.dtbo
+    Hash algo:    sha256
+    Hash value:   unavailable
+    Sign algo:    sha256,rsa2048:dev
+    Sign padding: pkcs-1.5
+    Sign value:   41971c6854061091d5faa3e03da154422d379c392a5587384928b8d01f8c79afcd11569fcb56a1aad726ecd1a85c5a2847daeebf2eeb3c6c80a6bfaf5b8e2ff14e56575873a2829eeb3dfa17ab509ff2ec504d7f0e3e1f2adbf4519ea187a8e2551c3f8176195a01d1799bd8937f8d85a156ebe5b8d88bc002a48a528a810a0aa290d13f4387a822dcdfb0f2a94fb8886767629663db56d5fbca64c8bade96fdc5ba52386a055a45509961e11e78d65d882443decdb4f6c34b0a9bb75325c99c6534eea376f76e12b6a2247122bdbbc8bc146adbc4c6e3e4aff43d1de87f260e1fc1f9faedffbd5471564cdee1cd88e787ba4bc7d8594a6cdf312b5539925255
+    Timestamp:    Sun Oct  1 23:02:34 2023
+
+
+fitImage bootm syntax
+~~~~~~~~~~~~~~~~~~~~~
+
+Default config after loading the fitimage file::
+
+  => bootm ${loadaddr}
+
+Default config with overlay::
+
+  => bootm ${loadaddr}#conf-enclustra-user.dtb#conf-socfpga_enclustra_mercury_sdmmc_overlay.dtbo
+
+The last command above uses the FIT configuration names generated by the
+``kernel-fitimage.bbclass``.
 
 
 Custom machine overrides
