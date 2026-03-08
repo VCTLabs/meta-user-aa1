@@ -3,6 +3,7 @@ header:
   includes:
     - kas/base.yaml
     - kas/fit.yaml
+    - kas/vboot.yaml
     - kas/enclustra.yaml
 
 local_conf_header:

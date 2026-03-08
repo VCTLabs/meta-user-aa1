@@ -22,8 +22,8 @@ index cc926900c45..ebe73bb7a9f 100644
 -fatload mmc 0:1 ${ram_addr_devicetree} devicetree.dtb
 -run fdtload
 -bootm ${ram_addr_kernel} - ${ram_addr_devicetree}
-+fatload mmc 0:1 ${ram_addr_kernel} image.ub
-+bootm ${ram_addr_kernel}
++fatload mmc 0:1 ${loadaddr} image.ub
++bootm ${loadaddr}#conf-enclustra-user.dtb#conf-socfpga_enclustra_mercury_@@UBOOT_CONFIG@@_overlay.dtbo
 -- 
 2.52.0
 

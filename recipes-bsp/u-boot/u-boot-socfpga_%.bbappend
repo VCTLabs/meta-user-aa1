@@ -18,3 +18,9 @@ do_add_enclustra_files:append:me-aa1-270-2i2-d11e-nfx3() {
 }
 
 SRC_URI:append = " file://enclustra-user.dts"
+
+do_compile:prepend:me-aa1-generic() {
+    if [ "${UBOOT_CONFIG}" != "qspi" ]; then
+        sed -i "s|@@UBOOT_CONFIG@@|${UBOOT_CONFIG}|" ${S}/board/enclustra/bootscripts/sd-aa1.cmd
+    fi
+}
