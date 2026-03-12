@@ -7,6 +7,8 @@ IMAGE_INSTALL:append = "\
     procps \
     i2c-tools \
     mtd-utils \
+    sysfsutils \
+    spitools \
     devmem2 \
     iperf3 \
     usbutils \
@@ -17,5 +19,3 @@ IMAGE_INSTALL:append = "\
     e2fsprogs-resize2fs \
     libuio-ng \
 "
-
-IMAGE_INSTALL:append = "${@bb.utils.contains('UBOOT_CONFIG', 'qspi', '', ' resize-helper', d)}"

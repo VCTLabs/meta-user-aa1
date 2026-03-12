@@ -1,6 +1,6 @@
-require devel-common.inc
+DESCRIPTION = "DEVEL minimal image"
 
-DESCRIPTION = "DEVEL minimal"
+require devel-common.inc
 
 # allowed to build for baseboard and user machines
 COMPATIBLE_MACHINE = "|me-aa1-270-2i2-d11e-nfx3|me-st1-generic"
@@ -13,6 +13,7 @@ inherit core-image
 
 IMAGE_INSTALL:append = "\
     ${CORE_IMAGE_EXTRA_INSTALL} \
+    ${@bb.utils.contains('UBOOT_CONFIG', 'qspi', '', 'resize-helper', d)} \
 "
 
 WKS_FILE ??= "devel-image-minimal.wks"
