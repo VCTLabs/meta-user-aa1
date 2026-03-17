@@ -58,6 +58,9 @@ repos:
             p1:
                 repo: meta-enclustra-socfpga
                 path: ../meta-user-aa1/patches/enclustra-module-fix-load-addresses-for-yocto.patch
+            p2:
+                repo: meta-enclustra-socfpga
+                path: ../meta-user-aa1/patches/enclustra-module-move-generic-machine-confs.patch
 
     meta-openembedded:
         url: http://git.openembedded.org/meta-openembedded

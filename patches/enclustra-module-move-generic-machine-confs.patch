@@ -1,0 +1,103 @@
+From 347f4813538860ad3c6621ec7122428b08178c89 Mon Sep 17 00:00:00 2001
+From: Stephen L Arnold <sarnold@vctlabs.com>
+Date: Mon, 16 Mar 2026 18:35:09 -0700
+Subject: [PATCH] chg: dev: move generic machine confs to include dir as .inc
+ files
+
+* update machine requires to use include paths
+
+Signed-off-by: Stephen L Arnold <sarnold@vctlabs.com>
+---
+ .../machine/{me-aa1-generic.conf => include/me-aa1-generic.inc} | 0
+ .../machine/{me-sa1-generic.conf => include/me-sa1-generic.inc} | 0
+ .../machine/{me-sa2-generic.conf => include/me-sa2-generic.inc} | 0
+ .../conf/machine/me-aa1-270-2i2-d11e-nfx3.conf                  | 2 +-
+ .../conf/machine/me-aa1-270-3e4-d11e-nfx3.conf                  | 2 +-
+ .../conf/machine/me-aa1-480-2i3-d12e-nfx3.conf                  | 2 +-
+ meta-enclustra-module/conf/machine/me-sa1-c6-7i-d10.conf        | 2 +-
+ meta-enclustra-module/conf/machine/me-sa2-d6-7i-d11.conf        | 2 +-
+ 8 files changed, 5 insertions(+), 5 deletions(-)
+ rename meta-enclustra-module/conf/machine/{me-aa1-generic.conf => include/me-aa1-generic.inc} (100%)
+ rename meta-enclustra-module/conf/machine/{me-sa1-generic.conf => include/me-sa1-generic.inc} (100%)
+ rename meta-enclustra-module/conf/machine/{me-sa2-generic.conf => include/me-sa2-generic.inc} (100%)
+
+diff --git a/meta-enclustra-module/conf/machine/me-aa1-generic.conf b/meta-enclustra-module/conf/machine/include/me-aa1-generic.inc
+similarity index 100%
+rename from meta-enclustra-module/conf/machine/me-aa1-generic.conf
+rename to meta-enclustra-module/conf/machine/include/me-aa1-generic.inc
+diff --git a/meta-enclustra-module/conf/machine/me-sa1-generic.conf b/meta-enclustra-module/conf/machine/include/me-sa1-generic.inc
+similarity index 100%
+rename from meta-enclustra-module/conf/machine/me-sa1-generic.conf
+rename to meta-enclustra-module/conf/machine/include/me-sa1-generic.inc
+diff --git a/meta-enclustra-module/conf/machine/me-sa2-generic.conf b/meta-enclustra-module/conf/machine/include/me-sa2-generic.inc
+similarity index 100%
+rename from meta-enclustra-module/conf/machine/me-sa2-generic.conf
+rename to meta-enclustra-module/conf/machine/include/me-sa2-generic.inc
+diff --git a/meta-enclustra-module/conf/machine/me-aa1-270-2i2-d11e-nfx3.conf b/meta-enclustra-module/conf/machine/me-aa1-270-2i2-d11e-nfx3.conf
+index d4ea296..0d51e8f 100644
+--- a/meta-enclustra-module/conf/machine/me-aa1-270-2i2-d11e-nfx3.conf
++++ b/meta-enclustra-module/conf/machine/me-aa1-270-2i2-d11e-nfx3.conf
+@@ -6,7 +6,7 @@
+ MACHINEOVERRIDES =. "me-aa1-270-2i2-d11e-nfx3:"
+ 
+ 
+-require conf/machine/include/me-aa1-generic.conf
++require conf/machine/include/me-aa1-generic.inc
+ 
+ 
+ ## override postamble
+diff --git a/meta-enclustra-module/conf/machine/me-aa1-270-3e4-d11e-nfx3.conf b/meta-enclustra-module/conf/machine/me-aa1-270-3e4-d11e-nfx3.conf
+index faf39f7..cde7a95 100644
+--- a/meta-enclustra-module/conf/machine/me-aa1-270-3e4-d11e-nfx3.conf
++++ b/meta-enclustra-module/conf/machine/me-aa1-270-3e4-d11e-nfx3.conf
+@@ -6,7 +6,7 @@
+ MACHINEOVERRIDES =. "me-aa1-270-3e4-d11e-nfx3:"
+ 
+ 
+-require conf/machine/include/me-aa1-generic.conf
++require conf/machine/include/me-aa1-generic.inc
+ 
+ 
+ ## override postamble
+diff --git a/meta-enclustra-module/conf/machine/me-aa1-480-2i3-d12e-nfx3.conf b/meta-enclustra-module/conf/machine/me-aa1-480-2i3-d12e-nfx3.conf
+index 9bdee71..7e61eca 100644
+--- a/meta-enclustra-module/conf/machine/me-aa1-480-2i3-d12e-nfx3.conf
++++ b/meta-enclustra-module/conf/machine/me-aa1-480-2i3-d12e-nfx3.conf
+@@ -6,7 +6,7 @@
+ MACHINEOVERRIDES =. "me-aa1-480-2i3-d12e-nfx3:"
+ 
+ 
+-require conf/machine/include/me-aa1-generic.conf
++require conf/machine/include/me-aa1-generic.inc
+ 
+ 
+ ## override postamble
+diff --git a/meta-enclustra-module/conf/machine/me-sa1-c6-7i-d10.conf b/meta-enclustra-module/conf/machine/me-sa1-c6-7i-d10.conf
+index 8ebf347..c10a760 100644
+--- a/meta-enclustra-module/conf/machine/me-sa1-c6-7i-d10.conf
++++ b/meta-enclustra-module/conf/machine/me-sa1-c6-7i-d10.conf
+@@ -6,7 +6,7 @@
+ MACHINEOVERRIDES =. "me-sa1-c6-7i-d10:"
+ 
+ 
+-require conf/machine/include/me-sa1-generic.conf
++require conf/machine/include/me-sa1-generic.inc
+ 
+ 
+ ## override postamble
+diff --git a/meta-enclustra-module/conf/machine/me-sa2-d6-7i-d11.conf b/meta-enclustra-module/conf/machine/me-sa2-d6-7i-d11.conf
+index e044066..971bdda 100644
+--- a/meta-enclustra-module/conf/machine/me-sa2-d6-7i-d11.conf
++++ b/meta-enclustra-module/conf/machine/me-sa2-d6-7i-d11.conf
+@@ -6,7 +6,7 @@
+ MACHINEOVERRIDES =. "me-sa2-d6-7i-d11:"
+ 
+ 
+-require conf/machine/include/me-sa2-generic.conf
++require conf/machine/include/me-sa2-generic.inc
+ 
+ 
+ ## override postamble
+-- 
+2.52.0
+
