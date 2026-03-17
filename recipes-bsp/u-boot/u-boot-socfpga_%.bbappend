@@ -5,6 +5,10 @@ inherit deploy
 
 do_compile[deptask] = "do_deploy"
 
+SRC_URI:append = " \
+    file://enclustra-user.dts \
+"
+
 SRC_URI:append:me-aa1-generic = " \
     file://adapt-sd-aa1-boot-command-to-use-baseline-fitimage.patch \
     file://fdt.cfg \
@@ -16,8 +20,6 @@ SRC_URI:append:me-aa1-270-2i2-d11e-nfx3 = " \
 do_add_enclustra_files:append:me-aa1-270-2i2-d11e-nfx3() {
     cp ${WORKDIR}/socfpga_enclustra_mercury_st1.dtsi ${S}/arch/arm/dts
 }
-
-SRC_URI:append = " file://enclustra-user.dts"
 
 do_compile:prepend:me-aa1-generic() {
     if [ "${UBOOT_CONFIG}" != "qspi" ]; then
