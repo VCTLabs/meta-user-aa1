@@ -4,7 +4,6 @@ Date: Thu, 22 Jan 2026 16:55:41 -0800
 Subject: [PATCH] chg: dev: adapt sd-aa1.cmd boot command to use baseline
  fitImage
 
-* where "baseline fitImage" loads kernel+devicetree.dtb only
 * this should work fine using DIP switches to set SPI or SDMMC
 
 Signed-off-by: Stephen L Arnold <sarnold@vctlabs.com>
