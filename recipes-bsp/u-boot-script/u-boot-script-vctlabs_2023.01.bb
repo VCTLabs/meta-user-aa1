@@ -7,17 +7,20 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384
 
 DEPENDS = "u-boot-mkimage-native"
 
-SRC_URI = "file://flash.cmd"
+SRC_URI = " \
+    file://flash.cmd \
+    file://flash-legacy.cmd  \
+"
 
 S = "${WORKDIR}"
 
 inherit deploy
 
-FLASHSCRIPT = "${S}/flash.cmd"
+FLASHSCRIPT = "${@bb.utils.contains('KERNEL_IMAGETYPES', 'fitImage', 'flash.cmd', 'flash-legacy.cmd', d)}"
 
 do_mkimage () {
     uboot-mkimage -A arm -O linux -T script -C none -a 0 -e 0 \
-                  -n "boot script" -d ${FLASHSCRIPT} ${S}/flash.scr
+                  -n "qspi flash script" -d ${S}/${FLASHSCRIPT} ${S}/flash.scr
 }
 
 addtask mkimage after do_compile before do_install

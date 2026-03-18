@@ -493,7 +493,7 @@ Note this is condensed from the reference design doc:
 The boot mode switches are shown in the above image as CFG (where only
 the first 2 affect boot mode directly). Confirm the ON direction on your
 board; use a magnifier if necessary. The following boot mode options are
-extracted from the reference design documant link.
+extracted from the reference design document link.
 
 :sdmmc: CFG = [1: OFF, 2: OFF, 3: ON, 4: ON]  (factory default)
 :emmc: CFG = [1: ON, 2: ON, 3: ON, 4: ON]
