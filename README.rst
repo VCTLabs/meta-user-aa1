@@ -81,6 +81,84 @@ FIT image changes
 * replace qspi (initrd) ramdisk with FIT image (initramfs) ramdisk
 * supplement the use of "dev" signing keys with production key processes
 
+
+QSPI address changes
+--------------------
+
+The following table contains both the original QSPI layout vs the new FIT
+layout with fewer artifacts (since the FIT image format contains all the
+required boot artifacts). There are now two flash scripts for QSPI, both
+legacy artifacts and FIT artifacts are supported.
+
+
+.. csv-table:: QSPI addresses and sizes
+   :delim: ;
+   :header: "Name", "Offset", "Script address", "Size", "Name"
+   :widths: 25, 15, 15, 15, 15
+
+   "qspi_offset_addr_spl";"0x0";"0x10000000";"0x100000";"size_spl"
+   "qspi_offset_addr_u-boot";"0x100000";"0x10100000";"0x80000";"size_u-boot"
+   "qspi_offset_addr_u-boot-env";"0x180000";;"0x80000";"size_u-boot-env"
+   "qspi_offset_addr_boot-script";"0x200000";"0x10200000";"0x80000";"size_boot-script"
+   "qspi_offset_addr_devicetree";"0x280000";"0x10300000";"0x40000";"size_devicetree"
+   "qspi_offset_addr_dtoverlay";"0x2c0000";"0x10400000";"0x40000";"size_dtoverlay"
+   "qspi_offset_addr_bitstream";"0x300000";"0x11000000";"0xD00000";"size_bitstream"
+   "qspi_offset_addr_kernel";"0x1000000";"0x12000000";"0x1000000";"size_kernel"
+   "qspi_offset_addr_rootfs";"0x2000000";"0x13000000";"0x2000000";"size_rootfs"
+   ;;;;
+   ;;;;
+   "qspi_offset_addr_spl";"0x0";"0x10000000";"0x100000";"size_spl"
+   "qspi_offset_addr_u-boot";"0x100000";"0x10100000";"0x80000";"size_u-boot"
+   "qspi_offset_addr_u-boot-env";"0x180000";;"0x80000";"size_u-boot-env"
+   "qspi_offset_addr_boot-script";"0x200000";"0x10200000";"0x80000";"size_boot-script"
+   "qspi_offset_addr_bitstream";"0x300000";"0x10300000";"0xD00000";"size_bitstream"
+   "qspi_offset_addr_kernel";"0x1000000";"0x11000000";"0x3000000";"size_kernel"
+
+
+Due to Enclustra `known issue number 1`_ we were unable to complete FIT image
+testing for all boot modes (see the following section).
+
+.. _known issue number 1: https://github.com/enclustra/meta-enclustra-socfpga#1-protection-bits-are-set-in-qspi-flash
+
+Boot mode FIT test results
+--------------------------
+
+FIT image kernel artifacts are intended to replace legacy artifacts for all
+available boot modes, namely TFTP, QSPI, EMMC, and SDMMC. The test results
+are shown in the following table.
+
+Note in the following table **N/T** indicates "Not Testable" because that
+particular combination is not a supported use case, while "unable to test"
+refers to the above known issue with Enclustra eval boards. TFTP from eMMC
+u-boot was not meaningful since it only requires u-boot and loads everything
+into RAM (identical to TFTP from sdmmc).
+
+.. csv-table:: Boot mode FIT tests
+   :delim: ;
+   :header: "UBOOT_CONFIG", "tftp load fit with initramfs", "fit with external rootfs", "fit with initramfs"
+
+   "EMMC";"skipped";"PASS";"PASS"
+   "SDMMC";"PASS";"PASS";"PASS"
+   "QSPI";"PASS";"N/T";"unable to test"
+
+
+Transition to new QSPI flash layout
+-----------------------------------
+
+Before flashing the new QSPI FIT artifacts, the flash MTD partition(s) should
+be fully erased once from the Linux side.
+
+* set the boot mode to QSPI and boot to the Linux prompt
+* run the following command on the first ``/dev/mtd`` partition
+
+::
+
+    # flash_erase /dev/mtd0 0 0x4000000
+
+* power off the board and change the boot mode to SDMMC
+* boot the board and follow the QSPI flash steps
+
+
 New build artifacts
 ~~~~~~~~~~~~~~~~~~~
 
