@@ -10,10 +10,10 @@ require devel-common.inc
 # alternative to debug-tweaks or empty-root-password
 #require initramfs-image-harden.inc
 
-# Do not pollute the initrd image with rootfs features
-IMAGE_FEATURES = "${@bb.utils.contains('EXTRA_IMAGE_FEATURES', 'debug-tweaks', 'empty-root-password', '', d)}"
+# Do not pollute the initrd image with the usual rootfs features
+IMAGE_FEATURES = "${@bb.utils.contains('EXTRA_IMAGE_FEATURES', 'debug-tweaks', 'empty-root-password allow-empty-password allow-root-login', '', d)}"
 
-IMAGE_INSTALL:append = " ${CORE_IMAGE_EXTRA_INSTALL}"
+IMAGE_INSTALL:append = " packagegroup-core-ssh-openssh ${CORE_IMAGE_EXTRA_INSTALL}"
 
 IMAGE_LINGUAS = " "
 
