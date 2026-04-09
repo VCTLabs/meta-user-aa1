@@ -9,5 +9,10 @@
 *.rej
 *~
 .venv/
+
 # misc
 /*.xz
+/*.wic
+
+# keys
+recipes-connectivity/ssh-pregen-hostkeys/ssh-pregen-hostkeys/*_key*
