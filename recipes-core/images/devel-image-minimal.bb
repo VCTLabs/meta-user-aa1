@@ -2,9 +2,6 @@ DESCRIPTION = "DEVEL minimal image"
 
 require devel-common.inc
 
-# allowed to build for baseboard and user machines
-COMPATIBLE_MACHINE = "|me-aa1-270-2i2-d11e-nfx3|me-st1-generic"
-
 IMAGE_LINGUAS = " "
 
 LICENSE = "MIT"
@@ -17,3 +14,5 @@ IMAGE_INSTALL:append = "\
 "
 
 WKS_FILE ??= "devel-image-minimal.wks"
+
+PACKAGE_ARCH = "${MACHINE_ARCH}"

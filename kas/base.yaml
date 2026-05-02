@@ -57,7 +57,10 @@ repos:
         patches:
             p1:
                 repo: meta-enclustra-socfpga
-                path: ../meta-user-aa1/patches/baseline-fixes-required-for-proper-fitImage.patch
+                path: ../meta-user-aa1/patches/enclustra-module-fix-load-addresses-for-yocto.patch
+            p2:
+                repo: meta-enclustra-socfpga
+                path: ../meta-user-aa1/patches/enclustra-module-move-generic-machine-confs.patch
 
     meta-openembedded:
         url: http://git.openembedded.org/meta-openembedded

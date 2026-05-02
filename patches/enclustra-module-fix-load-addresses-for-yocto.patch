@@ -1,0 +1,235 @@
+From a8d845b7ff88fd45721033a8cdc4f00935edb637 Mon Sep 17 00:00:00 2001
+From: Stephen L Arnold <sarnold@vctlabs.com>
+Date: Thu, 22 Jan 2026 14:33:36 -0800
+Subject: [PATCH] chg: dev: set enclustra load addresses for yocto, refactor
+ machine bits
+
+* uncork machine overrides and PACKAGE_EXTRA_ARCHS vars
+* baseline fixes required for yocto kernel load addresses
+
+Signed-off-by: Stephen L Arnold <sarnold@vctlabs.com>
+---
+ .../conf/machine/me-aa1-270-2i2-d11e-nfx3.conf   | 10 +++++-----
+ .../conf/machine/me-aa1-270-3e4-d11e-nfx3.conf   | 10 +++++-----
+ .../conf/machine/me-aa1-480-2i3-d12e-nfx3.conf   | 10 +++++-----
+ .../conf/machine/me-aa1-generic.conf             | 15 +++++----------
+ .../conf/machine/me-sa1-c6-7i-d10.conf           |  6 +++---
+ .../conf/machine/me-sa1-generic.conf             | 16 +++++-----------
+ .../conf/machine/me-sa2-d6-7i-d11.conf           |  6 +++---
+ .../conf/machine/me-sa2-generic.conf             | 16 +++++-----------
+ 8 files changed, 36 insertions(+), 53 deletions(-)
+
+diff --git a/meta-enclustra-module/conf/machine/me-aa1-270-2i2-d11e-nfx3.conf b/meta-enclustra-module/conf/machine/me-aa1-270-2i2-d11e-nfx3.conf
+index a3afb9e..d4ea296 100644
+--- a/meta-enclustra-module/conf/machine/me-aa1-270-2i2-d11e-nfx3.conf
++++ b/meta-enclustra-module/conf/machine/me-aa1-270-2i2-d11e-nfx3.conf
+@@ -1,13 +1,13 @@
+ #@TYPE: Machine
+-#@NAME: Intel SoCFPGA Arria10
+-#@DESCRIPTION: Machine configuration for the Arria 10 SoCFPGA
++#@NAME: Intel SoCFPGA Arria10 Mercury AA1
++#@DESCRIPTION: Machine configuration for the Arria10 AA1 SoCFPGA
+ 
+ ## override preamble
+-MACHINEOVERRIDES =. "${@['', 'me-aa1-270-2i2-d11e-nfx3:']['me-aa1-270-2i2-d11e-nfx3' != '${MACHINE}']}"
++MACHINEOVERRIDES =. "me-aa1-270-2i2-d11e-nfx3:"
+ 
+ 
+-require me-aa1-generic.conf
++require conf/machine/include/me-aa1-generic.conf
+ 
+ 
+ ## override postamble
+-PACKAGE_EXTRA_ARCHS:append = "${@['', ' me-aa1-270-2i2-d11e-nfx3']['me-aa1-270-2i2-d11e-nfx3' != "${MACHINE}"]}"
++PACKAGE_EXTRA_ARCHS:append = " me-aa1-270-2i2-d11e-nfx3"
+diff --git a/meta-enclustra-module/conf/machine/me-aa1-270-3e4-d11e-nfx3.conf b/meta-enclustra-module/conf/machine/me-aa1-270-3e4-d11e-nfx3.conf
+index d004d80..faf39f7 100644
+--- a/meta-enclustra-module/conf/machine/me-aa1-270-3e4-d11e-nfx3.conf
++++ b/meta-enclustra-module/conf/machine/me-aa1-270-3e4-d11e-nfx3.conf
+@@ -1,13 +1,13 @@
+ #@TYPE: Machine
+-#@NAME: Intel SoCFPGA Arria10
+-#@DESCRIPTION: Machine configuration for the Arria 10 SoCFPGA
++#@NAME: Intel SoCFPGA Arria10 Mercury AA1
++#@DESCRIPTION: Machine configuration for the Arria10 AA1 SoCFPGA
+ 
+ ## override preamble
+-MACHINEOVERRIDES =. "${@['', 'me-aa1-270-3e4-d11e-nfx3:']['me-aa1-270-3e4-d11e-nfx3' != '${MACHINE}']}"
++MACHINEOVERRIDES =. "me-aa1-270-3e4-d11e-nfx3:"
+ 
+ 
+-require me-aa1-generic.conf
++require conf/machine/include/me-aa1-generic.conf
+ 
+ 
+ ## override postamble
+-PACKAGE_EXTRA_ARCHS:append = "${@['', ' me-aa1-270-3e4-d11e-nfx3']['me-aa1-270-3e4-d11e-nfx3' != "${MACHINE}"]}"
++PACKAGE_EXTRA_ARCHS:append = " me-aa1-270-3e4-d11e-nfx3"
+diff --git a/meta-enclustra-module/conf/machine/me-aa1-480-2i3-d12e-nfx3.conf b/meta-enclustra-module/conf/machine/me-aa1-480-2i3-d12e-nfx3.conf
+index 30e4d87..9bdee71 100644
+--- a/meta-enclustra-module/conf/machine/me-aa1-480-2i3-d12e-nfx3.conf
++++ b/meta-enclustra-module/conf/machine/me-aa1-480-2i3-d12e-nfx3.conf
+@@ -1,13 +1,13 @@
+ #@TYPE: Machine
+-#@NAME: Intel SoCFPGA Arria10
+-#@DESCRIPTION: Machine configuration for the Arria 10 SoCFPGA
++#@NAME: Intel SoCFPGA Arria10 Mercury AA1
++#@DESCRIPTION: Machine configuration for the Arria10 AA1 SoCFPGA
+ 
+ ## override preamble
+-MACHINEOVERRIDES =. "${@['', 'me-aa1-480-2i3-d12e-nfx3:']['me-aa1-480-2i3-d12e-nfx3' != '${MACHINE}']}"
++MACHINEOVERRIDES =. "me-aa1-480-2i3-d12e-nfx3:"
+ 
+ 
+-require me-aa1-generic.conf
++require conf/machine/include/me-aa1-generic.conf
+ 
+ 
+ ## override postamble
+-PACKAGE_EXTRA_ARCHS:append = "${@['', ' me-aa1-480-2i3-d12e-nfx3']['me-aa1-480-2i3-d12e-nfx3' != "${MACHINE}"]}"
++PACKAGE_EXTRA_ARCHS:append = " me-aa1-480-2i3-d12e-nfx3"
+diff --git a/meta-enclustra-module/conf/machine/me-aa1-generic.conf b/meta-enclustra-module/conf/machine/me-aa1-generic.conf
+index 86782ad..5837850 100644
+--- a/meta-enclustra-module/conf/machine/me-aa1-generic.conf
++++ b/meta-enclustra-module/conf/machine/me-aa1-generic.conf
+@@ -1,9 +1,4 @@
+-#@TYPE: Machine
+-#@NAME: Intel SoCFPGA Arria10
+-#@DESCRIPTION: Machine configuration for the Arria 10 SoCFPGA
+-
+-## override preamble
+-MACHINEOVERRIDES =. "${@['', 'me-aa1-generic:']['me-aa1-generic' != '${MACHINE}']}"
++MACHINEOVERRIDES:prepend = "enclustra:me-aa1-generic:"
+ 
+ require conf/machine/include/socfpga.inc
+ 
+@@ -16,7 +11,10 @@ UBOOT_CONFIG[emmc]  = "socfpga_enclustra_mercury_aa1_defconfig"
+ UBOOT_CONFIG[qspi] = "socfpga_enclustra_mercury_aa1_defconfig"
+ 
+ KERNEL_IMAGETYPE = "uImage"
+-KERNEL_EXTRA_ARGS += "LOADADDR=0x8000"
++UBOOT_LOADADDRESS = "0x00008000"
++UBOOT_ENTRYPOINT = "0x00008000"
++# required to build uImage
++KERNEL_EXTRA_ARGS += "LOADADDR=${UBOOT_LOADADDRESS}"
+ 
+ IMAGE_FSTYPES = "cpio.gz.u-boot wic.bmap tar.gz"
+ 
+@@ -41,6 +39,3 @@ IMAGE_BOOT_FILES ?= " \
+ "
+ 
+ SERIAL_CONSOLES ?= "115200;ttyS0"
+-
+-## override postamble
+-PACKAGE_EXTRA_ARCHS:append = "${@['', ' me-aa1-generic']['me-aa1-generic' != "${MACHINE}"]}"
+diff --git a/meta-enclustra-module/conf/machine/me-sa1-c6-7i-d10.conf b/meta-enclustra-module/conf/machine/me-sa1-c6-7i-d10.conf
+index d9bad65..8ebf347 100644
+--- a/meta-enclustra-module/conf/machine/me-sa1-c6-7i-d10.conf
++++ b/meta-enclustra-module/conf/machine/me-sa1-c6-7i-d10.conf
+@@ -3,11 +3,11 @@
+ #@DESCRIPTION: Machine configuration for the Cyclone V SA1 SoCFPGA
+ 
+ ## override preamble
+-MACHINEOVERRIDES =. "${@['', 'me-sa1-c6-7i-d10:']['me-sa1-c6-7i-d10' != '${MACHINE}']}"
++MACHINEOVERRIDES =. "me-sa1-c6-7i-d10:"
+ 
+ 
+-require me-sa1-generic.conf
++require conf/machine/include/me-sa1-generic.conf
+ 
+ 
+ ## override postamble
+-PACKAGE_EXTRA_ARCHS:append = "${@['', ' me-sa1-c6-7i-d10']['me-sa1-c6-7i-d10' != "${MACHINE}"]}"
++PACKAGE_EXTRA_ARCHS:append = " me-sa1-c6-7i-d10"
+diff --git a/meta-enclustra-module/conf/machine/me-sa1-generic.conf b/meta-enclustra-module/conf/machine/me-sa1-generic.conf
+index 25e877b..1200821 100644
+--- a/meta-enclustra-module/conf/machine/me-sa1-generic.conf
++++ b/meta-enclustra-module/conf/machine/me-sa1-generic.conf
+@@ -1,10 +1,4 @@
+-#@TYPE: Machine
+-#@NAME: Intel SoCFPGA CycloneV SA1
+-#@DESCRIPTION: Machine configuration for the Cyclone V SA1 SoCFPGA
+-
+-## override preamble
+-MACHINEOVERRIDES =. "${@['', 'me-sa1-generic:']['me-sa1-generic' != '${MACHINE}']}"
+-
++MACHINEOVERRIDES:prepend = "enclustra:me-sa1-generic:"
+ 
+ require conf/machine/include/socfpga.inc
+ 
+@@ -14,7 +8,10 @@ UBOOT_CONFIG[emmc]  = "socfpga_enclustra_mercury_sa1_mmc_defconfig"
+ UBOOT_CONFIG[qspi]  = "socfpga_enclustra_mercury_sa1_qspi_defconfig"
+ 
+ KERNEL_IMAGETYPE = "uImage"
+-KERNEL_EXTRA_ARGS += "LOADADDR=0x8000"
++UBOOT_LOADADDRESS = "0x00008000"
++UBOOT_ENTRYPOINT = "0x00008000"
++# required to build uImage
++KERNEL_EXTRA_ARGS += "LOADADDR=${UBOOT_LOADADDRESS}"
+ 
+ IMAGE_FSTYPES = "cpio.gz.u-boot tar.gz wic.bmap"
+ 
+@@ -32,6 +29,3 @@ IMAGE_BOOT_FILES ?= " \
+ "
+ 
+ SERIAL_CONSOLES ?= "115200;ttyS0"
+-
+-## override postamble
+-PACKAGE_EXTRA_ARCHS:append = "${@['', ' me-sa1-generic']['me-sa1-generic' != "${MACHINE}"]}"
+diff --git a/meta-enclustra-module/conf/machine/me-sa2-d6-7i-d11.conf b/meta-enclustra-module/conf/machine/me-sa2-d6-7i-d11.conf
+index 01b5825..e044066 100644
+--- a/meta-enclustra-module/conf/machine/me-sa2-d6-7i-d11.conf
++++ b/meta-enclustra-module/conf/machine/me-sa2-d6-7i-d11.conf
+@@ -3,11 +3,11 @@
+ #@DESCRIPTION: Machine configuration for the CycloneV SA2 SoCFPGA
+ 
+ ## override preamble
+-MACHINEOVERRIDES =. "${@['', 'me-sa2-d6-7i-d11:']['me-sa2-d6-7i-d11' != '${MACHINE}']}"
++MACHINEOVERRIDES =. "me-sa2-d6-7i-d11:"
+ 
+ 
+-require me-sa2-generic.conf
++require conf/machine/include/me-sa2-generic.conf
+ 
+ 
+ ## override postamble
+-PACKAGE_EXTRA_ARCHS:append = "${@['', ' me-sa2-d6-7i-d11']['me-sa2-d6-7i-d11' != "${MACHINE}"]}"
++PACKAGE_EXTRA_ARCHS:append = " me-sa2-d6-7i-d11"
+diff --git a/meta-enclustra-module/conf/machine/me-sa2-generic.conf b/meta-enclustra-module/conf/machine/me-sa2-generic.conf
+index cfe0b35..79912d2 100644
+--- a/meta-enclustra-module/conf/machine/me-sa2-generic.conf
++++ b/meta-enclustra-module/conf/machine/me-sa2-generic.conf
+@@ -1,10 +1,4 @@
+-#@TYPE: Machine
+-#@NAME: Intel SoCFPGA CycloneV SA2
+-#@DESCRIPTION: Machine configuration for the CycloneV SA2 SoCFPGA
+-
+-## override preamble
+-MACHINEOVERRIDES =. "${@['', 'me-sa2-generic:']['me-sa2-generic' != '${MACHINE}']}"
+-
++MACHINEOVERRIDES:prepend = "enclustra:me-sa2-generic:"
+ 
+ require conf/machine/include/socfpga.inc
+ 
+@@ -13,7 +7,10 @@ UBOOT_CONFIG[sdmmc] = "socfpga_enclustra_mercury_sa2_mmc_defconfig"
+ UBOOT_CONFIG[qspi]  = "socfpga_enclustra_mercury_sa2_qspi_defconfig"
+ 
+ KERNEL_IMAGETYPE = "uImage"
+-KERNEL_EXTRA_ARGS += "LOADADDR=0x8000"
++UBOOT_LOADADDRESS = "0x00008000"
++UBOOT_ENTRYPOINT = "0x00008000"
++# required to build uImage
++KERNEL_EXTRA_ARGS += "LOADADDR=${UBOOT_LOADADDRESS}"
+ 
+ IMAGE_FSTYPES = "cpio.gz.u-boot tar.gz wic.bmap"
+ 
+@@ -31,6 +28,3 @@ IMAGE_BOOT_FILES ?= " \
+ "
+ 
+ SERIAL_CONSOLES ?= "115200;ttyS0"
+-
+-## override postamble
+-PACKAGE_EXTRA_ARCHS:append = "${@['', ' me-sa2-generic']['me-sa2-generic' != "${MACHINE}"]}"
+-- 
+2.52.0
+

@@ -16,6 +16,9 @@ env:
 
 local_conf_header:
     dev: |
+        # remove the following mask to enable ssh-pregen-hostkeys
+        BBMASK += "meta-user-aa1/recipes-connectivity/openssh/openssh_%.bbappend"
+
         IMAGE_FSTYPES:append = " wic.xz ext4 cpio.gz"
 
         PACKAGE_CLASSES ?= "package_${PACKAGE_FEED_TYPE}"
