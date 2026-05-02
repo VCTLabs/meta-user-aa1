@@ -74,6 +74,9 @@ repos:
 
 local_conf_header:
     base: |
+        # remove the following masks to enable ssh-pregen-hostkeys
+        BBMASK += "recipes-connectivity/ssh-pregen-hostkeys/ssh-pregen-hostkeys.*\.bb"
+        BBMASK += "meta-user-aa1/recipes-connectivity/openssh/openssh.*\.bbappend"
         PATCHRESOLVE = "noop"
         IMAGE_FSTYPES:append = " wic"
         IMAGE_INSTALL:remove = "distro-feed-configs"
