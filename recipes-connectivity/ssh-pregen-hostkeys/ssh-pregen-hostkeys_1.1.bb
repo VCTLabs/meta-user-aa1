@@ -11,6 +11,9 @@ SRC_URI = " \
 
 # SRC_URI:append = "file://dropbear_rsa_host_key file://dropbear_ed25519_host_key"
 
+# this allows bad checksum with only a warning - use with caution
+BB_STRICT_CHECKSUM = "0"
+
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
