@@ -83,7 +83,7 @@ local_conf_header:
         PATCHRESOLVE = "noop"
         IMAGE_FSTYPES:append = " wic"
         IMAGE_INSTALL:remove = "distro-feed-configs"
-        CORE_IMAGE_EXTRA_INSTALL:append = " nano hellogitcmake"
+        CORE_IMAGE_EXTRA_INSTALL:append = " nano hellogitcmake u-boot-tools"
         EXTRA_IMAGEDEPENDS:append = " u-boot-script-vctlabs"
         EXTRA_IMAGE_FEATURES:append = " package-management ssh-server-openssh"
         EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
