@@ -1,0 +1,23 @@
+header:
+    version: 14
+
+repos:
+    meta-swupdate:
+        url: https://github.com/sbabic/meta-swupdate.git
+        branch: mickledore
+        path: "layers/meta-swupdate"
+        patches:
+            p1:
+                repo: meta-swupdate
+                path: ../meta-user-aa1/patches/meta-swupdate-backport-newer-version-on-mickledore.patch
+
+local_conf_header:
+    swupdate: |
+        PREFERRED_VERSION_swupdate = "2023.12.1"
+        WKS_FILE = "sdcard-vfat-boot-ab.wks"
+        WIC_CREATE_EXTRA_ARGS = "--no-fstab-update"
+        IMAGE_FSTYPES += "ext4.gz"
+        CORE_IMAGE_EXTRA_INSTALL:append = " swupdate update-tools"
+        CORE_IMAGE_EXTRA_INSTALL:append = " ${@bb.utils.contains('INIT_MANAGER', 'systemd', 'swupdate-usb', '', d)}"
+        PREFERRED_PROVIDER_u-boot-fw-utils = "libubootenv"
+        # swupdate adds root=a/b for dual-root conf
