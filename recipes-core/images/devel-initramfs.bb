@@ -1,3 +1,8 @@
+require initramfs-common.inc
+
+# alternative to debug-tweaks or empty-root-password
+#require initramfs-image-harden.inc
+
 DESCRIPTION = "initramfs devel image"
 LICENSE = "MIT"
 
@@ -6,14 +11,13 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 # try to avoid dependency loops
 EXTRA_IMAGEDEPENDS = ""
 
-require devel-common.inc
-# alternative to debug-tweaks or empty-root-password
-#require initramfs-image-harden.inc
-
 # Do not pollute the initrd image with the usual rootfs features
 IMAGE_FEATURES = "${@bb.utils.contains('EXTRA_IMAGE_FEATURES', 'debug-tweaks', 'empty-root-password allow-empty-password allow-root-login', '', d)}"
 
-IMAGE_INSTALL:append = " packagegroup-core-ssh-openssh ${CORE_IMAGE_EXTRA_INSTALL}"
+IMAGE_INSTALL:append = " \
+    packagegroup-core-ssh-openssh \
+    ${CORE_IMAGE_EXTRA_INSTALL} \
+"
 
 IMAGE_LINGUAS = " "
 
@@ -32,7 +36,7 @@ IMAGE_OVERHEAD_FACTOR = "1.0"
 PACKAGE_EXCLUDE += "kernel-image-* resize-helper"
 
 IMAGE_ROOTFS_SIZE = "16384"
-IMAGE_ROOTFS_EXTRA_SPACE = "0"
+IMAGE_ROOTFS_EXTRA_SPACE = "${@bb.utils.contains("DISTRO_FEATURES", "systemd", " + 4096", "", d)}"
 BAD_RECOMMENDATIONS += "busybox-syslog"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"

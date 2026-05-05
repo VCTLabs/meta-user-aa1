@@ -1,11 +1,9 @@
-# include file for devel images
+# include file for initramfs images
 # packages added to CORE_IMAGE_EXTRA_INSTALL are installed in every image
 
 IMAGE_INSTALL = "\
     packagegroup-core-boot \
     kernel-modules \
-    bash-completion-extra \
-    iproute2 \
     procps \
     i2c-tools \
     mtd-utils \
@@ -17,8 +15,6 @@ IMAGE_INSTALL = "\
     hdparm \
     phytool \
     memtester \
-    e2fsprogs \
-    e2fsprogs-resize2fs \
     libuio-ng \
 "
 
