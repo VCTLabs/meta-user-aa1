@@ -1,4 +1,4 @@
-DESCRIPTION = "DEVEL minimal image"
+DESCRIPTION = "DEVEL minimal image for mmc"
 
 require devel-common.inc
 
