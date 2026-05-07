@@ -5,70 +5,71 @@ software =
 
         hardware-compatibility: ["1.0"];
 
-        copy1 : {
-                images: (
-                        {
-                                filename = "@@SWUPDATE_IMAGES@@-@@MACHINE@@.rootf.ext4.gz";
-                                sha256 = "$swupdate_get_sha256(@@SWUPDATE_IMAGES@@-@@MACHINE@@.rootfs.ext4.gz)";
-                                device = "/dev/mmcblk0p3";
-                                compressed = "zlib";
-                        }
-                );
-                scripts: (
-                        {
-                                filename = "preinstall.sh";
-                                sha256 = "$swupdate_get_sha256(preinstall.sh)";
-                                type = "preinstall";
-                        },
-                        {
-                                filename = "postinstall.sh";
-                                sha256 = "$swupdate_get_sha256(postinstall.sh)";
-                                type = "postinstall";
-                        }
-                );
-                bootenv: (
-                        {
-                                name = "partition";
-                                value = "3";
-                        },
-                        {
-                                name = "ustate";
-                                value = "1";
-                        }
-                );
+        stable : {
+                copy1 : {
+                        images: (
+                                {
+                                        filename = "@@SWUPDATE_IMAGES@@-@@MACHINE@@.ext4.gz";
+                                        sha256 = "$swupdate_get_sha256(@@SWUPDATE_IMAGES@@-@@MACHINE@@.ext4.gz)";
+                                        device = "/dev/mmcblk0p3";
+                                        compressed = "zlib";
+                                }
+                        );
+                        scripts: (
+                                {
+                                        filename = "preinstall.sh";
+                                        sha256 = "$swupdate_get_sha256(preinstall.sh)";
+                                        type = "preinstall";
+                                },
+                                {
+                                        filename = "postinstall.sh";
+                                        sha256 = "$swupdate_get_sha256(postinstall.sh)";
+                                        type = "postinstall";
+                                }
+                        );
+                        bootenv: (
+                                {
+                                        name = "partition";
+                                        value = "3";
+                                },
+                                {
+                                        name = "ustate";
+                                        value = "1";
+                                }
+                        );
 
-        };
-        copy2 : {
-                images: (
-                        {
-                                filename = "@@SWUPDATE_IMAGES@@-@@MACHINE@@.rootfs.ext4.gz";
-                                sha256 = "$swupdate_get_sha256(@@SWUPDATE_IMAGES@@-@@MACHINE@@.rootfs.ext4.gz)";
-                                device = "/dev/mmcblk0p4";
-                                compressed = "zlib";
-                        }
-                );
-                scripts: (
-                        {
-                                filename = "preinstall.sh";
-                                sha256 = "$swupdate_get_sha256(preinstall.sh)";
-                                type = "preinstall";
-                        },
-                        {
-                                filename = "postinstall.sh";
-                                sha256 = "$swupdate_get_sha256(postinstall.sh)";
-                                type = "postinstall";
-                        }
-                );
-                bootenv: (
-                        {
-                                name = "partition";
-                                value = "4";
-                        },
-                        {
-                                name = "ustate";
-                                value = "1";
-                        }
-                );
-
+                };
+                copy2 : {
+                        images: (
+                                {
+                                        filename = "@@SWUPDATE_IMAGES@@-@@MACHINE@@.ext4.gz";
+                                        sha256 = "$swupdate_get_sha256(@@SWUPDATE_IMAGES@@-@@MACHINE@@.ext4.gz)";
+                                        device = "/dev/mmcblk0p4";
+                                        compressed = "zlib";
+                                }
+                        );
+                        scripts: (
+                                {
+                                        filename = "preinstall.sh";
+                                        sha256 = "$swupdate_get_sha256(preinstall.sh)";
+                                        type = "preinstall";
+                                },
+                                {
+                                        filename = "postinstall.sh";
+                                        sha256 = "$swupdate_get_sha256(postinstall.sh)";
+                                        type = "postinstall";
+                                }
+                        );
+                        bootenv: (
+                                {
+                                        name = "partition";
+                                        value = "4";
+                                },
+                                {
+                                        name = "ustate";
+                                        value = "1";
+                                }
+                        );
+                };
         };
 }

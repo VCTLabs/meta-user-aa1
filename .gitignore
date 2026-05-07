@@ -13,6 +13,7 @@
 # misc
 /*.xz
 /*.wic
+/*.swu
 
 # keys
 recipes-connectivity/ssh-pregen-hostkeys/ssh-pregen-hostkeys/*_key*

@@ -1,6 +1,8 @@
 # include file for devel images
 # packages added to CORE_IMAGE_EXTRA_INSTALL are installed in every image
 
+IMAGE_FSTYPES:append = " ext4.gz"
+
 IMAGE_INSTALL = "\
     packagegroup-core-boot \
     kernel-modules \
@@ -22,7 +24,17 @@ IMAGE_INSTALL = "\
     libuio-ng \
 "
 
-ROOTFS_POSTPROCESS_COMMAND:append = " remove_sysvinit_files;"
+ROOTFS_POSTPROCESS_COMMAND:append = " update_boot_fitimage; remove_sysvinit_files;"
+
+update_boot_fitimage() {
+    #!/bin/sh -e
+    # workaround for packaged fitImage kernel lagging behind the deployed
+    # fitImage kernel signature
+
+    if echo ${KERNEL_IMAGETYPES} | grep -wq "fitImage"; then
+        install -m 0644 ${DEPLOY_DIR_IMAGE}/fitImage ${IMAGE_ROOTFS}/boot/
+    fi
+}
 
 remove_sysvinit_files() {
     #!/bin/sh -e
@@ -33,3 +45,5 @@ remove_sysvinit_files() {
         rm -f ${IMAGE_ROOTFS}${sysconfdir}/init.d/sshd
     fi
 }
+
+do_rootfs[depends] += "virtual/kernel:do_deploy"

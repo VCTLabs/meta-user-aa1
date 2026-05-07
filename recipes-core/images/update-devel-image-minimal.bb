@@ -17,4 +17,4 @@ IMAGE_DEPENDS = "devel-image-minimal"
 # images and files that will be included in the .swu image
 SWUPDATE_IMAGES = "devel-image-minimal"
 
-SWUPDATE_IMAGES_FSTYPES[devel-image-minimal] = ".rootfs.ext4.gz"
+SWUPDATE_IMAGES_FSTYPES[devel-image-minimal] = ".ext4.gz"
