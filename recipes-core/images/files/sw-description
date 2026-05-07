@@ -4,7 +4,6 @@ software =
         description = "@@DESCRIPTION@@";
 
         hardware-compatibility: ["1.0"];
-        reboot = false;
 
         copy1 : {
                 images: (
@@ -13,14 +12,6 @@ software =
                                 sha256 = "$swupdate_get_sha256(@@SWUPDATE_IMAGES@@-@@MACHINE@@.rootfs.ext4.gz)";
                                 device = "/dev/mmcblk0p3";
                                 compressed = "zlib";
-                        }
-                );
-                files: (
-                        {
-                                filename = "bitstream.itb";
-                                path = "/bitstream.itb";
-                                device = "/dev/mmcblk0p1";
-                                filesystem = "vfat";
                         }
                 );
                 scripts: (
