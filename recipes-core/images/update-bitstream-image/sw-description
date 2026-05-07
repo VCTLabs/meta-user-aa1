@@ -1,0 +1,27 @@
+software =
+{
+        version = "0.1.0";
+        description = "bitstream image containing fpga firmware";
+
+        hardware-compatibility: ["1.0"];
+
+        files: (
+                {
+                        filename = "bitstream.itb";
+                        path = "/bitstream.itb";
+                        device = "/dev/mmcblk0p1";
+                        filesystem = "vfat";
+                }
+        );
+
+        scripts: (
+                {
+                        filename = "preinstall.sh";
+                        type = "preinstall";
+                },
+                {
+                        filename = "postinstall.sh";
+                        type = "postinstall";
+                }
+        );
+}
