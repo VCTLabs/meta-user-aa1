@@ -83,7 +83,7 @@ local_conf_header:
         PATCHRESOLVE = "noop"
         IMAGE_FSTYPES:append = " wic"
         IMAGE_INSTALL:remove = "distro-feed-configs"
-        CORE_IMAGE_EXTRA_INSTALL:append = " nano hellogitcmake u-boot-tools"
+        CORE_IMAGE_EXTRA_INSTALL:append = " nano hellogitcmake"
         EXTRA_IMAGEDEPENDS:append = " u-boot-script-vctlabs"
         EXTRA_IMAGE_FEATURES:append = " package-management ssh-server-openssh"
         EXTRA_IMAGE_FEATURES:append = " debug-tweaks"
@@ -95,3 +95,4 @@ local_conf_header:
         PREFERRED_VERSION_u-boot-socfpga = "v2023.01%"
         PREFERRED_PROVIDER_virtual/kernel = "linux-socfpga-lts"
         PREFERRED_VERSION_linux-socfpga = "6.1%"
+        ROOT_HOME = "/root"
