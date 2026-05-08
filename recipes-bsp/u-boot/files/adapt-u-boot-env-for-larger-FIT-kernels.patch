@@ -7,35 +7,22 @@ Subject: [PATCH] chg: dev: adapt Mercury AA1 u-boot env for larger FIT kernels
 
 Signed-off-by: Stephen L Arnold <sarnold@vctlabs.com>
 ---
- include/configs/socfpga_mercury_aa1.h | 8 +-------
- 1 file changed, 1 insertion(+), 7 deletions(-)
+ include/configs/socfpga_mercury_aa1.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/include/configs/socfpga_mercury_aa1.h b/include/configs/socfpga_mercury_aa1.h
-index f368935fe0a..5767aad800a 100644
+index 02882e88a82..951035b3c6e 100644
 --- a/include/configs/socfpga_mercury_aa1.h
 +++ b/include/configs/socfpga_mercury_aa1.h
-@@ -30,20 +30,14 @@
-     "qspi_offset_addr_u-boot=0x100000\0" \
-     "qspi_offset_addr_u-boot-env=0x180000\0" \
-     "qspi_offset_addr_boot-script=0x200000\0" \
--    "qspi_offset_addr_devicetree=0x280000\0" \
--    "qspi_offset_addr_dtoverlay=0x2c0000\0" \
-     "qspi_offset_addr_bitstream=0x300000\0" \
-     "qspi_offset_addr_kernel=0x1000000\0" \
--    "qspi_offset_addr_rootfs=0x2000000\0" \
-     "size_spl=0x100000\0" \
-     "size_u-boot=0x80000\0" \
-     "size_u-boot-env=0x80000\0" \
-     "size_boot-script=0x80000\0" \
--    "size_devicetree=0x40000\0" \
--    "size_dtoverlay=0x40000\0" \
+@@ -42,7 +42,7 @@
+     "size_devicetree=0x40000\0" \
+     "size_dtoverlay=0x40000\0" \
      "size_bitstream=0xD00000\0" \
 -    "size_kernel=0x1000000\0" \
--    "size_rootfs=0x2000000\0" \
 +    "size_kernel=0x3000000\0" \
+     "size_rootfs=0x2000000\0" \
      "ram_addr_rootfs=0x12000000\0" \
      "ram_addr_kernel=0x11000000\0" \
-     "ram_addr_devicetree=0x10000000\0" \
 -- 
-2.52.0
+2.47.3
 
