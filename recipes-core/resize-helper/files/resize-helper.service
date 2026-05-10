@@ -2,7 +2,6 @@
 Description=Resize last partition to fit available disk space
 Wants=systemd-udevd.service systemd-udev-trigger.service
 After=systemd-remount-fs.service systemd-udevd.service
-Before=serial-getty@ttyS0.service serial-getty@ttyS1.service getty@tty1.service getty@tty2.service getty@tty3.service getty@tty4.service getty@tty5.service getty@tty6.service
 
 [Service]
 Type=oneshot

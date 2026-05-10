@@ -25,7 +25,7 @@ remove_sysvinit_files() {
     # Remove init scripts from /etc/init.d directory
 
     if [ "${@bb.utils.contains('INIT_MANAGER', 'systemd', 'yes', 'no', d)}" = "yes" ]; then
-        rm -f ${IMAGE_ROOTFS}${sysconfdir}/init.d/resize-last
+        rm -f ${IMAGE_ROOTFS}${sysconfdir}/init.d/resize-helper
         rm -f ${IMAGE_ROOTFS}${sysconfdir}/init.d/sshd
     fi
 }
