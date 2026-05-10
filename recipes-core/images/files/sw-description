@@ -12,7 +12,9 @@ software =
                                         filename = "@@SWUPDATE_IMAGES@@-@@MACHINE@@.ext4.gz";
                                         sha256 = "$swupdate_get_sha256(@@SWUPDATE_IMAGES@@-@@MACHINE@@.ext4.gz)";
                                         device = "/dev/mmcblk0p3";
+                                        type = "raw";
                                         compressed = "zlib";
+                                        installed-directly = true;
                                 }
                         );
                         scripts: (
@@ -45,7 +47,9 @@ software =
                                         filename = "@@SWUPDATE_IMAGES@@-@@MACHINE@@.ext4.gz";
                                         sha256 = "$swupdate_get_sha256(@@SWUPDATE_IMAGES@@-@@MACHINE@@.ext4.gz)";
                                         device = "/dev/mmcblk0p4";
+                                        type = "raw";
                                         compressed = "zlib";
+                                        installed-directly = true;
                                 }
                         );
                         scripts: (
