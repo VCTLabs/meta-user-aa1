@@ -6,7 +6,7 @@
 # Required-Stop:
 # Default-Start:        S
 # Default-Stop:
-# Short-Description:  Resize the last partition
+# Short-Description:  Resize the root partition
 ### END INIT INFO
 
 
@@ -14,7 +14,7 @@ case "$1" in
   start)
     reboot=false
 
-    echo "Expanding last partition..."
+    echo "Expanding root partition..."
 
     /usr/sbin/resize-helper
 
@@ -25,7 +25,7 @@ case "$1" in
         echo "Expanding partition success"
     fi
 
-    update-rc.d -f resize-last remove >/dev/null 2>&1
+    update-rc.d -f resize-helper remove >/dev/null 2>&1
 
   ;;
 
