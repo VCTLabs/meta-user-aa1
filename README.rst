@@ -406,6 +406,28 @@ To apply an A/B root update, use something like the following arguments:
 [INFO ] : SWUPDATE running :  [endupdate] : SWUpdate was successful !
 [DEBUG] : SWUPDATE running :  [postupdate] : Running Post-update command
 
+u-boot bootcount vars
+---------------------
+
+:bootlimit: max bootcount allowed before ``altbootcmd`` is executed
+:bootcount: set to 1 after a power-on reset, and each reboot will increment
+            the value by 1
+:upgrade_available: if ``upgrade_available`` is 0, ``bootcount`` is not saved,
+                    but if ``upgrade_available`` is 1, ``bootcount`` is saved
+
+  ..important:: If ``bootlimit`` is enabled, but ``altbootcmd`` is not
+    defined, then U-Boot will drop into interactive mode and remain there.
+
+states relative to swupdate
+---------------------------
+
+When ``bootlimit=3``:
+
+:good: Running current image: ``bootcount`` undefined - ``upgrade_available=0``
+:testing: Trying to boot new image: ``bootcount<=3`` - ``upgrade_available=1``
+:fail: New image boot failed to boot more than ``bootlimit`` times:
+       ``bootcount>3`` - ``upgrade_available=0`` and run ``altbootcmd``
+
 
 Custom machine overrides
 ========================
