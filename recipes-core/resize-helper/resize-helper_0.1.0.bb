@@ -20,13 +20,13 @@ SRC_URI = " \
 S = "${WORKDIR}"
 
 do_install () {
-	install -d ${D}${sbindir}
-	install -m 0755 ${S}/resize-helper ${D}${sbindir}
+    install -d ${D}${sbindir}
+    install -m 0755 ${S}/resize-helper ${D}${sbindir}
 
     install -d ${D}${sysconfdir}/init.d
     install -m 0755 ${WORKDIR}/resize-helper.init ${D}${sysconfdir}/init.d/resize-helper
-	install -d ${D}${systemd_system_unitdir}
-	install -m 0644 ${S}/resize-helper.service ${D}${systemd_system_unitdir}
+    install -d ${D}${systemd_system_unitdir}
+    install -m 0644 ${S}/resize-helper.service ${D}${systemd_system_unitdir}
 }
 
 INITSCRIPT_NAME = "resize-helper"

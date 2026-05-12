@@ -30,14 +30,7 @@ software =
                                 }
                         );
                         bootenv: (
-                                {
-                                        name = "partition";
-                                        value = "3";
-                                },
-                                {
-                                        name = "ustate";
-                                        value = "1";
-                                }
+                            { name = "partition"; value = "3"; },
                         );
 
                 };
@@ -65,14 +58,7 @@ software =
                                 }
                         );
                         bootenv: (
-                                {
-                                        name = "partition";
-                                        value = "4";
-                                },
-                                {
-                                        name = "ustate";
-                                        value = "1";
-                                }
+                            { name = "partition"; value = "4"; },
                         );
                 };
         };
