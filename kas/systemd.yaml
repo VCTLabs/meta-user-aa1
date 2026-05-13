@@ -5,6 +5,7 @@ header:
     - kas/fit.yaml
     - kas/vboot.yaml
     - kas/enclustra.yaml
+    - kas/swu.yaml
 
 local_conf_header:
   systemd: |

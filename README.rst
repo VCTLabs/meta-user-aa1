@@ -32,6 +32,12 @@ This layer depends on meta-intel-fpga and OE core:
 * branch: mickledore
 * layer: meta-oe
 
+This layer also depends on meta-swupdate for SW updates on target devices.
+
+* URI: https://github.com/sbabic/meta-swupdate
+* branch: mickledore
+* layer: meta-swupdate
+
 This layer also still depends on the meta-enclustra-socfpga module layer for user
 machine compatibility, eg, the initial ``me-aa1-270-2i2-d11e-nfx3`` machine and
 related recipes:
@@ -351,6 +357,76 @@ Then copy them the recipe folder::
                really do need to pregenerate keys for a production image,
                then you should absolutely have a proper first-boot or mount
                an overlay where keys can be generated for each device.
+
+SWUpdate support
+================
+
+Support for SWUpdate is still WIP, with initial swupdate image support for
+the following:
+
+* A/B rootfs updates via `update-devel-image-minimal.bb`
+* bitstream file updates (with orig file backup) via `update-bitstream-image.bb`
+
+To manually apply updates (as root) after copying to the device with
+short names::
+
+  # swupdate -v -i update-bitstream.swu
+  ...
+  [TRACE] : SWUPDATE running :  [__run_cmd] : /tmp/scripts/preinstall.sh   command returned 0
+  [TRACE] : SWUPDATE running :  [install_single_image] : Found installer for stream bitstream.itb rawfile
+  [TRACE] : SWUPDATE running :  [install_raw_file] : Installing file bitstream.itb on /tmp/datadst//bitstream.itb
+  [TRACE] : SWUPDATE running :  [read_lines_notify] : SWU: /tmp/scripts/postinstall.sh
+  [TRACE] : SWUPDATE running :  [read_lines_notify] : SWU: Image update success!!
+  [TRACE] : SWUPDATE running :  [__run_cmd] : /tmp/scripts/postinstall.sh   command returned 0
+  [INFO ] : SWUPDATE successful ! SWUPDATE successful !
+  [TRACE] : SWUPDATE running :  [network_initializer] : Main thread sleep again !
+  [INFO ] : No SWUPDATE running :  Waiting for requests...
+  [INFO ] : SWUPDATE running :  [endupdate] : SWUpdate was successful !
+  [DEBUG] : SWUPDATE running :  [postupdate] : Running Post-update command
+
+To apply an A/B root update, use something like the following arguments:
+
+  # swupdate -v -e stable,copy2 -p 'reboot' -i update-devel.swu
+...
+[TRACE] : SWUPDATE running :  [extract_files] : Found file
+[TRACE] : SWUPDATE running :  [extract_files] : 	filename devel-image-minimal-me-aa1-270-2i2-d11e-nfx3.ext4.gz
+[TRACE] : SWUPDATE running :  [extract_files] : 	size 40815874 required
+[TRACE] : SWUPDATE running :  [extract_padding] : Expecting 128 padding bytes at end-of-file
+[TRACE] : SWUPDATE running :  [network_initializer] : Valid image found: copying to FLASH
+[INFO ] : SWUPDATE running :  Installation in progress
+[TRACE] : SWUPDATE running :  [read_lines_notify] : STUB: /tmp/scripts/preinstall.sh
+[TRACE] : SWUPDATE running :  [__run_cmd] : /tmp/scripts/preinstall.sh   command returned 0
+[TRACE] : SWUPDATE running :  [install_single_image] : Found installer for stream devel-image-minimal-me-aa1-270-2i2-d11e-nfx3.ext4.gz raw
+[TRACE] : SWUPDATE running :  [read_lines_notify] : SWU: /tmp/scripts/postinstall.sh
+[TRACE] : SWUPDATE running :  [read_lines_notify] : SWU: Image update success!!
+[TRACE] : SWUPDATE running :  [__run_cmd] : /tmp/scripts/postinstall.sh   command returned 0
+[INFO ] : SWUPDATE successful ! SWUPDATE successful !
+[TRACE] : SWUPDATE running :  [network_initializer] : Main thread sleep again !
+[INFO ] : No SWUPDATE running :  Waiting for requests...
+[INFO ] : SWUPDATE running :  [endupdate] : SWUpdate was successful !
+[DEBUG] : SWUPDATE running :  [postupdate] : Running Post-update command
+
+u-boot bootcount vars
+---------------------
+
+:bootlimit: max bootcount allowed before ``altbootcmd`` is executed
+:bootcount: set to 1 after a power-on reset, and each reboot will increment
+            the value by 1
+:upgrade_available: if ``upgrade_available`` is 0, ``bootcount`` is not saved,
+                    but if ``upgrade_available`` is 1, ``bootcount`` is saved
+
+  ..important:: If ``bootlimit`` is enabled, but ``altbootcmd`` is not
+    defined, then U-Boot will drop into interactive mode and remain there.
+
+states relative to swupdate
+---------------------------
+
+When ``bootlimit=3``:
+
+:good: Running current image: ``bootcount`` undefined - ``upgrade_available=0``
+:testing: Trying to boot new image: ``bootcount<=3`` - ``upgrade_available=1``
+:fail: New image boot failed to boot more than ``bootlimit`` times:
+       ``bootcount>3`` - ``upgrade_available=0`` and run ``altbootcmd``
 
 
 Custom machine overrides

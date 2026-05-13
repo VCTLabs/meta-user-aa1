@@ -1,0 +1,16 @@
+header:
+    version: 14
+
+repos:
+    meta-swupdate:
+        url: https://github.com/sbabic/meta-swupdate.git
+        branch: mickledore
+        path: "layers/meta-swupdate"
+
+local_conf_header:
+    swupdate: |
+        DISTRO_FEATURES:append = " swupdate"
+        PREFERRED_VERSION_swupdate = "2023.05"
+        WIC_CREATE_EXTRA_ARGS = "--no-fstab-update"
+        PREFERRED_PROVIDER_u-boot-fw-utils = "libubootenv"
+        WKS_FILE = "mmc-ab-root-vfat-boot.wks"

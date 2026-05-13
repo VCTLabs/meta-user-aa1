@@ -1,0 +1,33 @@
+From 2a8d6c780b8029e67a44799c0e390cf2edd38941 Mon Sep 17 00:00:00 2001
+From: Stephen L Arnold <sarnold@vctlabs.com>
+Date: Sun, 3 May 2026 19:09:43 -0700
+Subject: [PATCH] chg: dev: split rbf bitstream files into separate fit
+ configurations
+
+* this allows loading the core bitstream from u-boot instead of SPL
+
+Signed-off-by: Stephen L Arnold <sarnold@vctlabs.com>
+---
+ .../recipes-bsp/u-boot/files/bitstream/fit_spl_fpga.its     | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/meta-enclustra-module/recipes-bsp/u-boot/files/bitstream/fit_spl_fpga.its b/meta-enclustra-module/recipes-bsp/u-boot/files/bitstream/fit_spl_fpga.its
+index 5e7e30d..fa8ea7c 100644
+--- a/meta-enclustra-module/recipes-bsp/u-boot/files/bitstream/fit_spl_fpga.its
++++ b/meta-enclustra-module/recipes-bsp/u-boot/files/bitstream/fit_spl_fpga.its
+@@ -32,7 +32,11 @@
+ 		default = "config-1";
+ 		config-1 {
+ 			description = "Boot with FPGA early IO release config";
+-			fpga = "fpga-periph-1", "fpga-core-1";
++			fpga = "fpga-periph-1";
++		};
++		config-2 {
++			description = "Boot with FPGA (core) after DDR config";
++			fpga = "fpga-core-1";
+ 		};
+ 	};
+ };
+-- 
+2.52.0
+

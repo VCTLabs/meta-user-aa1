@@ -61,6 +61,9 @@ repos:
             p2:
                 repo: meta-enclustra-socfpga
                 path: ../meta-user-aa1/patches/enclustra-module-move-generic-machine-confs.patch
+            p3:
+                repo: meta-enclustra-socfpga
+                path: ../meta-user-aa1/patches/enclustra-module-split-rbf-bitstream-files.patch
 
     meta-openembedded:
         url: http://git.openembedded.org/meta-openembedded
@@ -92,3 +95,4 @@ local_conf_header:
         PREFERRED_VERSION_u-boot-socfpga = "v2023.01%"
         PREFERRED_PROVIDER_virtual/kernel = "linux-socfpga-lts"
         PREFERRED_VERSION_linux-socfpga = "6.1%"
+        ROOT_HOME = "/root"

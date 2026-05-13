@@ -1,0 +1,12 @@
+[Unit]
+Description=Confirm successful A/B boot
+After=local-fs.target
+ConditionPathExists=/usr/bin/fw_setenv
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/swu-ab-validation.sh
+RemainAfterExit=no
+
+[Install]
+WantedBy=multi-user.target

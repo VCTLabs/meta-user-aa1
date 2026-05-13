@@ -44,3 +44,9 @@ do_compile:append:me-aa1-generic() {
         cp boot-${UBOOT_CONFIG}.scr boot.scr
     fi
 }
+
+do_deploy:append:me-aa1-generic() {
+    install -d ${DEPLOYDIR}
+    install -m 0644 ${S}/fit_spl_fpga.its ${DEPLOYDIR}/fit_spl_fpga.its
+    ln -sf fit_spl_fpga.its ${DEPLOYDIR}/fit_spl_fpga-${MACHINE}.its
+}
