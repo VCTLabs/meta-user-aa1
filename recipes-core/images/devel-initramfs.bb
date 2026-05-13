@@ -36,7 +36,7 @@ IMAGE_OVERHEAD_FACTOR = "1.0"
 PACKAGE_EXCLUDE += "kernel-image-* resize-helper"
 
 IMAGE_ROOTFS_SIZE = "16384"
-IMAGE_ROOTFS_EXTRA_SPACE = "${@bb.utils.contains("DISTRO_FEATURES", "systemd", " + 4096", "", d)}"
+IMAGE_ROOTFS_EXTRA_SPACE = "${@bb.utils.contains("DISTRO_FEATURES", "systemd", "4096", "", d)}"
 BAD_RECOMMENDATIONS += "busybox-syslog"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
