@@ -1,5 +1,7 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
+PACKAGECONFIG:remove = "timesyncd"
+
 SRC_URI += "file://00-systemd-conf.conf"
 
 do_install:append() {

@@ -21,6 +21,7 @@ IMAGE_INSTALL = "\
     memtester \
     e2fsprogs \
     e2fsprogs-resize2fs \
+    dosfstools \
     libuio-ng \
 "
 
