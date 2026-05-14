@@ -7,6 +7,12 @@ FAILED=$(systemctl --failed | grep -q "0 loaded units")
 
 if [ -z "${SSHD}" ] && [ -z "${FAILED}" ] ; then
     if [ "${BOOTCOUNT}" -gt 0 ]; then
+        echo "Startup checks pass and boot count ${BOOTCOUNT} triggering reset to zero"
         fw_setenv bootcount 0
     fi
+    exit 0
+else
+    [ -n "${SSHD}" ] && echo "sshd socket status: ${SSHD}"
+    [ -n "${FAILED}" ] && echo "systemd fail status: ${FAILED}"
+    exit 1
 fi
