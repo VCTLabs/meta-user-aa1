@@ -18,18 +18,10 @@ IMAGE_NAME_SUFFIX = ""
 IMAGE_INSTALL:append = "\
     ${CORE_IMAGE_EXTRA_INSTALL} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'swupdate', '${SWU_PKGS}', '', d)} \
-    ${@bb.utils.contains_any('UBOOT_CONFIG', 'emmc sdmmc', 'resize-helper', '', d)} \
 "
+PACKAGE_EXCLUDE += "resize-helper"
 
 WKS_FILE = "prod-image-data.wks"
-
-setup_data_dir () {
-    #!/bin/sh -e
-    # create non-volatile rw partition mount point
-    mkdir -p ${IMAGE_ROOTFS}/data
-    FSTAB="LABEL=data           /data                auto       defaults              0  1"
-    echo ${FSTAB} >> ${IMAGE_ROOTFS}/etc/fstab
-}
 
 set_image_name () {
     #!/bin/sh -e
@@ -37,4 +29,4 @@ set_image_name () {
     sed -i 's|@@IMAGE@@|${IMAGE_BASENAME}|g' ${IMAGE_ROOTFS}${sysconfdir}/swupdate.cfg
 }
 
-ROOTFS_POSTPROCESS_COMMAND += "setup_data_dir; set_image_name;"
+ROOTFS_POSTPROCESS_COMMAND += "set_image_name;"
