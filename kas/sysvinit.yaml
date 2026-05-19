@@ -10,4 +10,5 @@ local_conf_header:
   sysvinit: |
     DISTRO_FEATURES:remove = "systemd"
     DISTRO_FEATURES:append = " sysvinit initscripts"
+    DISTRO_CODENAME = "mickledore-2026.01"
     INIT_MANAGER = "sysvinit"

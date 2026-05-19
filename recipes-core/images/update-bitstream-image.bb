@@ -12,7 +12,7 @@ SRC_URI = "\
 "
 
 # images to build before building swupdate image
-IMAGE_DEPENDS = "devel-image-minimal"
+IMAGE_DEPENDS = "virtual/bootloader"
 
 # images and files that will be included in the .swu image
 SWUPDATE_IMAGES = "bitstream.itb"
