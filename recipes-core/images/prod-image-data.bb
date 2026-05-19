@@ -21,7 +21,7 @@ IMAGE_INSTALL:append = "\
     ${@bb.utils.contains_any('UBOOT_CONFIG', 'emmc sdmmc', 'resize-helper', '', d)} \
 "
 
-WKS_FILE ?= "prod-image-data.wks"
+WKS_FILE = "prod-image-data.wks"
 
 setup_data_dir () {
     #!/bin/sh -e
@@ -31,4 +31,10 @@ setup_data_dir () {
     echo ${FSTAB} >> ${IMAGE_ROOTFS}/etc/fstab
 }
 
-ROOTFS_POSTPROCESS_COMMAND += "setup_data_dir;"
+set_image_name () {
+    #!/bin/sh -e
+    # this is part of the device identity in swupdate.cfg
+    sed -i 's|@@IMAGE@@|${IMAGE_BASENAME}|g' ${IMAGE_ROOTFS}${sysconfdir}/swupdate.cfg
+}
+
+ROOTFS_POSTPROCESS_COMMAND += "setup_data_dir; set_image_name;"

@@ -365,7 +365,7 @@ SWUpdate support
 Support for SWUpdate is still WIP, with initial swupdate image support for
 the following:
 
-* A/B rootfs updates via ``update-devel-image-minimal.bb``
+* A/B rootfs updates via ``update-prod-image-data.bb``
 * bitstream file updates (with orig file backup) via ``update-bitstream-image.bb``
 
 To manually apply updates (as root) after copying to the device with
@@ -453,7 +453,7 @@ From the top-level project directory::
   $ mkdir swupdate-dev-keys
   $ nano swupdate-dev-keys/swu_priv.pass  # add a passphrase on a single line
   $ openssl genrsa -aes256 -passout file:swupdate-dev-keys/swu_priv.pass -out swupdate-dev-keys/swu_priv.pem
-  $ openssl rsa -in swu-dev-keys/swu_priv.pem -passin file:swupdate-dev-keys/swu_priv.pass -out swupdate-dev-keys/swu_public.pem -outform PEM -pubout
+  $ openssl rsa -in swupdate-dev-keys/swu_priv.pem -passin file:swupdate-dev-keys/swu_priv.pass -out swupdate-dev-keys/swu_public.pem -outform PEM -pubout
   $ openssl enc -aes-256-cbc -k "" -P -md sha1 -nosalt > swupdate-dev-keys/swu_aes_file
   $ mv swupdate-dev-keys build/tmp-glibc/deploy/images/me-aa1-270-2i2-d11e-nfx3/
 

@@ -25,7 +25,7 @@ IMAGE_INSTALL = "\
     libuio-ng \
 "
 
-ROOTFS_POSTPROCESS_COMMAND:append = " update_boot_fitimage; remove_sysvinit_files; set_image_name;"
+ROOTFS_POSTPROCESS_COMMAND:append = " update_boot_fitimage; remove_sysvinit_files;"
 
 update_boot_fitimage() {
     #!/bin/sh -e
@@ -45,12 +45,6 @@ remove_sysvinit_files() {
         rm -f ${IMAGE_ROOTFS}${sysconfdir}/init.d/resize-helper
         rm -f ${IMAGE_ROOTFS}${sysconfdir}/init.d/sshd
     fi
-}
-
-set_image_name () {
-    #!/bin/sh -e
-    # this is part of the device identity in swupdate.cfg
-    sed -i 's|@@IMAGE@@|${IMAGE_BASENAME}|g' ${IMAGE_ROOTFS}${sysconfdir}/swupdate.cfg
 }
 
 do_rootfs[depends] += "virtual/kernel:do_deploy"
