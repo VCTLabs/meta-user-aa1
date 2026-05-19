@@ -387,25 +387,41 @@ short names::
 
 To apply an A/B root update, use something like the following arguments:
 
-  # swupdate -v -e stable,copy2 -p 'reboot' -i update-devel.swu
+  # swupdate -v -e stable,copy2 -p 'reboot' -i update-prod.swu
+  [TRACE] : SWUPDATE running :  [extract_file_to_tmp] : Found file
+  [TRACE] : SWUPDATE running :  [extract_file_to_tmp] : 	filename sw-description
+  [TRACE] : SWUPDATE running :  [extract_file_to_tmp] : 	size 3113
+  [TRACE] : SWUPDATE running :  [extract_file_to_tmp] : Found file
+  [TRACE] : SWUPDATE running :  [extract_file_to_tmp] : 	filename sw-description.sig
+  [TRACE] : SWUPDATE running :  [extract_file_to_tmp] : 	size 256
+  [TRACE] : SWUPDATE running :  [swupdate_verify_file] : Verify signed image: Read 3113 bytes
+  [TRACE] : SWUPDATE running :  [swupdate_verify_file] : Verified OK
   ...
+  [TRACE] : SWUPDATE running :  [check_hw_compatibility] : Hardware me-aa1-270-2i2-d11e-nfx3 Revision: 1.0
+  [TRACE] : SWUPDATE running :  [check_hw_compatibility] : Hardware compatibility verified
+  [DEBUG] : SWUPDATE running :  [preupdatecmd] : Running Pre-update command
   [TRACE] : SWUPDATE running :  [extract_files] : Found file
-  [TRACE] : SWUPDATE running :  [extract_files] : 	filename devel-image-minimal-me-aa1-270-2i2-d11e-nfx3.ext4.gz
-  [TRACE] : SWUPDATE running :  [extract_files] : 	size 40815874 required
-  [TRACE] : SWUPDATE running :  [extract_padding] : Expecting 128 padding bytes at end-of-file
+  [TRACE] : SWUPDATE running :  [extract_files] : 	filename preinstall.sh
+  [TRACE] : SWUPDATE running :  [extract_files] : 	size 19 required
+  [TRACE] : SWUPDATE running :  [extract_files] : Found file
+  [TRACE] : SWUPDATE running :  [extract_files] : 	filename postinstall.sh
+  [TRACE] : SWUPDATE running :  [extract_files] : 	size 127 required
+  [TRACE] : SWUPDATE running :  [extract_files] : Found file
+  [TRACE] : SWUPDATE running :  [extract_files] : 	filename prod-image-data-me-aa1-270-2i2-d11e-nfx3.ext4.gz
+  [TRACE] : SWUPDATE running :  [extract_files] : 	size 43443698 required
+  [TRACE] : SWUPDATE running :  [extract_files] : Installing STREAM prod-image-data-me-aa1-270-2i2-d11e-nfx3.ext4.gz, 43443698 bytes
+  [TRACE] : SWUPDATE running :  [install_single_image] : Found installer for stream prod-image-data-me-aa1-270-2i2-d11e-nfx3.ext4.gz raw
+  [TRACE] : SWUPDATE running :  [extract_files] : END INSTALLING STREAMING
+  [TRACE] : SWUPDATE running :  [extract_padding] : Expecting 388 padding bytes at end-of-file
   [TRACE] : SWUPDATE running :  [network_initializer] : Valid image found: copying to FLASH
   [INFO ] : SWUPDATE running :  Installation in progress
   [TRACE] : SWUPDATE running :  [read_lines_notify] : STUB: /tmp/scripts/preinstall.sh
   [TRACE] : SWUPDATE running :  [__run_cmd] : /tmp/scripts/preinstall.sh   command returned 0
-  [TRACE] : SWUPDATE running :  [install_single_image] : Found installer for stream devel-image-minimal-me-aa1-270-2i2-d11e-nfx3.ext4.gz raw
   [TRACE] : SWUPDATE running :  [read_lines_notify] : SWU: /tmp/scripts/postinstall.sh
   [TRACE] : SWUPDATE running :  [read_lines_notify] : SWU: Image update success!!
   [TRACE] : SWUPDATE running :  [__run_cmd] : /tmp/scripts/postinstall.sh   command returned 0
   [INFO ] : SWUPDATE successful ! SWUPDATE successful !
-  [TRACE] : SWUPDATE running :  [network_initializer] : Main thread sleep again !
-  [INFO ] : No SWUPDATE running :  Waiting for requests...
-  [INFO ] : SWUPDATE running :  [endupdate] : SWUpdate was successful !
-  [DEBUG] : SWUPDATE running :  [postupdate] : Running Post-update command
+  ...
 
 u-boot bootcount vars
 ---------------------
