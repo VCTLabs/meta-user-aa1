@@ -9,7 +9,7 @@ inherit features_check systemd update-rc.d
 
 CONFLICT_DISTRO_FEATURES = "rauc"
 
-RDEPENDS:${PN} += "e2fsprogs-resize2fs gptfdisk parted util-linux udev"
+RDEPENDS:${PN} += "e2fsprogs-resize2fs e2fsprogs-tune2fs gptfdisk parted util-linux udev"
 
 SRC_URI = " \
     file://resize-helper.init \
@@ -33,4 +33,4 @@ INITSCRIPT_NAME = "resize-helper"
 INITSCRIPT_PARAMS = "start 10 S ."
 
 SYSTEMD_SERVICE:${PN} = "resize-helper.service"
-SYSTEMD_AUTO_ENABLE:${PN} = "enable"
+SYSTEMD_AUTO_ENABLE:${PN} = "${@bb.utils.contains("AUTO_RESIZE_ROOT", "true", "enable", "disable", d)}"

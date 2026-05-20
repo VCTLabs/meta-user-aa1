@@ -1,6 +1,6 @@
 require devel-common.inc
 
-DESCRIPTION = "PROD data partition with swupdate for mmc"
+DESCRIPTION = "PROD dual-root partitions with swupdate for mmc"
 
 # allowed to build for baseboard and user machines
 COMPATIBLE_MACHINE = "|me-aa1-270-2i2-d11e-nfx3|me-st1-generic"
@@ -16,10 +16,15 @@ SWU_PKGS = "swupdate swupdate-usb u-boot-fw-utils swu-ab-validation"
 IMAGE_NAME_SUFFIX = ""
 
 IMAGE_INSTALL:append = "\
+    resize-helper \
     ${CORE_IMAGE_EXTRA_INSTALL} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'swupdate', '${SWU_PKGS}', '', d)} \
 "
-PACKAGE_EXCLUDE += "resize-helper"
+# PACKAGE_EXCLUDE += "resize-helper"
+
+IMAGE_OVERHEAD_FACTOR = "1.0"
+IMAGE_ROOTFS_EXTRA_SPACE = "0"
+IMAGE_ROOTFS_SIZE = "262144"
 
 WKS_FILE = "prod-image-data.wks"
 

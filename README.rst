@@ -385,9 +385,11 @@ short names::
   [INFO ] : SWUPDATE running :  [endupdate] : SWUpdate was successful !
   [DEBUG] : SWUPDATE running :  [postupdate] : Running Post-update command
 
-To apply an A/B root update, use something like the following arguments:
+To apply an A/B update, use something like the following arguments to
+update root B from the stable set using "copy2" argument::
 
-  # swupdate -v -e stable,copy2 -p 'reboot' -i update-prod.swu
+  # swupdate -v -l 5 -e stable,copy2 -p 'reboot' -i update-prod.swu
+  ...
   [TRACE] : SWUPDATE running :  [extract_file_to_tmp] : Found file
   [TRACE] : SWUPDATE running :  [extract_file_to_tmp] : 	filename sw-description
   [TRACE] : SWUPDATE running :  [extract_file_to_tmp] : 	size 3113
@@ -435,7 +437,7 @@ u-boot bootcount vars
   ..important:: If ``bootlimit`` is enabled, but ``altbootcmd`` is not
     defined, then U-Boot will drop into interactive mode and remain there.
 
-states relative to swupdate
+states relevant to swupdate
 ---------------------------
 
 When ``bootlimit=3``:
@@ -445,8 +447,8 @@ When ``bootlimit=3``:
 :fail: New image boot failed to boot more than ``bootlimit`` times:
        ``bootcount>3`` - ``upgrade_available=0`` and run ``altbootcmd``
 
-swupdate keys for signing and crypt
------------------------------------
+swupdate keys for signing and crypto
+------------------------------------
 
 There is currently no meta-layer support for generating (or managing) the
 keys used for swupdate images, however, the user must define the (yocto)
