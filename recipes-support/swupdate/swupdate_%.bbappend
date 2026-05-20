@@ -8,7 +8,7 @@ SRC_URI += " \
     ${@bb.utils.contains('INIT_MANAGER','systemd','file://systemd.cfg','',d)} \
     "
 
-RDEPENDS:${PN} += "u-boot-fw-utils libgcc"
+RDEPENDS:${PN} += "u-boot-fw-utils libgcc e2fsprogs-resize2fs e2fsprogs-tune2fs util-linux"
 
 UNPACKDIR = "${WORKDIR}"
 
