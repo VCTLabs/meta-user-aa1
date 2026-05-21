@@ -13,4 +13,3 @@ local_conf_header:
         PREFERRED_VERSION_swupdate = "2023.05"
         WIC_CREATE_EXTRA_ARGS = "--no-fstab-update"
         PREFERRED_PROVIDER_u-boot-fw-utils = "libubootenv"
-        WKS_FILE = "mmc-ab-root-vfat-boot.wks"

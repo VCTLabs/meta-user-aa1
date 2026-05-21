@@ -6,9 +6,11 @@ header:
     - kas/vboot.yaml
     - kas/enclustra.yaml
     - kas/swu.yaml
+    # - kas/swukeys.yaml
 
 local_conf_header:
   systemd: |
     CORE_IMAGE_EXTRA_INSTALL:append = " systemd-analyze"
     DISTRO_FEATURES:append = " systemd usrmerge sysvinit"
+    DISTRO_CODENAME = "mickledore-2026.01"
     INIT_MANAGER = "systemd"
