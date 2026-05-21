@@ -9,12 +9,13 @@ software =
                 copy1 : {
                         images: (
                                 {
-                                        filename = "@@SWUPDATE_IMAGES@@-@@MACHINE@@.ext4.gz";
-                                        sha256 = "$swupdate_get_sha256(@@SWUPDATE_IMAGES@@-@@MACHINE@@.ext4.gz)";
+                                        filename = "@@SWUPDATE_IMAGES@@-@@MACHINE@@.ext4.gz.enc";
+                                        sha256 = "$swupdate_get_sha256(@@SWUPDATE_IMAGES@@-@@MACHINE@@.ext4.gz.enc)";
                                         device = "/dev/mmcblk0p3";
                                         type = "raw";
                                         compressed = "zlib";
                                         installed-directly = true;
+                                        encrypted = true;
                                 }
                         );
                         scripts: (
@@ -37,12 +38,13 @@ software =
                 copy2 : {
                         images: (
                                 {
-                                        filename = "@@SWUPDATE_IMAGES@@-@@MACHINE@@.ext4.gz";
-                                        sha256 = "$swupdate_get_sha256(@@SWUPDATE_IMAGES@@-@@MACHINE@@.ext4.gz)";
+                                        filename = "@@SWUPDATE_IMAGES@@-@@MACHINE@@.ext4.gz.enc";
+                                        sha256 = "$swupdate_get_sha256(@@SWUPDATE_IMAGES@@-@@MACHINE@@.ext4.gz.enc)";
                                         device = "/dev/mmcblk0p4";
                                         type = "raw";
                                         compressed = "zlib";
                                         installed-directly = true;
+                                        encrypted = true;
                                 }
                         );
                         scripts: (

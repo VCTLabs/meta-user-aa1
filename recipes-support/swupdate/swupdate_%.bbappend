@@ -26,8 +26,10 @@ do_install:append() {
 
     install -d ${D}${sysconfdir}
     install -m 644 ${WORKDIR}/swupdate.cfg ${D}${sysconfdir}/
-    install -m 644 ${DEPLOY_DIR_IMAGE}/${SWU_KEY_DIR}/swu_public.pem ${D}${sysconfdir}/${PN}/
+    install -m 644 ${SWUPDATE_PUBLIC_KEY} ${D}${sysconfdir}/${PN}/
+    install -m 644 ${SWUPDATE_AES_FILE} ${D}${sysconfdir}/${PN}/
     sed -i 's|@@PUBKEY@@|${SWU_PUB_KEY}|g' ${D}${sysconfdir}/swupdate.cfg
+    sed -i 's|@@AESKEY@@|${SWU_AES_FILE}|g' ${D}${sysconfdir}/swupdate.cfg
     sed -i 's|@@DEVICE@@|${DEVICE_TYPE}|g' ${D}${sysconfdir}/swupdate.cfg
     sed -i 's|@@CURRENT_VERSION@@|${DISTRO_VERSION}|g' ${D}${sysconfdir}/swupdate.cfg
     # FIXME get a suitable version for the above
