@@ -425,6 +425,17 @@ update root B from the stable set using "copy2" argument::
   [INFO ] : SWUPDATE successful ! SWUPDATE successful !
   ...
 
+With swupdate encryption enabled and keys in place, the initial debug output
+should include a line for loading the AES keys::
+
+  ...
+  [TRACE] : SWUPDATE running :  [print_registered_bootloaders] : 	uboot	loaded.
+  [INFO ] : SWUPDATE running :  [main] : Using default bootloader interface: uboot
+  [DEBUG] : SWUPDATE running :  [load_decryption_key] : Read decryption key and initialization vector from file /etc/swupdate/swu_aes_file.
+  [INFO ] : SWUPDATE running :  [main] : Running on me-aa1-270-2i2-d11e-nfx3 Revision 1.0
+  ...
+
+
 u-boot bootcount vars
 ---------------------
 
@@ -451,7 +462,7 @@ swupdate keys for signing and crypto
 ------------------------------------
 
 There is currently no meta-layer support for generating (or managing) the
-keys used for swupdate images, however, the user must define the (yocto)
+keys used for swupdate images, therefor, the user must define the (yocto)
 variables that point to where the keys are. The initial process is shown
 below and the yocto signing variables are defined in ``kas/swukeys.yaml``.
 Use the default names while this workflow is still WIP.
@@ -462,6 +473,17 @@ Use the default names while this workflow is still WIP.
 * build the update-devel image
 * deploy the wic image and copy the update.swu file to the device
 * test swupdate can verify the signature and install the update
+
+.. important:: The swupdate configuration fragments to enable both signing
+               and encryption are only used when the ``swukeys.yaml`` is
+               enabled. This file is enabled only when it is *not* commented
+               in either ``systemd.yaml`` or ``sysvinit.yaml``. When enabled,
+               the build depends on the existence of the key files shown
+               below.
+
+To build swupdate images with signing only (and no encryption) you can
+set ``SWUPDATE_ENCRYPTION = "0"`` and provide only the swupdate signing
+keys.
 
 generate swupdate keys
 ~~~~~~~~~~~~~~~~~~~~~~
