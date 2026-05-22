@@ -486,6 +486,20 @@ RSA signing key notes
 * target device requires public key
 * build process requires private key
 
+AES symmetric crypto key notes
+
+* both build and target device require aes_file with key and iv
+
+  * at least the IV should be (re)generated for each encryption
+  * there is no current support for updateing in the build
+
+swupdate miscellaneous
+~~~~~~~~~~~~~~~~~~~~~~
+
+Unpack a ``.swu`` file::
+
+  $ cpio -i -d < $NAME.swu
+
 
 Custom machine overrides
 ========================
