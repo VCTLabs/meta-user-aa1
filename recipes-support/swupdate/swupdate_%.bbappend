@@ -5,6 +5,8 @@ PACKAGECONFIG_CONFARGS = ""
 SRC_URI += " \
     file://09-swupdate-args \
     file://swupdate.cfg \
+    ${@bb.utils.contains_any('SWUPDATE_SIGNING', 'RSA CMS', 'file://signing.cfg', '', d)} \
+    ${@bb.utils.contains('SWUPDATE_ENCRYPTION','1','file://encryption.cfg','',d)} \
     ${@bb.utils.contains('INIT_MANAGER','systemd','file://systemd.cfg','',d)} \
     "
 
@@ -15,6 +17,14 @@ UNPACKDIR = "${WORKDIR}"
 do_configure:prepend() {
     # fix root home directory in sysv init script
     sed -i -e "s|/home/root/|${ROOT_HOME}/|" ${WORKDIR}/swupdate
+
+    if [ "${@bb.utils.contains('SWUPDATE_ENCRYPTION', '0', 'yes', 'no', d)}" = "yes" ]; then
+        sed -i /AESKEY/d ${WORKDIR}/swupdate.cfg
+    fi
+
+    if [ "${@bb.utils.contains_any('SWUPDATE_SIGNING', 'RSA CMS', 'yes', 'no', d)}" = "no" ]; then
+        sed -i /PUBKEY/d ${WORKDIR}/swupdate.cfg
+    fi
 }
 
 do_install:append() {
