@@ -18,3 +18,6 @@ IMAGE_DEPENDS = "prod-image-data"
 SWUPDATE_IMAGES = "prod-image-data"
 
 SWUPDATE_IMAGES_FSTYPES[prod-image-data] = ".ext4.gz"
+
+SWUPDATE_IMAGES_ENCRYPTED[prod-image-data] = "1"
+SWUPDATE_ENCRYPT_SWDESC = "1"

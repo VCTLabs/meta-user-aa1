@@ -5,6 +5,8 @@ PACKAGECONFIG_CONFARGS = ""
 SRC_URI += " \
     file://09-swupdate-args \
     file://swupdate.cfg \
+    ${@bb.utils.contains_any('SWUPDATE_SIGNING', 'RSA CMS', 'file://signing.cfg', '', d)} \
+    ${@bb.utils.contains('SWUPDATE_ENCRYPTION','1','file://encryption.cfg','',d)} \
     ${@bb.utils.contains('INIT_MANAGER','systemd','file://systemd.cfg','',d)} \
     "
 
@@ -15,6 +17,14 @@ UNPACKDIR = "${WORKDIR}"
 do_configure:prepend() {
     # fix root home directory in sysv init script
     sed -i -e "s|/home/root/|${ROOT_HOME}/|" ${WORKDIR}/swupdate
+
+    if [ "${@bb.utils.contains('SWUPDATE_ENCRYPTION', '0', 'yes', 'no', d)}" = "yes" ]; then
+        sed -i /AESKEY/d ${WORKDIR}/swupdate.cfg
+    fi
+
+    if [ "${@bb.utils.contains_any('SWUPDATE_SIGNING', 'RSA CMS', 'yes', 'no', d)}" = "no" ]; then
+        sed -i /PUBKEY/d ${WORKDIR}/swupdate.cfg
+    fi
 }
 
 do_install:append() {
@@ -26,8 +36,14 @@ do_install:append() {
 
     install -d ${D}${sysconfdir}
     install -m 644 ${WORKDIR}/swupdate.cfg ${D}${sysconfdir}/
-    install -m 644 ${DEPLOY_DIR_IMAGE}/${SWU_KEY_DIR}/swu_public.pem ${D}${sysconfdir}/${PN}/
+    install -m 644 ${SWUPDATE_PUBLIC_KEY} ${D}${sysconfdir}/${PN}/
+
+    # reformat aes file for swupdate: key val and itv val separated by a space
+    KEY=$(sed  "s/.*=/ /g" ${SWUPDATE_AES_FILE})
+    echo $KEY > ${D}${SWU_AES_FILE}
+
     sed -i 's|@@PUBKEY@@|${SWU_PUB_KEY}|g' ${D}${sysconfdir}/swupdate.cfg
+    sed -i 's|@@AESKEY@@|${SWU_AES_FILE}|g' ${D}${sysconfdir}/swupdate.cfg
     sed -i 's|@@DEVICE@@|${DEVICE_TYPE}|g' ${D}${sysconfdir}/swupdate.cfg
     sed -i 's|@@CURRENT_VERSION@@|${DISTRO_VERSION}|g' ${D}${sysconfdir}/swupdate.cfg
     # FIXME get a suitable version for the above

@@ -4,10 +4,15 @@ header:
 local_conf_header:
     swupdate-keys: |
         # swupdate dev signing keys; does not create keys like yocto does for vboot
+
         SWU_PUB_KEY ?= "/etc/swupdate/swu_public.pem"
+        SWU_AES_FILE ?= "/etc/swupdate/swu_aes_file"
         SWU_KEY_DIR ?= "swupdate-dev-keys"
+        IMAGE_FSTYPES += ".ext4.gz.enc .enc"
         SWUPDATE_SIGNING ?= "RSA"
-        #SWUPDATE_ENCRYPT_SWDESC ?= "1"
+        # set yocto-only var to indicate encryption should be enabled
+        SWUPDATE_ENCRYPTION ?= "1"
+
         # when this cfg is enabled *you must* create the keys and key directory
         # before building; see the readme for the commands
         SWUPDATE_PRIVATE_KEY ?= "${DEPLOY_DIR_IMAGE}/${SWU_KEY_DIR}/swu_priv.pem"

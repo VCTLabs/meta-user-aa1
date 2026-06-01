@@ -15,6 +15,7 @@ software =
                                         type = "raw";
                                         compressed = "zlib";
                                         installed-directly = true;
+                                        encrypted = true;
                                 }
                         );
                         scripts: (
@@ -43,6 +44,7 @@ software =
                                         type = "raw";
                                         compressed = "zlib";
                                         installed-directly = true;
+                                        encrypted = true;
                                 }
                         );
                         scripts: (

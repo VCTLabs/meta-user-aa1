@@ -6,7 +6,7 @@ header:
     - kas/vboot.yaml
     - kas/enclustra.yaml
     - kas/swu.yaml
-    # - kas/swukeys.yaml
+    - kas/swukeys.yaml
 
 local_conf_header:
   systemd: |
