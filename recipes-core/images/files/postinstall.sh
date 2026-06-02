@@ -7,10 +7,16 @@ E2TUNE=$(which tune2fs)
 NEWROOT=$(fw_printenv -n next_part)
 NEWDEV="/dev/mmcblk0p${NEWROOT}"
 
+if [ "$NEWROOT" = 3 ]; then
+    NEWLBL="root"
+else
+    NEWLBL="root2"
+fi
+
 echo "SWU: Applying fs checks and resize to ${NEWDEV}"
 $E2FSCK -fp $NEWDEV
 $E2RESIZE $NEWDEV 2>&1
-$E2TUNE -O ^metadata_csum $NEWDEV
+$E2TUNE -O ^metadata_csum -L $NEWLBL $NEWDEV
 
 echo "SWU: copying host keys and machine-id to ${NEWDEV}"
 mount $NEWDEV /mnt/

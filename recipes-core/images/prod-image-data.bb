@@ -16,11 +16,9 @@ SWU_PKGS = "swupdate swupdate-usb u-boot-fw-utils swu-ab-validation"
 IMAGE_NAME_SUFFIX = ""
 
 IMAGE_INSTALL:append = "\
-    resize-helper \
     ${CORE_IMAGE_EXTRA_INSTALL} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'swupdate', '${SWU_PKGS}', '', d)} \
 "
-# PACKAGE_EXCLUDE += "resize-helper"
 
 IMAGE_OVERHEAD_FACTOR = "1.0"
 IMAGE_ROOTFS_EXTRA_SPACE = "0"
@@ -28,10 +26,14 @@ IMAGE_ROOTFS_SIZE = "262144"
 
 WKS_FILE = "prod-image-data.wks"
 
-set_image_name () {
+set_image_props () {
     #!/bin/sh -e
     # this is part of the device identity in swupdate.cfg
     sed -i 's|@@IMAGE@@|${IMAGE_BASENAME}|g' ${IMAGE_ROOTFS}${sysconfdir}/swupdate.cfg
+
+    if [ "${@bb.utils.contains_any('UBOOT_CONFIG', 'emmc sdmmc', 'yes', 'no', d)}" = "yes" ]; then
+        sed -i 's|,noauto|       |' ${IMAGE_ROOTFS}${sysconfdir}/fstab
+    fi
 }
 
-ROOTFS_POSTPROCESS_COMMAND += "set_image_name;"
+ROOTFS_POSTPROCESS_COMMAND += "set_image_props;"
