@@ -11,7 +11,13 @@ LICENSE = "MIT"
 
 inherit core-image
 
-SWU_PKGS = "swupdate swupdate-usb u-boot-fw-utils swu-ab-validation"
+SWU_PKGS = " \
+    swupdate \
+    swupdate-usb \
+    swupdate-www \
+    u-boot-fw-utils \
+    swu-ab-validation \
+"
 
 IMAGE_NAME_SUFFIX = ""
 
