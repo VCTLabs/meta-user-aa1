@@ -368,6 +368,13 @@ the following:
 * A/B rootfs updates via ``update-prod-image-data.bb``
 * bitstream file updates (with orig file backup) via ``update-bitstream-image.bb``
 
+Currently enabled update mechanisms are limited to on-device, where the update
+image (ie, the ``.swu`` file) must be uploaded to the device before the ``swupdate``
+command can be issued. Supported update workflows include the following:
+
+* manually upload a ``.swu`` file and run swupdate via console (as shown below)
+* use the on-device www server UI to upload and apply the ``.swu`` file(s)
+
 To manually apply updates (as root) after copying to the device with
 short names::
 
@@ -435,6 +442,34 @@ should include a line for loading the AES keys::
   [INFO ] : SWUPDATE running :  [main] : Running on me-aa1-270-2i2-d11e-nfx3 Revision 1.0
   ...
 
+
+swupdate www interface
+----------------------
+
+Configure the web server root path and port using the following:
+
+* SWU_WWW_DOC_ROOT (default: /www)
+* SWU_WWW_HTTP_PORT (default: 8080)
+
+where defaults are set in the ``swu.yaml`` config file.
+
+The swupdate web server is installed via the ``swupdate-www`` package and
+is not customized (note the FOSS licensing of the existing image files).
+See the `SWUpdate docs`_ to get started customizing the web assets and/or
+web-app.
+
+Once the web server package is installed and the swupdate args updated,
+the web server is controlled by the running swupdate instance. Using the
+example port number ``8080`` connect to the device with a web browser
+using something like::
+
+  $ firefox http://192.168.1.22:8080
+
+where ``192.168.1.22`` is the IPv4 address of the device running swupdate
+and ``8080`` is the configured port number.
+
+
+.. _SWUpdate docs: https://sbabic.github.io/swupdate/mongoose.html#customize
 
 u-boot bootcount vars
 ---------------------

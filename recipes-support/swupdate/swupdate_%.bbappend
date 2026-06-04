@@ -17,6 +17,8 @@ UNPACKDIR = "${WORKDIR}"
 do_configure:prepend() {
     # fix root home directory in sysv init script
     sed -i -e "s|/home/root/|${ROOT_HOME}/|" ${WORKDIR}/swupdate
+    sed -i "s|@@SWU_WWW_DOC_ROOT@@|${SWU_WWW_DOC_ROOT}|" ${WORKDIR}/09-swupdate-args
+    sed -i "s|@@SWU_WWW_HTTP_PORT@@|${SWU_WWW_HTTP_PORT}|" ${WORKDIR}/09-swupdate-args
 
     if [ "${@bb.utils.contains('SWUPDATE_ENCRYPTION', '0', 'yes', 'no', d)}" = "yes" ]; then
         sed -i /AESKEY/d ${WORKDIR}/swupdate.cfg
