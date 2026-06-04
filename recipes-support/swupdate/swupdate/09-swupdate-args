@@ -8,5 +8,5 @@ else
     selection="-e stable,copy1"
 fi
 
-SWUPDATE_WEBSERVER_ARGS="--document-root /www --port 8080"
+SWUPDATE_WEBSERVER_ARGS="--document-root @@SWU_WWW_DOC_ROOT@@ --port @@SWU_WWW_HTTP_PORT@@"
 SWUPDATE_ARGS="-H @@MACHINE@@:1.0 ${selection} -p 'reboot' -f ${CFGFILE}"
