@@ -545,10 +545,10 @@ RSA signing key notes
 
 AES symmetric crypto key notes
 
-* both build and target device require aes_file with key and iv
+* both build and target device require aes_file with key and IV
 
   * at least the IV should be (re)generated for each encryption
-  * there is no current support for updateing in the build
+  * there is no current support for updating the IV during the build
 
 swupdate miscellaneous
 ~~~~~~~~~~~~~~~~~~~~~~

@@ -8,19 +8,23 @@ software =
         files: (
                 {
                         filename = "bitstream.itb";
+                        sha256 = "$swupdate_get_sha256(bitstream.itb)";
                         path = "/bitstream.itb";
                         device = "/dev/mmcblk0p1";
                         filesystem = "vfat";
+                        encrypted = false;
                 }
         );
 
         scripts: (
                 {
                         filename = "preinstall.sh";
+                        sha256 = "$swupdate_get_sha256(preinstall.sh)";
                         type = "preinstall";
                 },
                 {
                         filename = "postinstall.sh";
+                        sha256 = "$swupdate_get_sha256(postinstall.sh)";
                         type = "postinstall";
                 }
         );
