@@ -14,11 +14,15 @@ RDEPENDS:${PN} += "u-boot-fw-utils libgcc e2fsprogs-resize2fs e2fsprogs-tune2fs 
 
 UNPACKDIR = "${WORKDIR}"
 
+wwwdir = "${SWU_WWW_DOC_ROOT}"
+
 do_configure:prepend() {
     # fix root home directory in sysv init script
     sed -i -e "s|/home/root/|${ROOT_HOME}/|" ${WORKDIR}/swupdate
-    sed -i "s|@@SWU_WWW_DOC_ROOT@@|${SWU_WWW_DOC_ROOT}|" ${WORKDIR}/09-swupdate-args
-    sed -i "s|@@SWU_WWW_HTTP_PORT@@|${SWU_WWW_HTTP_PORT}|" ${WORKDIR}/09-swupdate-args
+    sed -i "s|@@SWU_WWW_DOC_ROOT@@|${SWU_WWW_DOC_ROOT}|" ${WORKDIR}/09-swupdate-args ${WORKDIR}/swupdate.cfg
+    sed -i "s|@@SWU_WWW_HTTP_PORT@@|${SWU_WWW_HTTP_PORT}|" ${WORKDIR}/09-swupdate-args ${WORKDIR}/swupdate.cfg
+    sed -i "s|/www|${SWU_WWW_DOC_ROOT}|" ${WORKDIR}/10-mongoose-args
+    sed -i "s|8080|${SWU_WWW_HTTP_PORT}|" ${WORKDIR}/10-mongoose-args
 
     if [ "${@bb.utils.contains('SWUPDATE_ENCRYPTION', '0', 'yes', 'no', d)}" = "yes" ]; then
         sed -i /AESKEY/d ${WORKDIR}/swupdate.cfg

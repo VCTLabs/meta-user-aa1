@@ -526,7 +526,7 @@ generate swupdate keys
 From the top-level project directory::
 
   $ mkdir swupdate-dev-keys
-  $ nano swupdate-dev-keys/swu_priv.pass  # add a passphrase on a single line
+  $ nano swupdate-dev-keys/swu_priv.pass  # add YourPassPhraseForKey on a single line
   $ openssl genrsa -aes256 -passout file:swupdate-dev-keys/swu_priv.pass -out swupdate-dev-keys/swu_priv.pem
   $ openssl rsa -in swupdate-dev-keys/swu_priv.pem -passin file:swupdate-dev-keys/swu_priv.pass -out swupdate-dev-keys/swu_public.pem -outform PEM -pubout
   $ openssl enc -aes-256-cbc -k "" -P -md sha1 -nosalt > swupdate-dev-keys/swu_aes_file
