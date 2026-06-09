@@ -448,7 +448,7 @@ swupdate www interface
 
 Configure the web server root path and port using the following:
 
-* SWU_WWW_DOC_ROOT (default: /www)
+* SWU_WWW_DOC_ROOT (default: /var/www)
 * SWU_WWW_HTTP_PORT (default: 8080)
 
 where defaults are set in the ``swu.yaml`` config file.
