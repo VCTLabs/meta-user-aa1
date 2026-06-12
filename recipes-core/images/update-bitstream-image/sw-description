@@ -3,7 +3,7 @@ software =
         version = "0.1.0";
         description = "bitstream image containing fpga firmware";
 
-        hardware-compatibility: ["1.0"];
+        hardware-compatibility: ["@@MACHINE_REV@@"];
 
         files: (
                 {

@@ -3,7 +3,7 @@ software =
         version = "0.1.0";
         description = "@@DESCRIPTION@@";
 
-        hardware-compatibility: ["1.0"];
+        hardware-compatibility: ["@@MACHINE_REV@@"];
 
         stable : {
                 copy1 : {

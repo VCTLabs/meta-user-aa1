@@ -11,11 +11,13 @@ SRC_URI = "\
     file://sw-description \
 "
 
+SWUPDATE_IMAGE_NAME = "prod-image-data"
+
 # images to build before building swupdate image
-IMAGE_DEPENDS = "prod-image-data"
+IMAGE_DEPENDS = "${SWUPDATE_IMAGE_NAME}"
 
 # images and files that will be included in the .swu image
-SWUPDATE_IMAGES = "prod-image-data"
+SWUPDATE_IMAGES = "${SWUPDATE_IMAGE_NAME}"
 
 SWUPDATE_IMAGES_FSTYPES[prod-image-data] = ".ext4.gz"
 

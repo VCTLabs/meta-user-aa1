@@ -375,27 +375,59 @@ command can be issued. Supported update workflows include the following:
 * manually upload a ``.swu`` file and run swupdate via console (as shown below)
 * use the on-device www server UI to upload and apply the ``.swu`` file(s)
 
+swupdate-client example
+-----------------------
+
 To manually apply updates (as root) after copying to the device with
-short names::
+short names, run ``swupdate-client`` with the swu file as argument::
 
-  # swupdate -v -i update-bitstream.swu
+  # swupdate-client -v update-prod.swu  # wait for delayed output
   ...
-  [TRACE] : SWUPDATE running :  [__run_cmd] : /tmp/scripts/preinstall.sh   command returned 0
-  [TRACE] : SWUPDATE running :  [install_single_image] : Found installer for stream bitstream.itb rawfile
-  [TRACE] : SWUPDATE running :  [install_raw_file] : Installing file bitstream.itb on /tmp/datadst//bitstream.itb
-  [TRACE] : SWUPDATE running :  [read_lines_notify] : SWU: /tmp/scripts/postinstall.sh
-  [TRACE] : SWUPDATE running :  [read_lines_notify] : SWU: Image update success!!
-  [TRACE] : SWUPDATE running :  [__run_cmd] : /tmp/scripts/postinstall.sh   command returned 0
-  [INFO ] : SWUPDATE successful ! SWUPDATE successful !
-  [TRACE] : SWUPDATE running :  [network_initializer] : Main thread sleep again !
-  [INFO ] : No SWUPDATE running :  Waiting for requests...
-  [INFO ] : SWUPDATE running :  [endupdate] : SWUpdate was successful !
-  [DEBUG] : SWUPDATE running :  [postupdate] : Running Post-update command
+  Status: 2 message: Installation in progress
+  Status: 2 message: [read_lines_notify] : PRE: /tmp/scripts/preinstall.sh
+  Status: 2 message: [read_lines_notify] : possibly mounting boot for u-boot-env...
+  Status: 2 message: [read_lines_notify] : PRE: 1
+  Status: 2 message: [__run_cmd] : /tmp/scripts/preinstall.sh   command returned 0
+  Status: 2 message: [read_lines_notify] : SWU: /tmp/scripts/postinstall.sh
+  Status: 2 message: [read_lines_notify] : SWU: Applying fs checks and resize to /dev/mmcblk0p3
+  Status: 2 message: [read_lines_notify] : /dev/mmcblk0p3: Superblock last write time (Fri Jun 12 18:33:13 2026,
+  Status: 2 message: [read_lines_notify] :  now = Fri Mar  3 09:55:28 2023) is in the future.
+  Status: 2 message: [read_lines_notify] : FIXED.
+  Status: 2 message: [read_lines_notify] : /dev/mmcblk0p3: 4436/65536 files (0.5% non-contiguous), 114202/262144 blocks
+  Status: 2 message: [read_lines_notify] : resize2fs 1.47.0 (5-Feb-2023)
+  Status: 2 message: [read_lines_notify] : Resizing the filesystem on /dev/mmcblk0p3 to 409600 (1k) blocks.
+  Status: 2 message: [read_lines_notify] : The filesystem on /dev/mmcblk0p3 is now 409600 (1k) blocks long.
+  [  375.242740] EXT4-fs (mmcblk0p3): mounted filesystem with ordered data mode. Quota mode: disabled.
+  [  375.398041] EXT4-fs (mmcblk0p3): unmounting filesystem.
+  Status: 2 message: [read_lines_notify] : tune2fs 1.47.0 (5-Feb-2023)
+  Status: 2 message: [read_lines_notify] : SWU: copying host keys and machine-id to /dev/mmcblk0p3
+  Status: 2 message: [read_lines_notify] : SWU: Image update success!!
+  Status: 2 message: [__run_cmd] : /tmp/scripts/postinstall.sh   command returned 0
+  Status: 3 message: SWUPDATE successful !
+  Status: 2 message: [network_initializer] : Main thread sleep again !
+  Status: 0 message: Waiting for requests...
+  SWUpdate was successful !
 
-To apply an A/B update, use something like the following arguments to
-update root B from the stable set using "copy2" argument::
+If the HW revision is not a match, and presumably for other errors as well,
+the output from ``swupdate-client`` can be very terse::
 
-  # swupdate -v -l 5 -e stable,copy2 -p 'reboot' -i update-prod.swu
+  swupdate_image_write failed: Broken pipe
+  SWUpdate *failed* !
+
+.. note:: When running ``swupdate`` (instead of ``swupdate-client``) directly
+          from a console you must provide the arguments for A/B swu files, eg,
+          something like the command shown below, specifically the ``-e`` and
+          ``-H`` parameters.  Also note the command below ignores the running
+          swupdate daemon, whereas ``swupdate-client`` passes the update file
+          to the running swupdate daemon.
+
+swupdate example (not recommended)
+----------------------------------
+
+To apply an A/B update, use something like the following ``swupdate`` arguments
+to update root B from the stable set using both ``-H`` and ``-e`` arguments::
+
+  # swupdate -v -l 5 -H me-aa1-270-2i2-d11e-nfx3:1.0 -e stable,copy2 -p 'reboot' -i update-prod.swu
   ...
   [TRACE] : SWUPDATE running :  [extract_file_to_tmp] : Found file
   [TRACE] : SWUPDATE running :  [extract_file_to_tmp] : 	filename sw-description
@@ -442,6 +474,42 @@ should include a line for loading the AES keys::
   [INFO ] : SWUPDATE running :  [main] : Running on me-aa1-270-2i2-d11e-nfx3 Revision 1.0
   ...
 
+swupdate and HW revision
+------------------------
+
+In the yocto context, HW revsion is a combination of machine name and a
+version string, eg, something like ``beaglebone:1.0``. The HW revision in
+this build is constructed exactly like the example using the variables set
+in the ``enclustra.yaml`` config file.
+
+single source of truth (build env)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The (kas) config mentioned above is the *single source of truth* in the
+yocto build environment for both the machine and HW revsion variables.
+However, like most such variables in yocto they can be easily overriden
+so make sure your chosen overrides are correct. The top-level HW revision
+settings are propagated to the following target locations:
+
+ * the on-device ``hwrevision`` file in the rootfs
+ * parameters for the ``-H`` argument used by the swupdate daemon
+ * the ``sw-description`` files used in swu images
+
+single source of truth (runtime env)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The runtime rootfs on the device declares its own compatibility via the
+``/etc/hwrevision`` file, where the contents of the file are used to
+populate the ``-H`` parameters used by the swupdate daemon.
+
+The ``sw-description`` file inside each swu file declares which (HW)
+revison(s) the update is compatible with using the ``hardware-compatibility``
+attribute. The update is applied IFF the revision value in the argument is
+found in the compatibility list.
+
+For humans only, the HW revision value is also appended to the device type
+in the ``/etc/buildinfo`` metadata file.
+
 
 swupdate www interface
 ----------------------
@@ -463,13 +531,13 @@ the web server is controlled by the running swupdate instance. Using the
 example port number ``8080`` connect to the device with a web browser
 using something like::
 
-  $ firefox http://192.168.1.22:8080
+  $ epiphany http://192.168.1.22:8080
 
 where ``192.168.1.22`` is the IPv4 address of the device running swupdate
 and ``8080`` is the configured port number.
 
-
 .. _SWUpdate docs: https://sbabic.github.io/swupdate/mongoose.html#customize
+
 
 u-boot bootcount vars
 ---------------------
@@ -483,6 +551,7 @@ u-boot bootcount vars
   ..important:: If ``bootlimit`` is enabled, but ``altbootcmd`` is not
     defined, then U-Boot will drop into interactive mode and remain there.
 
+
 states relevant to swupdate
 ---------------------------
 
@@ -492,6 +561,7 @@ When ``bootlimit=3``:
 :testing: Trying to boot new image: ``bootcount<=3`` - ``upgrade_available=1``
 :fail: New image boot failed to boot more than ``bootlimit`` times:
        ``bootcount>3`` - ``upgrade_available=0`` and run ``altbootcmd``
+
 
 swupdate keys for signing and crypto
 ------------------------------------
@@ -519,6 +589,7 @@ Use the default names while this workflow is still WIP.
 To build swupdate images with signing only (and no encryption) you can
 set ``SWUPDATE_ENCRYPTION = "0"`` and provide only the swupdate signing
 keys.
+
 
 generate swupdate keys
 ~~~~~~~~~~~~~~~~~~~~~~
