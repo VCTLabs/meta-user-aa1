@@ -21,8 +21,10 @@ do_configure:prepend() {
     sed -i -e "s|/home/root/|${ROOT_HOME}/|" ${WORKDIR}/swupdate
     sed -i "s|@@SWU_WWW_DOC_ROOT@@|${SWU_WWW_DOC_ROOT}|" ${WORKDIR}/09-swupdate-args ${WORKDIR}/swupdate.cfg
     sed -i "s|@@SWU_WWW_HTTP_PORT@@|${SWU_WWW_HTTP_PORT}|" ${WORKDIR}/09-swupdate-args ${WORKDIR}/swupdate.cfg
-    sed -i "s|/www|${SWU_WWW_DOC_ROOT}|" ${WORKDIR}/10-mongoose-args
-    sed -i "s|8080|${SWU_WWW_HTTP_PORT}|" ${WORKDIR}/10-mongoose-args
+    sed -i "s|@@MACHINE_REV@@|${MACHINE_REV}|" ${WORKDIR}/09-swupdate-args
+
+    # neuter offending args file
+    echo "" > ${WORKDIR}/10-mongoose-args
 
     if [ "${@bb.utils.contains('SWUPDATE_ENCRYPTION', '0', 'yes', 'no', d)}" = "yes" ]; then
         sed -i /AESKEY/d ${WORKDIR}/swupdate.cfg
@@ -38,7 +40,7 @@ do_install:append() {
     install -m 0644 ${WORKDIR}/09-swupdate-args ${D}${sysconfdir}/swupdate/conf.d/
     sed -i "s|@@MACHINE@@|${MACHINE}|g" ${D}${sysconfdir}/swupdate/conf.d/09-swupdate-args
 
-    echo "${MACHINE} 1.0" > ${D}${sysconfdir}/hwrevision
+    echo "${MACHINE}:${MACHINE_REV}" > ${D}${sysconfdir}/hwrevision
 
     install -d ${D}${sysconfdir}
     install -m 644 ${WORKDIR}/swupdate.cfg ${D}${sysconfdir}/
