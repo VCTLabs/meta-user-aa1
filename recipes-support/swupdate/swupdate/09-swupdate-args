@@ -1,11 +1,13 @@
 CFGFILE="/etc/swupdate.cfg"
+HW_ID=$(cat /etc/hwrevision)
 
 rootfs=`swupdate -g`
 
 if [ $rootfs == '/dev/mmcblk0p3' ];then
-    selection="-e stable,copy2"
+    selection="stable,copy2"
 else
-    selection="-e stable,copy1"
+    selection="stable,copy1"
 fi
 
-SWUPDATE_ARGS="-H @@MACHINE@@:1.0 ${selection} -p 'reboot' -f ${CFGFILE}"
+SWUPDATE_WEBSERVER_ARGS="--document-root @@SWU_WWW_DOC_ROOT@@ --port @@SWU_WWW_HTTP_PORT@@"
+SWUPDATE_ARGS="-H ${HW_ID} -e ${selection} -p 'reboot' -f ${CFGFILE}"

@@ -13,3 +13,5 @@ local_conf_header:
         PREFERRED_VERSION_swupdate = "2023.05"
         WIC_CREATE_EXTRA_ARGS = "--no-fstab-update"
         PREFERRED_PROVIDER_u-boot-fw-utils = "libubootenv"
+        SWU_WWW_DOC_ROOT = "/var/www"
+        SWU_WWW_HTTP_PORT = "8080"

@@ -2,7 +2,7 @@ require devel-common.inc
 
 DESCRIPTION = "DEVEL data partition for sdmmc"
 
-# allowed to build for baseboard and user machines
+# allowed to build for generic baseboard and user machines
 COMPATIBLE_MACHINE = "|me-aa1-270-2i2-d11e-nfx3|me-st1-generic"
 
 IMAGE_LINGUAS = " "
