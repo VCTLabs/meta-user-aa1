@@ -1,5 +1,5 @@
 CFGFILE="/etc/swupdate.cfg"
-HW_ID=$(cat /etc/hwrevision)
+SOM_ID=$(/usr/bin/get-som-id)
 
 rootfs=`swupdate -g`
 
@@ -10,4 +10,4 @@ else
 fi
 
 SWUPDATE_WEBSERVER_ARGS="--document-root @@SWU_WWW_DOC_ROOT@@ --port @@SWU_WWW_HTTP_PORT@@"
-SWUPDATE_ARGS="-H ${HW_ID} -e ${selection} -p 'reboot' -f ${CFGFILE}"
+SWUPDATE_ARGS="-H @@MACHINE@@:${SOM_ID} -e ${selection} -p 'reboot' -f ${CFGFILE}"
