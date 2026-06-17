@@ -477,10 +477,16 @@ should include a line for loading the AES keys::
 swupdate and HW revision
 ------------------------
 
-In the yocto context, HW revsion is a combination of machine name and a
-version string, eg, something like ``beaglebone:1.0``. The HW revision in
-this build is constructed exactly like the example using the variables set
-in the ``enclustra.yaml`` config file.
+In the yocto context, HW revision is a combination of machine name and an
+ID string, eg, something like ``beaglebone:rev3``. The HW revision is set
+in the ``enclustra.yaml`` config file and is taken from the board EEPROM.
+See Table 41: Product Information on the Mercusry+ AA1 User Manual for an
+example.
+
+.. note:: Custom machines should add the data from the EEPROM to the
+          corresponding (yocto) machine config using appropriate
+          variable names, eg, SOM_FAMILY_ID and MACHINE_REV.
+
 
 single source of truth (build env)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -500,14 +506,16 @@ single source of truth (runtime env)
 
 The runtime rootfs on the device declares its own compatibility via the
 ``/etc/hwrevision`` file, where the contents of the file are used to
-populate the ``-H`` parameters used by the swupdate daemon.
+populate the ``-H`` parameters used by the swupdate daemon. In this case
+the SoM ID is retrieved directly from ``otp`` device in Sysfs and used in
+place of the (static) HW revision.
 
 The ``sw-description`` file inside each swu file declares which (HW)
 revison(s) the update is compatible with using the ``hardware-compatibility``
 attribute. The update is applied IFF the revision value in the argument is
 found in the compatibility list.
 
-For humans only, the HW revision value is also appended to the device type
+For humans only, the board rev value is also appended to the device type
 in the ``/etc/buildinfo`` metadata file.
 
 
