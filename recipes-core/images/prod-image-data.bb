@@ -50,4 +50,4 @@ add_env_to_fstab() {
         >> ${IMAGE_ROOTFS}/etc/fstab
 }
 
-ROOTFS_POSTPROCESS_COMMAND:append = " set_image_props;create_env_dir;add_env_to_fstab;"
+ROOTFS_POSTPROCESS_COMMAND:append = " set_image_props;"

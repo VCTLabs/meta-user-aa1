@@ -46,7 +46,14 @@ do_compile:append:me-aa1-generic() {
 }
 
 do_deploy:append:me-aa1-generic() {
+    UBOOT_CFG_FILE="$(find ${B}/ -maxdepth 2 -name .config)"
+    UBOOT_ENV_FILE="$(find ${B}/ -maxdepth 2 -name u-boot-initial-env)"
+    UBOOT_ENV_SIZE="$(cat ${UBOOT_CFG_FILE} | grep "^CONFIG_ENV_SIZE=" | cut -d'=' -f2)"
+    mkenvimage -s ${UBOOT_ENV_SIZE} ${UBOOT_ENV_FILE} -o ${WORKDIR}/u-boot-env.img
+
     install -d ${DEPLOYDIR}
+    install -m 0644 ${WORKDIR}/u-boot-env.img ${DEPLOYDIR}
+
     install -m 0644 ${S}/fit_spl_fpga.its ${DEPLOYDIR}/fit_spl_fpga.its
     ln -sf fit_spl_fpga.its ${DEPLOYDIR}/fit_spl_fpga-${MACHINE}.its
 }
