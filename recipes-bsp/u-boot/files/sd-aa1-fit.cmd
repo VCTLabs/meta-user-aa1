@@ -1,8 +1,8 @@
 
-if env exists partition; then echo Booting from mmcblk0p${partition}; else setenv partition 3; echo partition not set, default to ${partition}; fi
-setenv altbootcmd 'if test ${partition} = 3; then setenv partition 4; else setenv partition 3; fi; run bootcmd'
+if env exists partition; then echo Booting from mmcblk0p${partition}; else setenv partition 5; echo partition not set, default to ${partition}; fi
+setenv altbootcmd 'if test ${partition} = 5; then setenv partition 6; else setenv partition 5; fi; run bootcmd'
 
-if test ${partition} = 3; then setenv next_part 4; else setenv next_part 3; fi;
+if test ${partition} = 5; then setenv next_part 6; else setenv next_part 5; fi;
 setenv upgrade_available 1
 
 if test ! load mmc 0:1 ${loadaddr} bitstream.itb; then fatload mmc 0:1 ${loadaddr} bitstream.itb; fi;

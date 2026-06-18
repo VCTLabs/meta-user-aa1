@@ -26,9 +26,6 @@ IMAGE_INSTALL = "\
 "
 
 ROOTFS_POSTPROCESS_COMMAND:append = " update_boot_fitimage; remove_sysvinit_files;"
-ROOTFS_POSTPROCESS_COMMAND:append = " \
-    ${@bb.utils.contains_any('UBOOT_CONFIG', 'emmc sdmmc', 'add_boot_to_fstab;', '', d)} \
-"
 
 add_boot_to_fstab() {
     #!/bin/sh -e

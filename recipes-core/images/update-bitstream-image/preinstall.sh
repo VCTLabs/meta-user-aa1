@@ -4,4 +4,7 @@ echo "Running $0 $*"
 mount /dev/mmcblk0p1 /mnt
 ls -l /mnt
 cp -a /mnt/bitstream.itb /mnt/bitstream-previous.itb
+sync
 umount /mnt
+
+echo "PRE: $?"

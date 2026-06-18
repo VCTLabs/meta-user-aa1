@@ -3,7 +3,7 @@ SOM_ID=$(/usr/bin/get-som-id)
 
 rootfs=`swupdate -g`
 
-if [ $rootfs == '/dev/mmcblk0p3' ];then
+if [ $rootfs == '/dev/mmcblk0p5' ];then
     selection="stable,copy2"
 else
     selection="stable,copy1"

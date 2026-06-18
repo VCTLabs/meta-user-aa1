@@ -7,7 +7,7 @@ E2TUNE=$(which tune2fs)
 NEWROOT=$(fw_printenv -n next_part)
 NEWDEV="/dev/mmcblk0p${NEWROOT}"
 
-if [ "$NEWROOT" = 3 ]; then
+if [ "$NEWROOT" = 5 ]; then
     NEWLBL="root"
 else
     NEWLBL="root2"
