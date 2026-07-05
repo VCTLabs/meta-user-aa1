@@ -4,6 +4,10 @@
 
 part --source bootimg-partition --ondisk mmcblk0 --fstype=vfat --mkfs-extraopts "-F 32" --label boot --active --align 1024 --system-id b --fixed-size 256M
 part --source rawcopy --sourceparams="file=u-boot-splx4.sfp" --ondisk mmcblk0 --system-id=a2 --align 1024 --fixed-size 2M
+part uboot-env --ondisk mmcblk0 --no-table --align 1024 --fixed-size 64K
+part uboot-envr --ondisk mmcblk0 --no-table --align 1024 --fixed-size 64K
+part resvd --ondisk mmcblk0 --no-table --align 1024 --fixed-size 2688K
 part / --source rootfs --ondisk mmcblk0 --fstype=ext4 --label root --align 1024 --fixed-size 400M
 part /dummy --ondisk mmcblk0 --fstype=ext4 --label root2 --align 1024 --fixed-size 400M
+
 bootloader --ptable msdos
