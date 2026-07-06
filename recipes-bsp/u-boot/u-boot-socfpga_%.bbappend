@@ -12,6 +12,7 @@ SRC_URI:append = " \
 RAM_ADDR_PATCH = "file://adapt-u-boot-env-for-larger-FIT-kernels.patch"
 
 SRC_URI:append:me-aa1-generic = " \
+    file://env.cfg \
     file://fdt.cfg \
     file://qspi-aa1-fit.cmd \
     file://sd-aa1-fit.cmd \

@@ -381,7 +381,7 @@ swupdate-client example
 To manually apply updates (as root) after copying to the device with
 short names, run ``swupdate-client`` with the swu file as argument::
 
-  # swupdate-client -v update-prod.swu  # wait for delayed output
+  # swupdate-client -v update-prod.swu  # wait for delayed output, no really, wait...
   ...
   Status: 2 message: Installation in progress
   Status: 2 message: [read_lines_notify] : PRE: /tmp/scripts/preinstall.sh

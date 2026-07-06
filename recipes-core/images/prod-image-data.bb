@@ -32,12 +32,6 @@ IMAGE_ROOTFS_SIZE = "262144"
 
 WKS_FILE = "prod-image-data.wks"
 
-add_boot_to_fstab() {
-    #!/bin/sh -e
-    echo 'LABEL=boot   /boot            vfat      defaults              0  0' \
-        >> ${IMAGE_ROOTFS}/etc/fstab
-}
-
 set_image_props () {
     #!/bin/sh -e
     # this is part of the device identity in swupdate.cfg
@@ -45,4 +39,3 @@ set_image_props () {
 }
 
 ROOTFS_POSTPROCESS_COMMAND:append = " set_image_props;"
-ROOTFS_POSTPROCESS_COMMAND:append = " ${@bb.utils.contains_any('UBOOT_CONFIG', 'emmc sdmmc', 'add_boot_to_fstab;', '', d)}"
