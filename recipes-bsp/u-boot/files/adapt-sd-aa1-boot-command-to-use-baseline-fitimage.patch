@@ -1,0 +1,27 @@
+From 962cdf39e21b0a18f066e0f5ea37333519a8560b Mon Sep 17 00:00:00 2001
+From: Stephen L Arnold <sarnold@vctlabs.com>
+Date: Thu, 22 Jan 2026 16:55:41 -0800
+Subject: [PATCH] chg: dev: adapt sd-aa1.cmd boot command to use baseline
+ fitImage
+
+* this should work fine using DIP switches to set SPI or SDMMC
+
+Signed-off-by: Stephen L Arnold <sarnold@vctlabs.com>
+---
+ board/enclustra/bootscripts/sd-aa1.cmd | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/board/enclustra/bootscripts/sd-aa1.cmd b/board/enclustra/bootscripts/sd-aa1.cmd
+index cc926900c45..ebe73bb7a9f 100644
+--- a/board/enclustra/bootscripts/sd-aa1.cmd
++++ b/board/enclustra/bootscripts/sd-aa1.cmd
+@@ -1,5 +1,3 @@
+ bridge enable
+-fatload mmc 0:1 ${ram_addr_kernel} uImage
+-fatload mmc 0:1 ${ram_addr_devicetree} devicetree.dtb
+-run fdtload
+-bootm ${ram_addr_kernel} - ${ram_addr_devicetree}
++fatload mmc 0:1 ${loadaddr} image.ub
++bootm ${loadaddr}#conf-enclustra-user.dtb#conf-socfpga_enclustra_mercury_@@UBOOT_CONFIG@@_overlay.dtbo
+--
+2.52.0

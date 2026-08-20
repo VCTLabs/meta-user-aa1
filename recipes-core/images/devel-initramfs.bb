@@ -14,6 +14,8 @@ EXTRA_IMAGEDEPENDS = ""
 # Do not pollute the initrd image with the usual rootfs features
 IMAGE_FEATURES = "${@bb.utils.contains('EXTRA_IMAGE_FEATURES', 'debug-tweaks', 'empty-root-password allow-empty-password allow-root-login', '', d)}"
 
+INITRAMFS_FSTYPES:append = " cpio.gz.u-boot"
+
 IMAGE_INSTALL:append = " \
     packagegroup-core-ssh-openssh \
     ${CORE_IMAGE_EXTRA_INSTALL} \

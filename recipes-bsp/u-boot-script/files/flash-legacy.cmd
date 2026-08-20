@@ -7,7 +7,7 @@ fatload mmc 0:1 0x10300000 qspi/devicetree.dtb
 fatload mmc 0:1 0x10400000 qspi/socfpga_enclustra_mercury_qspi_overlay.dtbo
 fatload mmc 0:1 0x11000000 qspi/bitstream.itb
 fatload mmc 0:1 0x12000000 qspi/uImage
-fatload mmc 0:1 0x13000000 qspi/devel-image-minimal-me-aa1-270-2i2-d11e-nfx3.cpio.gz.u-boot
+fatload mmc 0:1 0x13000000 qspi/devel-initramfs-me-aa1-270-2i2-d11e-nfx3.cpio.gz.u-boot
 
 altera_set_storage QSPI
 sf probe

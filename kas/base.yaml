@@ -61,9 +61,9 @@ repos:
             p2:
                 repo: meta-enclustra-socfpga
                 path: ../meta-user-aa1/patches/enclustra-module-move-generic-machine-confs.patch
-            p3:
-                repo: meta-enclustra-socfpga
-                path: ../meta-user-aa1/patches/enclustra-module-split-rbf-bitstream-files.patch
+            #p3:
+                #repo: meta-enclustra-socfpga
+                #path: ../meta-user-aa1/patches/enclustra-module-split-rbf-bitstream-files.patch
 
     meta-openembedded:
         url: http://git.openembedded.org/meta-openembedded
